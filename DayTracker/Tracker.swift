@@ -116,6 +116,24 @@ class Tracker {
     }
     
     
+    func setActivity(pastAction: String, pastDate: NSDate, theLength: Int)
+    {
+        if let index = dates.indexOf(pastDate)
+        {
+            if lengths[index] == theLength{
+                activities[index].action = pastAction
+            } else if lengths[index] != theLength
+            {
+                activities[index].action = pastAction
+                activities[index].length = theLength
+            }
+        
+        }
+
+
+    }
+    
+    
     
   
     
