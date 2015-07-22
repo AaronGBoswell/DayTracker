@@ -153,7 +153,7 @@ class Tracker {
 
     }
     
-    func predictActivitys(dateFor: NSDate) -> [String]{
+    func predictActivities(dateFor: NSDate) -> [String]{
         return ["Working", "Playing","Eating"]
     }
     
