@@ -229,6 +229,17 @@ extension NSDate{
 
         return date!
     }
+    func dateInFifteenMinutes() -> NSDate{
+        let cal = NSCalendar.currentCalendar()
+        let comps = cal.components([NSCalendarUnit.Month, NSCalendarUnit.Era , NSCalendarUnit.Year,NSCalendarUnit.Day,NSCalendarUnit.Hour,NSCalendarUnit.Minute], fromDate: self)
+        
+        comps.minute = comps.minute + 15
+        comps.minute = (comps.minute / 15 ) * 15
+        
+        let date = cal.dateFromComponents(comps)
+        
+        return date!
+    }
     func roundDateToThirtyMinutes()->NSDate{
         let cal = NSCalendar.currentCalendar()
         let comps = cal.components([NSCalendarUnit.Month, NSCalendarUnit.Era , NSCalendarUnit.Year,NSCalendarUnit.Day,NSCalendarUnit.Hour,NSCalendarUnit.Minute], fromDate: self)
@@ -239,5 +250,6 @@ extension NSDate{
         
         return date!
     }
+    
 }
 
