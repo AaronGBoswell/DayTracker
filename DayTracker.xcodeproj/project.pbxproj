@@ -12,7 +12,57 @@
 		BDBABC3B1B5FD19D00158459 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BDBABC391B5FD19D00158459 /* Main.storyboard */; };
 		BDBABC3D1B5FD19D00158459 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDBABC3C1B5FD19D00158459 /* Assets.xcassets */; };
 		BDBABC401B5FD19D00158459 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BDBABC3E1B5FD19D00158459 /* LaunchScreen.storyboard */; };
+		BDBABC4D1B5FD1DA00158459 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BDBABC4B1B5FD1DA00158459 /* Interface.storyboard */; };
+		BDBABC4F1B5FD1DA00158459 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDBABC4E1B5FD1DA00158459 /* Assets.xcassets */; };
+		BDBABC561B5FD1DA00158459 /* DayTrackerWatch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = BDBABC551B5FD1DA00158459 /* DayTrackerWatch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		BDBABC5D1B5FD1DA00158459 /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBABC5C1B5FD1DA00158459 /* InterfaceController.swift */; };
+		BDBABC5F1B5FD1DA00158459 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBABC5E1B5FD1DA00158459 /* ExtensionDelegate.swift */; };
+		BDBABC611B5FD1DA00158459 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBABC601B5FD1DA00158459 /* NotificationController.swift */; };
+		BDBABC631B5FD1DA00158459 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDBABC621B5FD1DA00158459 /* Assets.xcassets */; };
+		BDBABC671B5FD1DA00158459 /* DayTrackerWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = BDBABC491B5FD1DA00158459 /* DayTrackerWatch.app */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		BDBABC571B5FD1DA00158459 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BDBABC2A1B5FD19C00158459 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BDBABC541B5FD1DA00158459;
+			remoteInfo = "DayTrackerWatch Extension";
+		};
+		BDBABC651B5FD1DA00158459 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BDBABC2A1B5FD19C00158459 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BDBABC481B5FD1DA00158459;
+			remoteInfo = DayTrackerWatch;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		BDBABC6B1B5FD1DA00158459 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				BDBABC561B5FD1DA00158459 /* DayTrackerWatch Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BDBABC6F1B5FD1DA00158459 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				BDBABC671B5FD1DA00158459 /* DayTrackerWatch.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		BDBABC321B5FD19C00158459 /* DayTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DayTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -22,10 +72,28 @@
 		BDBABC3C1B5FD19D00158459 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BDBABC3F1B5FD19D00158459 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BDBABC411B5FD19D00158459 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BDBABC491B5FD1DA00158459 /* DayTrackerWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DayTrackerWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BDBABC4C1B5FD1DA00158459 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		BDBABC4E1B5FD1DA00158459 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		BDBABC501B5FD1DA00158459 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BDBABC551B5FD1DA00158459 /* DayTrackerWatch Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "DayTrackerWatch Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BDBABC5B1B5FD1DA00158459 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
+		BDBABC5C1B5FD1DA00158459 /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
+		BDBABC5E1B5FD1DA00158459 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
+		BDBABC601B5FD1DA00158459 /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
+		BDBABC621B5FD1DA00158459 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		BDBABC641B5FD1DA00158459 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		BDBABC2F1B5FD19C00158459 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BDBABC521B5FD1DA00158459 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -39,6 +107,8 @@
 			isa = PBXGroup;
 			children = (
 				BDBABC341B5FD19C00158459 /* DayTracker */,
+				BDBABC4A1B5FD1DA00158459 /* DayTrackerWatch */,
+				BDBABC591B5FD1DA00158459 /* DayTrackerWatch Extension */,
 				BDBABC331B5FD19C00158459 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -47,6 +117,8 @@
 			isa = PBXGroup;
 			children = (
 				BDBABC321B5FD19C00158459 /* DayTracker.app */,
+				BDBABC491B5FD1DA00158459 /* DayTrackerWatch.app */,
+				BDBABC551B5FD1DA00158459 /* DayTrackerWatch Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -64,6 +136,37 @@
 			path = DayTracker;
 			sourceTree = "<group>";
 		};
+		BDBABC4A1B5FD1DA00158459 /* DayTrackerWatch */ = {
+			isa = PBXGroup;
+			children = (
+				BDBABC4B1B5FD1DA00158459 /* Interface.storyboard */,
+				BDBABC4E1B5FD1DA00158459 /* Assets.xcassets */,
+				BDBABC501B5FD1DA00158459 /* Info.plist */,
+			);
+			path = DayTrackerWatch;
+			sourceTree = "<group>";
+		};
+		BDBABC591B5FD1DA00158459 /* DayTrackerWatch Extension */ = {
+			isa = PBXGroup;
+			children = (
+				BDBABC5C1B5FD1DA00158459 /* InterfaceController.swift */,
+				BDBABC5E1B5FD1DA00158459 /* ExtensionDelegate.swift */,
+				BDBABC601B5FD1DA00158459 /* NotificationController.swift */,
+				BDBABC621B5FD1DA00158459 /* Assets.xcassets */,
+				BDBABC641B5FD1DA00158459 /* Info.plist */,
+				BDBABC5A1B5FD1DA00158459 /* Supporting Files */,
+			);
+			path = "DayTrackerWatch Extension";
+			sourceTree = "<group>";
+		};
+		BDBABC5A1B5FD1DA00158459 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				BDBABC5B1B5FD1DA00158459 /* PushNotificationPayload.apns */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -74,15 +177,51 @@
 				BDBABC2E1B5FD19C00158459 /* Sources */,
 				BDBABC2F1B5FD19C00158459 /* Frameworks */,
 				BDBABC301B5FD19C00158459 /* Resources */,
+				BDBABC6F1B5FD1DA00158459 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				BDBABC661B5FD1DA00158459 /* PBXTargetDependency */,
 			);
 			name = DayTracker;
 			productName = DayTracker;
 			productReference = BDBABC321B5FD19C00158459 /* DayTracker.app */;
 			productType = "com.apple.product-type.application";
+		};
+		BDBABC481B5FD1DA00158459 /* DayTrackerWatch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BDBABC6C1B5FD1DA00158459 /* Build configuration list for PBXNativeTarget "DayTrackerWatch" */;
+			buildPhases = (
+				BDBABC471B5FD1DA00158459 /* Resources */,
+				BDBABC6B1B5FD1DA00158459 /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BDBABC581B5FD1DA00158459 /* PBXTargetDependency */,
+			);
+			name = DayTrackerWatch;
+			productName = DayTrackerWatch;
+			productReference = BDBABC491B5FD1DA00158459 /* DayTrackerWatch.app */;
+			productType = "com.apple.product-type.application.watchapp2";
+		};
+		BDBABC541B5FD1DA00158459 /* DayTrackerWatch Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BDBABC681B5FD1DA00158459 /* Build configuration list for PBXNativeTarget "DayTrackerWatch Extension" */;
+			buildPhases = (
+				BDBABC511B5FD1DA00158459 /* Sources */,
+				BDBABC521B5FD1DA00158459 /* Frameworks */,
+				BDBABC531B5FD1DA00158459 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "DayTrackerWatch Extension";
+			productName = "DayTrackerWatch Extension";
+			productReference = BDBABC551B5FD1DA00158459 /* DayTrackerWatch Extension.appex */;
+			productType = "com.apple.product-type.watchkit2-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -94,6 +233,12 @@
 				ORGANIZATIONNAME = "Aaron Boswell";
 				TargetAttributes = {
 					BDBABC311B5FD19C00158459 = {
+						CreatedOnToolsVersion = 7.0;
+					};
+					BDBABC481B5FD1DA00158459 = {
+						CreatedOnToolsVersion = 7.0;
+					};
+					BDBABC541B5FD1DA00158459 = {
 						CreatedOnToolsVersion = 7.0;
 					};
 				};
@@ -112,6 +257,8 @@
 			projectRoot = "";
 			targets = (
 				BDBABC311B5FD19C00158459 /* DayTracker */,
+				BDBABC481B5FD1DA00158459 /* DayTrackerWatch */,
+				BDBABC541B5FD1DA00158459 /* DayTrackerWatch Extension */,
 			);
 		};
 /* End PBXProject section */
@@ -127,6 +274,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		BDBABC471B5FD1DA00158459 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BDBABC4F1B5FD1DA00158459 /* Assets.xcassets in Resources */,
+				BDBABC4D1B5FD1DA00158459 /* Interface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BDBABC531B5FD1DA00158459 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BDBABC631B5FD1DA00158459 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -139,7 +303,30 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		BDBABC511B5FD1DA00158459 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BDBABC611B5FD1DA00158459 /* NotificationController.swift in Sources */,
+				BDBABC5F1B5FD1DA00158459 /* ExtensionDelegate.swift in Sources */,
+				BDBABC5D1B5FD1DA00158459 /* InterfaceController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		BDBABC581B5FD1DA00158459 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BDBABC541B5FD1DA00158459 /* DayTrackerWatch Extension */;
+			targetProxy = BDBABC571B5FD1DA00158459 /* PBXContainerItemProxy */;
+		};
+		BDBABC661B5FD1DA00158459 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BDBABC481B5FD1DA00158459 /* DayTrackerWatch */;
+			targetProxy = BDBABC651B5FD1DA00158459 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		BDBABC391B5FD19D00158459 /* Main.storyboard */ = {
@@ -156,6 +343,14 @@
 				BDBABC3F1B5FD19D00158459 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		BDBABC4B1B5FD1DA00158459 /* Interface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BDBABC4C1B5FD1DA00158459 /* Base */,
+			);
+			name = Interface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -266,6 +461,66 @@
 			};
 			name = Release;
 		};
+		BDBABC691B5FD1DA00158459 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = "DayTrackerWatch Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = company.DayTracker.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Debug;
+		};
+		BDBABC6A1B5FD1DA00158459 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = "DayTrackerWatch Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = company.DayTracker.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Release;
+		};
+		BDBABC6D1B5FD1DA00158459 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				IBSC_MODULE = DayTrackerWatch_Extension;
+				INFOPLIST_FILE = DayTrackerWatch/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = company.DayTracker.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Debug;
+		};
+		BDBABC6E1B5FD1DA00158459 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				IBSC_MODULE = DayTrackerWatch_Extension;
+				INFOPLIST_FILE = DayTrackerWatch/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = company.DayTracker.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -283,6 +538,22 @@
 			buildConfigurations = (
 				BDBABC451B5FD19D00158459 /* Debug */,
 				BDBABC461B5FD19D00158459 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		BDBABC681B5FD1DA00158459 /* Build configuration list for PBXNativeTarget "DayTrackerWatch Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BDBABC691B5FD1DA00158459 /* Debug */,
+				BDBABC6A1B5FD1DA00158459 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		BDBABC6C1B5FD1DA00158459 /* Build configuration list for PBXNativeTarget "DayTrackerWatch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BDBABC6D1B5FD1DA00158459 /* Debug */,
+				BDBABC6E1B5FD1DA00158459 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};
