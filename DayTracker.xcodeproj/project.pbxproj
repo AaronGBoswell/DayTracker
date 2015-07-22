@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		94B753491B5FE3230038471B /* Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B753481B5FE3230038471B /* Tracker.swift */; };
 		BDBABC361B5FD19C00158459 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBABC351B5FD19C00158459 /* AppDelegate.swift */; };
 		BDBABC381B5FD19C00158459 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBABC371B5FD19C00158459 /* ViewController.swift */; };
 		BDBABC3B1B5FD19D00158459 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BDBABC391B5FD19D00158459 /* Main.storyboard */; };
@@ -66,6 +67,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		94B753481B5FE3230038471B /* Tracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tracker.swift; sourceTree = "<group>"; };
 		BDBABC321B5FD19C00158459 /* DayTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DayTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDBABC351B5FD19C00158459 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BDBABC371B5FD19C00158459 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 			children = (
 				BDBABC351B5FD19C00158459 /* AppDelegate.swift */,
 				BDBABC7C1B5FD58000158459 /* ActionTableViewController.swift */,
+				94B753481B5FE3230038471B /* Tracker.swift */,
 				BDBABC371B5FD19C00158459 /* ViewController.swift */,
 				BDBABC391B5FD19D00158459 /* Main.storyboard */,
 				BDBABC3C1B5FD19D00158459 /* Assets.xcassets */,
@@ -304,6 +307,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94B753491B5FE3230038471B /* Tracker.swift in Sources */,
 				BDBABC381B5FD19C00158459 /* ViewController.swift in Sources */,
 				BDBABC361B5FD19C00158459 /* AppDelegate.swift in Sources */,
 				BDBABC7D1B5FD58000158459 /* ActionTableViewController.swift in Sources */,
@@ -554,6 +558,7 @@
 				BDBABC461B5FD19D00158459 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BDBABC681B5FD1DA00158459 /* Build configuration list for PBXNativeTarget "DayTrackerWatch Extension" */ = {
 			isa = XCConfigurationList;
@@ -562,6 +567,7 @@
 				BDBABC6A1B5FD1DA00158459 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BDBABC6C1B5FD1DA00158459 /* Build configuration list for PBXNativeTarget "DayTrackerWatch" */ = {
 			isa = XCConfigurationList;
@@ -570,6 +576,7 @@
 				BDBABC6E1B5FD1DA00158459 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
