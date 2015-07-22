@@ -16,22 +16,55 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
        //UIApplication.sharedApplication().cancelAllLocalNotifications()
+        UIApplication.sharedApplication().applicationIconBadgeNumber = 0
         registerSettingsAndCategories()
-        startTimer()
-        checkCurrentTimers()
+        startScheduleTimer()
+        checkCurrentNotifications()
+        startConsolidationTimer()
        // scheduleNotification(true)
 
         return true
     }
-    func checkCurrentTimers(){
-        print(UIApplication.sharedApplication().scheduledLocalNotifications?.count)
+    func startConsolidationTimer(){
+        let timer = NSTimer.scheduledTimerWithTimeInterval(60*15, target: self, selector: "consolidateNotifications:", userInfo: nil, repeats: true)
+        timer.tolerance = 60*5
+        timer.fire()
+    }
+    func consolidateNotifications(timer:NSTimer){
+        if let notifications = UIApplication.sharedApplication().scheduledLocalNotifications {
+            var newestPastNotification: UILocalNotification?
+            for notification in notifications{
+                guard let date = notification.fireDate else{
+                    UIApplication.sharedApplication().cancelLocalNotification(notification)
+                    continue
+                }
+                if date.laterDate(NSDate()) == NSDate(){
+                    if newestPastNotification != nil {
+                        if date.laterDate((newestPastNotification?.fireDate)!) == date {
+                            UIApplication.sharedApplication().cancelLocalNotification(newestPastNotification!)
+                            newestPastNotification = notification
+                        } else{
+                            UIApplication.sharedApplication().cancelLocalNotification(notification)
+                        }
+                    } else{
+                        newestPastNotification = notification
+                    }
+                }
+            }
+        }
+    }
+    func checkCurrentNotifications(){
+        print("Check start")
         if let notifications = UIApplication.sharedApplication().scheduledLocalNotifications {
             for notification in notifications{
                 print(notification.fireDate?.humanDate)
             }
+            print(notifications.count)
+            print("Check Complete")
         }
+
     }
-    func startTimer(){
+    func startScheduleTimer(){
         let timer = NSTimer.scheduledTimerWithTimeInterval(60*60, target: self, selector: "schedule:", userInfo: nil, repeats: true)
         timer.tolerance = 60*30
         timer.fire()
