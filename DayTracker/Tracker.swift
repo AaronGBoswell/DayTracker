@@ -153,14 +153,11 @@ class Tracker {
 
     }
     
-    
-    
-  
-    
+    func predictActivitys(dateFor: NSDate) -> [String]{
+        return ["Working", "Playing","Eating"]
+    }
     
 
-    
-    
 }
 extension NSDate{
     var humanDate :String {
