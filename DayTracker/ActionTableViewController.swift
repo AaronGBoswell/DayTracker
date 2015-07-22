@@ -56,10 +56,10 @@ class ActionTableViewController: UITableViewController
         return 1
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(history.count)
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {        
         return history.count
     }
+    
     
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -71,6 +71,7 @@ class ActionTableViewController: UITableViewController
         var hour:Int?
         var minute:String = ""
         if let h = calandar?.component(NSCalendarUnit.Hour, fromDate: date){
+            hour = h
             if h > 12{
                 hour = h - 12
             }

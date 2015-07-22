@@ -15,26 +15,56 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+       //UIApplication.sharedApplication().cancelAllLocalNotifications()
         registerSettingsAndCategories()
-        scheduleNotification(true)
-        
-        // Override point for customization after application launch.
+        startTimer()
+        checkCurrentTimers()
+       // scheduleNotification(true)
+
         return true
     }
-    func scheduleNotification(soon:Bool){
-        let notification = UILocalNotification()
-        if soon {
-            notification.fireDate = NSDate(timeIntervalSinceNow: 20)
-        } else{
-            notification.fireDate = NSDate(timeIntervalSinceNow: 60*5)
-            
+    func checkCurrentTimers(){
+        print(UIApplication.sharedApplication().scheduledLocalNotifications?.count)
+        if let notifications = UIApplication.sharedApplication().scheduledLocalNotifications {
+            for notification in notifications{
+                print(notification.fireDate?.readable())
+            }
         }
+    }
+    func startTimer(){
+        let timer = NSTimer.scheduledTimerWithTimeInterval(60*60, target: self, selector: "schedule:", userInfo: nil, repeats: true)
+        timer.tolerance = 60*30
+        timer.fire()
+    }
+    func schedule(timer:NSTimer){
+        var date = NSDate().dateInThirtyMinutes()
+        for _ in 1...10{
+            if !notificationExistsForDate(date){
+                scheduleNotificationForDate(date)
+            }
+            date = date.dateInThirtyMinutes()
+        }
+    }
+    func notificationExistsForDate(date:NSDate) -> Bool{
+        if let notifications = UIApplication.sharedApplication().scheduledLocalNotifications {
+            for notification in notifications{
+                if notification.fireDate == date{
+                    return true
+                }
+            }
+        }
+        return false
+    }
+    func scheduleNotificationForDate(date:NSDate){
+        let notification = UILocalNotification()
+        notification.fireDate = date
         notification.timeZone = NSTimeZone.defaultTimeZone()
         notification.category = "lastAction"
         notification.soundName = UILocalNotificationDefaultSoundName
         notification.applicationIconBadgeNumber = 0
         notification.alertBody = "What have you been doing?"
         UIApplication.sharedApplication().scheduleLocalNotification(notification)
+        print(date.readable())
         print("scheduled")
         
     }
@@ -96,16 +126,63 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
-        //    notification.category
-        
+        if let alert = alertFromNotification(notification){
+            let rootViewController = self.window!.rootViewController
+            rootViewController?.presentViewController(alert, animated: true, completion: nil)
+        }
+
+    }
+    func alertFromNotification(notification:UILocalNotification) -> UIAlertController?{
+        guard let category = currentCategoryForIdentifier(notification.category),
+            let notificationActions = category.actionsForContext(UIUserNotificationActionContext.Default) else{
+                return nil
+        }
+        var uiActions = [UIAlertAction]()
+        for notificationAction in notificationActions {
+            guard   let identifier = notificationAction.identifier,
+                let title = notificationAction.title else{continue}
+            let
+            action = UIAlertAction(title: title, style: UIAlertActionStyle.Default, handler: { (alertAction) -> Void in
+                self.responseWithIdentifier(identifier)
+            })
+            // var action = UIAlertAction(title: title, style: UIAlertActionStyle.Default, handler: {[unowned self] in self.responseWithIdentifier(identifier)})
+            uiActions.append(action)
+            
+        }
+        let title = notification.alertTitle
+        let message = notification.alertBody
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        for action in uiActions{
+            alert.addAction(action)
+        }
+        return alert
+
+    }
+    func currentCategoryForIdentifier(identifier:String?) -> UIUserNotificationCategory?{
+        if identifier != nil{
+            if let categories = UIApplication.sharedApplication().currentUserNotificationSettings()?.categories{
+                for category in categories{
+                    if category.identifier == identifier{
+                        return category
+                    }
+                }
+            }
+        }
+        return nil
     }
     func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forLocalNotification notification: UILocalNotification, completionHandler: () -> Void) {
-        print(identifier)
-        history += [identifier!]
-        time += [NSDate()]
-        scheduleNotification(false)
+        if identifier != nil {
+            
+            responseWithIdentifier(identifier!)
+        }
         completionHandler()
     }
+    func responseWithIdentifier(identifier:String){
+        print(identifier)
+        history += [identifier]
+        time += [NSDate()]
+    }
+    
     private let defaults = NSUserDefaults.standardUserDefaults()
     
     var history : [String]{
@@ -125,5 +202,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
 
 
+}
+extension NSDate{
+    func dateInThirtyMinutes() -> NSDate{
+        let cal = NSCalendar.currentCalendar()
+        let comps = cal.components([NSCalendarUnit.Month, NSCalendarUnit.Era , NSCalendarUnit.Year,NSCalendarUnit.Day,NSCalendarUnit.Hour,NSCalendarUnit.Minute,NSCalendarUnit.Second], fromDate: self)
+
+        comps.minute = comps.minute + 30
+        comps.minute = (comps.minute / 30 ) * 30
+
+        comps.second = 0
+        let date = cal.dateFromComponents(comps)
+
+        return date!
+    }
+    func readable() -> String{
+        var date = self
+        let calandar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
+        var hour:Int?
+        var minute:String = ""
+        if let h = calandar?.component(NSCalendarUnit.Hour, fromDate: date){
+            hour = h
+            if h > 12{
+                hour = h - 12
+            }
+        }
+        if let m = calandar?.component(NSCalendarUnit.Minute, fromDate: date){
+            if m < 10 {
+                minute = "0\(m)"
+            } else{
+                minute = "\(m)"
+            }
+        }
+        
+        return "\(hour!):\(minute)"
+    }
 }
 
