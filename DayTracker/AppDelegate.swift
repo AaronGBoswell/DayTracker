@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print(UIApplication.sharedApplication().scheduledLocalNotifications?.count)
         if let notifications = UIApplication.sharedApplication().scheduledLocalNotifications {
             for notification in notifications{
-                print(notification.fireDate?.readable())
+                print(notification.fireDate?.humanDate)
             }
         }
     }
@@ -64,7 +64,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         notification.applicationIconBadgeNumber = 0
         notification.alertBody = "What have you been doing?"
         UIApplication.sharedApplication().scheduleLocalNotification(notification)
-        print(date.readable())
+        print(date.humanDate)
         print("scheduled")
         
     }
@@ -179,63 +179,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     func responseWithIdentifier(identifier:String){
         print(identifier)
-        history += [identifier]
-        time += [NSDate()]
+        Tracker.sharedTracker.setCurrentActivity(identifier, currentDate: NSDate().roundDateToThirtyMinutes(), theLength: 30)
     }
-    
-    private let defaults = NSUserDefaults.standardUserDefaults()
-    
-    var history : [String]{
-        get{ return defaults.objectForKey(Default.History) as? [String] ?? [] }
-        set{ defaults.setObject(newValue, forKey: Default.History) }
-        
-    }
-    var time : [NSDate]{
-        get{ return defaults.objectForKey(Default.Time) as? [NSDate] ?? [] }
-        set{ defaults.setObject(newValue, forKey: Default.Time) }
-        
-    }
-    private struct Default{
-        static let History = "WhatDoing.History"
-        static let Time = "WhatDoing.Time"
-    }
-    
 
 
 }
 extension NSDate{
     func dateInThirtyMinutes() -> NSDate{
         let cal = NSCalendar.currentCalendar()
-        let comps = cal.components([NSCalendarUnit.Month, NSCalendarUnit.Era , NSCalendarUnit.Year,NSCalendarUnit.Day,NSCalendarUnit.Hour,NSCalendarUnit.Minute,NSCalendarUnit.Second], fromDate: self)
+        let comps = cal.components([NSCalendarUnit.Month, NSCalendarUnit.Era , NSCalendarUnit.Year,NSCalendarUnit.Day,NSCalendarUnit.Hour,NSCalendarUnit.Minute], fromDate: self)
 
         comps.minute = comps.minute + 30
         comps.minute = (comps.minute / 30 ) * 30
 
-        comps.second = 0
         let date = cal.dateFromComponents(comps)
 
         return date!
     }
-    func readable() -> String{
-        var date = self
-        let calandar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
-        var hour:Int?
-        var minute:String = ""
-        if let h = calandar?.component(NSCalendarUnit.Hour, fromDate: date){
-            hour = h
-            if h > 12{
-                hour = h - 12
-            }
-        }
-        if let m = calandar?.component(NSCalendarUnit.Minute, fromDate: date){
-            if m < 10 {
-                minute = "0\(m)"
-            } else{
-                minute = "\(m)"
-            }
-        }
+    func roundDateToThirtyMinutes()->NSDate{
+        let cal = NSCalendar.currentCalendar()
+        let comps = cal.components([NSCalendarUnit.Month, NSCalendarUnit.Era , NSCalendarUnit.Year,NSCalendarUnit.Day,NSCalendarUnit.Hour,NSCalendarUnit.Minute], fromDate: self)
         
-        return "\(hour!):\(minute)"
+        comps.minute = (comps.minute / 30 ) * 30
+        
+        let date = cal.dateFromComponents(comps)
+        
+        return date!
     }
 }
 

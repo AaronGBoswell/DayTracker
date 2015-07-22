@@ -10,7 +10,7 @@ import Foundation
 
 class Tracker {
     
-    
+    static let sharedTracker = Tracker()
     var activities : [Activity]{
         get{
             var newActivities = [Activity]()
@@ -45,15 +45,7 @@ class Tracker {
         var action : String
         var date : NSDate
         var length : Int
-        var humanDate :String {
-            get{
-                let formatter = NSDateFormatter()
-                formatter.dateStyle = NSDateFormatterStyle.LongStyle
-                formatter.timeStyle = .MediumStyle
-                
-                return formatter.stringFromDate(date)
-            }
-        }
+        
         
         internal init( action: String, date: NSDate, length : Int)
         {
@@ -65,7 +57,7 @@ class Tracker {
             
         }
         
-        var description : String { get { return "Action : \(action)" + "Date : \(humanDate)" + "Length : \(length)"} }
+        var description : String { get { return "Action : \(action)" + "Date : \(date.humanDate)" + "Length : \(length)"} }
         
         //public var descritpion:String { get {return "hey"}}
         
@@ -131,4 +123,15 @@ class Tracker {
 
     
     
+}
+extension NSDate{
+    var humanDate :String {
+        get{
+            let formatter = NSDateFormatter()
+            formatter.dateStyle = NSDateFormatterStyle.LongStyle
+            formatter.timeStyle = .MediumStyle
+            
+            return formatter.stringFromDate(self)
+        }
+    }
 }
