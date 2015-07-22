@@ -107,11 +107,11 @@ class Tracker {
     }
     
     func  setCurrentActivity(currentAction: String, theLength: Int) {
-        let current : Activity = Activity(action: currentAction, date: NSDate(), length: theLength)
+        let current : Activity = Activity(action: currentAction, date: NSDate().roundDateToThirtyMinutes(), length: theLength)
         activities.append(current)
     }
     func  setCurrentActivity(currentAction: String) {
-        let current : Activity = Activity(action: currentAction, date: NSDate(), length: 30)
+        let current : Activity = Activity(action: currentAction, date: NSDate().roundDateToThirtyMinutes(), length: 30)
         activities.append(current)
     }
     
@@ -122,14 +122,34 @@ class Tracker {
         {
             if lengths[index] == theLength{
                 activities[index].action = pastAction
-            } else if lengths[index] != theLength
+            } else if lengths[index] >= theLength
             {
                 activities[index].action = pastAction
                 activities[index].length = theLength
+            }else if lengths[index] <= theLength
+            {
+                activities[index].action = pastAction
+                activities[index].length = theLength
+                for _ in 0 ... theLength/15 {
+                    
+                    if let indexx = dates.indexOf(pastDate.dateInFifteenMinutes()){
+                        activities.removeAtIndex(indexx)
+                    }
+                }
             }
         
-        }
+        } else{
+            let addActivity : Activity = Activity(action: pastAction, date: pastDate, length: theLength)
+            activities.append(addActivity)
+            for _ in 0 ... theLength/15 {
+                
+                if let indexx = dates.indexOf(pastDate.dateInFifteenMinutes()){
+                    activities.removeAtIndex(indexx)
+                }
+            }
 
+            
+        }
 
     }
     
