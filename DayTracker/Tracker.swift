@@ -11,7 +11,7 @@ import Foundation
 class Tracker {
     
     static let sharedTracker = Tracker()
-    var activities : [Activity]{
+    internal var activities : [Activity]{
         get{
             var newActivities = [Activity]()
             for (index, unit) in dates.enumerate()
@@ -25,13 +25,15 @@ class Tracker {
             var newActions = [String]()
             var newDates = [NSDate]()
             var newLengths = [Int]()
-            for (index, unit) in activities.enumerate()
+            for unit in newValue
             {
-                newActions.insert(unit.action, atIndex: index)
-                newDates.insert(unit.date, atIndex: index)
-                newLengths.insert(unit.length, atIndex: index)
+                newActions.append(unit.action)
+                newDates.append(unit.date)
+                newLengths.append(unit.length)
                 
             }
+            
+            
             actions = newActions
             dates = newDates
             lengths = newLengths
@@ -81,6 +83,10 @@ class Tracker {
         get{ return defaults.objectForKey(Settings.lengthsKey) as? [Int] ?? [] }
         set{ defaults.setObject(newValue, forKey:Settings.lengthsKey) }
     }
+    var possibleActions : [String]{
+        get{ return defaults.objectForKey(Settings.possibleActionsKey) as? [String] ?? ["Working", "Playing","Eating"] }
+        set{ defaults.setObject(newValue, forKey:Settings.possibleActionsKey) }
+    }
     
     
     
@@ -91,6 +97,7 @@ class Tracker {
         static let actionsKey = "Tracker.Actions"
         static let datesKey = "Tracker.Date"
         static let lengthsKey = "Tracter.length"
+        static let possibleActionsKey = "Tracter.PossibleActions"
        
     }
     
@@ -101,10 +108,23 @@ class Tracker {
     func  setCurrentActivity(current: Activity) {
         activities.append(current)
     }
+    
+    
+    
+    
+    
+    
     func  setCurrentActivity(currentAction: String, currentDate: NSDate, theLength: Int) {
         let current : Activity = Activity(action: currentAction, date: currentDate, length: theLength)
+        print("in setCurrentActivity")
+        print(current)
         activities.append(current)
     }
+    
+    
+    
+    
+    
     
     func  setCurrentActivity(currentAction: String, theLength: Int) {
         let current : Activity = Activity(action: currentAction, date: NSDate().roundDateToThirtyMinutes(), length: theLength)
@@ -153,9 +173,38 @@ class Tracker {
 
     }
     
-    func predictActivities(dateFor: NSDate) -> [String]{
-        return ["Working", "Playing","Eating"]
+    func addPossibleActivity(activity: String){
+        possibleActions.append(activity)
+        
     }
+    func deletePossibleActivity(activity: String){
+        
+        possibleActions.removeAtIndex(possibleActions.indexOf(activity)!)
+        
+    }
+    
+    func predictActivities(dateFor: NSDate) -> [String]?{
+        
+       // var PA = [String]()
+       // PA.append(activities[activities.count - 1].action)
+       // PA.append("Work")
+       // PA.append("Eat")
+       // return PA
+        
+    
+        
+        
+        
+        return ["Working", "Playing","Eating"]
+        
+        
+        
+        
+        
+        
+    }
+    
+    
     
 
 }

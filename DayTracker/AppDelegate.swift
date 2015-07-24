@@ -246,6 +246,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         completionHandler()
     }
+    
     func responseWithIdentifier(identifier:String){
         consolidateNotifications(nil)
         print(identifier)

@@ -49,7 +49,7 @@ class ActionTableViewController: UITableViewController
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+
     // MARK: - Table view data source
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -57,7 +57,11 @@ class ActionTableViewController: UITableViewController
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {        
-        return history.count
+        print(Tracker.sharedTracker.activities.count)
+        //print(Tracker.sharedTracker.activities)
+       // print(Tracker.sharedTracker.actions)
+        return Tracker.sharedTracker.activities.count
+        
     }
     
     
@@ -65,27 +69,12 @@ class ActionTableViewController: UITableViewController
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("ident", forIndexPath: indexPath)
         
-        cell.textLabel!.text = history[indexPath.row]
-        let date = time[indexPath.row]
-        let calandar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
-        var hour:Int?
-        var minute:String = ""
-        if let h = calandar?.component(NSCalendarUnit.Hour, fromDate: date){
-            hour = h
-            if h > 12{
-                hour = h - 12
-            }
-        }
-        if let m = calandar?.component(NSCalendarUnit.Minute, fromDate: date){
-            if m < 10 {
-                minute = "0\(m)"
-            } else{
-                minute = "\(m)"
-            }
-        }
         
-        cell.detailTextLabel!.text = "\(hour!):\(minute)"
-        // Configure the cell...
+        
+        cell.textLabel!.text = Tracker.sharedTracker.activities[indexPath.row].action
+        cell.detailTextLabel!.text = Tracker.sharedTracker.activities[indexPath.row].date.humanDate
+        
+        
         
         return cell
     }
