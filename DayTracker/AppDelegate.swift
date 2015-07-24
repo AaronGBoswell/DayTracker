@@ -162,6 +162,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let noteAction = UIMutableUserNotificationAction()
         noteAction.title = "Add Note"
         noteAction.behavior = .TextInput
+        
         noteAction.identifier = "activity.Note"
         noteAction.activationMode = UIUserNotificationActivationMode.Background
         noteAction.authenticationRequired = false
