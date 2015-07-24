@@ -59,7 +59,7 @@ class ActionTableViewController: UITableViewController
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {        
         print(Tracker.sharedTracker.activities.count)
         //print(Tracker.sharedTracker.activities)
-       // print(Tracker.sharedTracker.actions)
+       print(Tracker.sharedTracker.activityBag)
         return Tracker.sharedTracker.activities.count
         
     }
