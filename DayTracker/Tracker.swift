@@ -59,7 +59,7 @@ class Tracker {
             
         }
         
-        var description : String { get { return "Action : \(action)" + "Date : \(date.humanDate)" + "Length : \(length)"} }
+        var description : String { get { return "Action : \(action) Date : \(date.humanDate) Length : \(length) Note : \(note)"} }
         
         //public var descritpion:String { get {return "hey"}}
         
