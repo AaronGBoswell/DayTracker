@@ -122,7 +122,7 @@ class Tracker {
     
     
     var possibleActions : [[String:AnyObject]]{
-        get{ return defaults.objectForKey(Settings.possibleActionsKey) as? [[String:AnyObject]] ?? [] }
+        get{ return defaults.objectForKey(Settings.possibleActionsKey) as? [[String:AnyObject]] ?? [["action" : "Work" , "note" :true, "productive" : true ], ["action" : "Play" , "note" :true, "productive" : false], ["action" : "Eat" , "note" :false, "productive" : false]] }
         set{ defaults.setObject(newValue, forKey:Settings.possibleActionsKey) }
     }
     
@@ -182,12 +182,12 @@ class Tracker {
     func deletePossibleActivity(activity: String){
         
         var test : String
-        for (index, unit) in possibleActions.enumerate()
+        for (index, unit) in activityBag.enumerate()
         {
-           test = unit["action"] as! String
+           test = unit.action
             if test == activity
             {
-                possibleActions.removeAtIndex(index)
+                activityBag.removeAtIndex(index)
                 
             }
         }
@@ -195,11 +195,27 @@ class Tracker {
         //possibleActions.removeAtIndex(possibleActions.indexOf(activity)!)
         
     }
+    
+    func activityDetails(activity: String) -> ActivitySetting?{
+        
+        var test : String
+        for unit in activityBag
+        {
+            test = unit.action
+            if test == activity
+            {
+                return unit
+                
+            }
+        }
+        
+        return nil
+    }
 
 
     
     func predictActivities(dateFor: NSDate) -> [String]?{
-        return ["Working", "Playing","Eating"]
+        return ["Work", "Play","Eat"]
     }
     
     
