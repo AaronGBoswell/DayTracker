@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //registerSettingsAndCategories()
         startScheduleTimer()
         checkCurrentNotifications()
-        startConsolidationTimer()
+        //startConsolidationTimer()
        // scheduleNotification(true)
 
         return true
@@ -256,6 +256,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             responseWithIdentifier(identifier!)
             if Tracker.sharedTracker.activityDetails(identifier!)?.note == true{
                 fireNoteNotification()
+                checkCurrentNotifications()
             }
 
         }
@@ -264,7 +265,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func responseWithIdentifier(identifier:String){
-        consolidateNotifications(nil)
+        //consolidateNotifications(nil)
         print(identifier)
         UIApplication.sharedApplication().applicationIconBadgeNumber = 1
         UIApplication.sharedApplication().applicationIconBadgeNumber = 0
