@@ -15,9 +15,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-       //UIApplication.sharedApplication().cancelAllLocalNotifications()
+        UIApplication.sharedApplication().applicationIconBadgeNumber = 1
         UIApplication.sharedApplication().applicationIconBadgeNumber = 0
-        registerSettingsAndCategories()
+        UIApplication.sharedApplication().cancelAllLocalNotifications()
+        
+        //registerSettingsAndCategories()
         startScheduleTimer()
         checkCurrentNotifications()
         startConsolidationTimer()
@@ -30,21 +32,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         timer.tolerance = 60*5
         timer.fire()
     }
-    func consolidateNotifications(timer:NSTimer){
+    func consolidateNotifications(timer:NSTimer?){
         if let notifications = UIApplication.sharedApplication().scheduledLocalNotifications {
             var newestPastNotification: UILocalNotification?
             for notification in notifications{
                 guard let date = notification.fireDate else{
-                    UIApplication.sharedApplication().cancelLocalNotification(notification)
+                    cancelNotification(notification)
                     continue
                 }
                 if date.laterDate(NSDate()) == NSDate(){
                     if newestPastNotification != nil {
                         if date.laterDate((newestPastNotification?.fireDate)!) == date {
-                            UIApplication.sharedApplication().cancelLocalNotification(newestPastNotification!)
+                            cancelNotification(newestPastNotification!)
                             newestPastNotification = notification
                         } else{
-                            UIApplication.sharedApplication().cancelLocalNotification(notification)
+                            cancelNotification(notification)
                         }
                     } else{
                         newestPastNotification = notification
@@ -52,6 +54,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             }
         }
+    }
+
+    func cancelNotification(notification:UILocalNotification){
+        UIApplication.sharedApplication().applicationIconBadgeNumber = 1
+        UIApplication.sharedApplication().applicationIconBadgeNumber = 0
+        UIApplication.sharedApplication().cancelLocalNotification(notification)
     }
     func checkCurrentNotifications(){
         print("Check start")
@@ -70,11 +78,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         timer.fire()
     }
     func schedule(timer:NSTimer){
+        UIApplication.sharedApplication().cancelAllLocalNotifications()
         var date = NSDate().dateInThirtyMinutes()
         for _ in 1...10{
-            if !notificationExistsForDate(date){
-                scheduleNotificationForDate(date)
-            }
+            scheduleNotificationForDate(date)
             date = date.dateInThirtyMinutes()
         }
     }
@@ -89,18 +96,46 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return false
     }
     func scheduleNotificationForDate(date:NSDate){
-        Tracker.sharedTracker.predictActivities(date)
+        refreshCategoryForDate(date)
         
         let notification = UILocalNotification()
         notification.fireDate = date
         notification.timeZone = NSTimeZone.defaultTimeZone()
-        notification.category = "lastAction"
+        notification.category = date.description
         notification.soundName = UILocalNotificationDefaultSoundName
         notification.applicationIconBadgeNumber = 0
         notification.alertBody = "What have you been doing?"
         UIApplication.sharedApplication().scheduleLocalNotification(notification)
         print(date.humanDate)
         print("scheduled")
+        
+    }
+    func refreshCategoryForDate(date:NSDate){
+        let strings = Tracker.sharedTracker.predictActivities(date)
+        var actions = [UIMutableUserNotificationAction]()
+        for var string in strings{
+            let action = UIMutableUserNotificationAction()
+            action.title = string
+            action.identifier = string
+            action.activationMode = UIUserNotificationActivationMode.Background
+            action.authenticationRequired = false
+            actions.append(action)
+        }
+        let newCategory = UIMutableUserNotificationCategory()
+        newCategory.setActions(actions, forContext: UIUserNotificationActionContext.Default)
+        newCategory.identifier = date.description
+        var newCategories = NSMutableSet()
+        if let categories = UIApplication.sharedApplication().currentUserNotificationSettings()?.categories{
+            for var category in categories {
+                if category.identifier != newCategory.identifier {
+                    newCategories.addObject(category)
+                }
+            }
+        }
+        newCategories.addObject(newCategory)
+        let set = NSSet(set:newCategories)
+        let settings = UIUserNotificationSettings(forTypes: [.Alert,.Badge,.Sound], categories: set as? Set<UIUserNotificationCategory>)
+        UIApplication.sharedApplication().registerUserNotificationSettings(settings)
         
     }
     func registerSettingsAndCategories() {
@@ -124,8 +159,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         eatAction.authenticationRequired = false
         
         let inviteCategory = UIMutableUserNotificationCategory()
-        inviteCategory.setActions([workAction, playAction,eatAction],
-            forContext: UIUserNotificationActionContext.Default)
+        inviteCategory.setActions([workAction, playAction,eatAction],forContext: UIUserNotificationActionContext.Default)
         inviteCategory.identifier = "lastAction"
         
         let categories = NSSet(object: inviteCategory)
@@ -213,7 +247,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         completionHandler()
     }
     func responseWithIdentifier(identifier:String){
+        consolidateNotifications(nil)
         print(identifier)
+        UIApplication.sharedApplication().applicationIconBadgeNumber = 1
+        UIApplication.sharedApplication().applicationIconBadgeNumber = 0
         Tracker.sharedTracker.setCurrentActivity(identifier, currentDate: NSDate().roundDateToThirtyMinutes(), theLength: 30)
     }
 
