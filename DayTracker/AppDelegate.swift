@@ -248,7 +248,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return nil
     }
     func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forLocalNotification notification: UILocalNotification, withResponseInfo responseInfo: [NSObject : AnyObject], completionHandler: () -> Void) {
-        if var note = responseInfo[UIUserNotificationActionResponseTypedTextKey]{
+        if var note = responseInfo[UIUserNotificationActionResponseTypedTextKey] as? String{
+            Tracker.sharedTracker.setNote(note, date: NSDate().roundDateToFifteenMinutes())
             print(note)
         } else if identifier != nil {
             responseWithIdentifier(identifier!)
