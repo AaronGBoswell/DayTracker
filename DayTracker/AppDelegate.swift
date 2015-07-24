@@ -212,6 +212,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         completionHandler()
     }
+    
     func responseWithIdentifier(identifier:String){
         print(identifier)
         Tracker.sharedTracker.setCurrentActivity(identifier, currentDate: NSDate().roundDateToThirtyMinutes(), theLength: 30)
