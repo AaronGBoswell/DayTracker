@@ -89,7 +89,7 @@ class Tracker {
             var newActivities = [ActivitySetting]()
             for activityDictionary in possibleActions
             {
-                let addition : ActivitySetting = ActivitySetting(action: activityDictionary["action"] as! String, note: activityDictionary["note"] as! Bool, productive: activityDictionary["Productive"] as! Bool)
+                let addition : ActivitySetting = ActivitySetting(action: activityDictionary["action"] as! String, note: activityDictionary["note"] as! Bool, productive: activityDictionary["productive"] as! Bool)
                 newActivities.append(addition)
             }
             return newActivities
@@ -165,7 +165,21 @@ class Tracker {
         let current : Activity = Activity(action: currentAction, date: NSDate().roundDateToThirtyMinutes(), length: 30 , note: "")
         activities.append(current)
     }
-    
+    func setNote(note: String, date: NSDate){
+        
+        var test : NSDate
+        for var unit in activities
+        {
+            test = unit.date
+            if test == date
+            {
+                unit.note = note
+                
+            }
+        }
+        
+    }
+
 
     
     func addPossibleActivity(activity: String,  note:Bool, productive: Bool){
@@ -211,6 +225,8 @@ class Tracker {
         
         return nil
     }
+    
+    
 
 
     

@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //UIApplication.sharedApplication().cancelAllLocalNotifications()
         registerNoteAction()
         
-        fireNoteNotification()
+        //fireNoteNotification()
         //registerSettingsAndCategories()
         startScheduleTimer()
         checkCurrentNotifications()
