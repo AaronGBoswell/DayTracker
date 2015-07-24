@@ -251,8 +251,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print(note)
         } else if identifier != nil {
             responseWithIdentifier(identifier!)
-            
-            fireNoteNotification()
+            if Tracker.sharedTracker.activityDetails(identifier!)?.note == true{
+                fireNoteNotification()
+            }
 
         }
 
