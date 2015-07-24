@@ -114,7 +114,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     func fireNoteNotification(){
         let notification = UILocalNotification()
-        notification.fireDate = NSDate().dateByAddingTimeInterval(0)
+        notification.fireDate = NSDate()
         notification.timeZone = NSTimeZone.defaultTimeZone()
         notification.category = "noteCategory"
         notification.soundName = UILocalNotificationDefaultSoundName
@@ -162,6 +162,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let noteAction = UIMutableUserNotificationAction()
         noteAction.title = "Add Note"
         noteAction.behavior = .TextInput
+        
         noteAction.identifier = "activity.Note"
         noteAction.activationMode = UIUserNotificationActivationMode.Background
         noteAction.authenticationRequired = false
