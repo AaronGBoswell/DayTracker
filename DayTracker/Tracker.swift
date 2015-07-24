@@ -176,7 +176,7 @@ class Tracker {
                 unit.note = note
                 print(note)
                 print("noteSuccess")
-                
+         
             }
         }
         print("note ran")
