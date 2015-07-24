@@ -15,10 +15,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        UIApplication.sharedApplication().applicationIconBadgeNumber = 1
-        UIApplication.sharedApplication().applicationIconBadgeNumber = 0
-        UIApplication.sharedApplication().cancelAllLocalNotifications()
+        //UIApplication.sharedApplication().applicationIconBadgeNumber = 1
+        //UIApplication.sharedApplication().applicationIconBadgeNumber = 0
+        //UIApplication.sharedApplication().cancelAllLocalNotifications()
+        registerNoteAction()
         
+        fireNoteNotification()
         //registerSettingsAndCategories()
         startScheduleTimer()
         checkCurrentNotifications()
@@ -78,7 +80,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         timer.fire()
     }
     func schedule(timer:NSTimer){
-        UIApplication.sharedApplication().cancelAllLocalNotifications()
+        //UIApplication.sharedApplication().cancelAllLocalNotifications()
         var date = NSDate().dateInThirtyMinutes()
         for _ in 1...10{
             scheduleNotificationForDate(date)
@@ -110,8 +112,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("scheduled")
         
     }
+    func fireNoteNotification(){
+        let notification = UILocalNotification()
+        notification.fireDate = NSDate().dateByAddingTimeInterval(0)
+        notification.timeZone = NSTimeZone.defaultTimeZone()
+        notification.category = "noteCategory"
+        notification.soundName = UILocalNotificationDefaultSoundName
+        notification.applicationIconBadgeNumber = 0
+        notification.alertBody = " "
+        //notification.alertAction = "Submit"
+
+        UIApplication.sharedApplication().scheduleLocalNotification(notification)
+        print("Note scheduled")
+        
+    }
     func refreshCategoryForDate(date:NSDate){
-        let strings = Tracker.sharedTracker.predictActivities(date)
+        guard let strings = Tracker.sharedTracker.predictActivities(date) else{
+            return
+        }
         var actions = [UIMutableUserNotificationAction]()
         for var string in strings{
             let action = UIMutableUserNotificationAction()
@@ -138,29 +156,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.sharedApplication().registerUserNotificationSettings(settings)
         
     }
-    func registerSettingsAndCategories() {
-        
-        let workAction = UIMutableUserNotificationAction()
-        workAction.title = NSLocalizedString("Working", comment: "I've been working.")
-        workAction.identifier = "working"
-        workAction.activationMode = UIUserNotificationActivationMode.Background
-        workAction.authenticationRequired = false
-        
-        let playAction = UIMutableUserNotificationAction()
-        playAction.title = NSLocalizedString("Playing", comment: "I've been playing.")
-        playAction.identifier = "playing"
-        playAction.activationMode = UIUserNotificationActivationMode.Background
-        playAction.authenticationRequired = false
-        
-        let eatAction = UIMutableUserNotificationAction()
-        eatAction.title = NSLocalizedString("Eating", comment: "I've been eating.")
-        eatAction.identifier = "eating"
-        eatAction.activationMode = UIUserNotificationActivationMode.Background
-        eatAction.authenticationRequired = false
-        
+    func registerNoteAction() {
+
+        let noteAction = UIMutableUserNotificationAction()
+        noteAction.title = "Add Note"
+        noteAction.behavior = .TextInput
+        noteAction.identifier = "activity.Note"
+        noteAction.activationMode = UIUserNotificationActivationMode.Background
+        noteAction.authenticationRequired = false
         let inviteCategory = UIMutableUserNotificationCategory()
-        inviteCategory.setActions([workAction, playAction,eatAction],forContext: UIUserNotificationActionContext.Default)
-        inviteCategory.identifier = "lastAction"
+        inviteCategory.setActions([noteAction],forContext: UIUserNotificationActionContext.Default)
+
+        inviteCategory.identifier = "noteCategory"
         
         let categories = NSSet(object: inviteCategory)
         
@@ -239,14 +246,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         return nil
     }
-    func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forLocalNotification notification: UILocalNotification, completionHandler: () -> Void) {
-        if identifier != nil {
-            
+    func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forLocalNotification notification: UILocalNotification, withResponseInfo responseInfo: [NSObject : AnyObject], completionHandler: () -> Void) {
+        if var note = responseInfo[UIUserNotificationActionResponseTypedTextKey]{
+            print(note)
+        } else if identifier != nil {
             responseWithIdentifier(identifier!)
+            fireNoteNotification()
+
         }
+
         completionHandler()
     }
-    
+
     func responseWithIdentifier(identifier:String){
         consolidateNotifications(nil)
         print(identifier)
