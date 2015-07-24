@@ -174,12 +174,18 @@ class Tracker {
             if test == date
             {
                 unit.note = note
+                print(note)
+                print("noteSuccess")
                 
             }
         }
+        print("note ran")
+        print(note)
         
     }
 
+    
+    
 
     
     func addPossibleActivity(activity: String,  note:Bool, productive: Bool){

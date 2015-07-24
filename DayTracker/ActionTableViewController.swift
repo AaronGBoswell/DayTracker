@@ -80,6 +80,15 @@ class ActionTableViewController: UITableViewController
     }
     
     
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
+        
+       
+        performSegueWithIdentifier("ShowNote", sender: tableView.cellForRowAtIndexPath(indexPath))
+        
+        
+    }
+    
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -124,5 +133,30 @@ class ActionTableViewController: UITableViewController
     // Pass the selected object to the new view controller.
     }
     */
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        var destination = segue.destinationViewController as UIViewController
+        if let navCon = destination as? UINavigationController{
+            destination = navCon.visibleViewController!
+        }
+        if let NVC = destination as? NoteViewController {
+            if let identifier = segue.identifier{
+                switch identifier{
+                case "ShowNote":
+                    let cell = sender as? UITableViewCell
+                    self.tableView.indexPathForCell(cell!)
+                    
+                    let note = Tracker.sharedTracker.activities[self.tableView.indexPathForCell(cell!)!.row]
+                    NVC.note = note
+                default: break
+                }
+            }
+        }
+        
+        
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+    }
+
     
 }
