@@ -251,6 +251,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print(note)
         } else if identifier != nil {
             responseWithIdentifier(identifier!)
+            
             fireNoteNotification()
 
         }
