@@ -89,6 +89,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return false
     }
     func scheduleNotificationForDate(date:NSDate){
+        Tracker.sharedTracker.predictActivities(date)
+        
         let notification = UILocalNotification()
         notification.fireDate = date
         notification.timeZone = NSTimeZone.defaultTimeZone()
