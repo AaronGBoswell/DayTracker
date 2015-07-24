@@ -168,12 +168,13 @@ class Tracker {
     func setNote(note: String, date: NSDate){
         
         var test : NSDate
-        for var unit in activities
+        for let (index, unit) in activities.enumerate()
         {
             test = unit.date
             if test == date
             {
-                unit.note = note
+                activities[index].note = note
+                //unit.note = note
                 print(note)
                 print("noteSuccess")
          
