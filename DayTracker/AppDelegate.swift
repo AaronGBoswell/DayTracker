@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //UIApplication.sharedApplication().cancelAllLocalNotifications()
         registerNoteAction()
         
-        fireNoteNotification()
+        //fireNoteNotification()
         //registerSettingsAndCategories()
         startScheduleTimer()
         checkCurrentNotifications()
@@ -81,10 +81,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     func schedule(timer:NSTimer){
         //UIApplication.sharedApplication().cancelAllLocalNotifications()
-        var date = NSDate().dateInThirtyMinutes()
+        var date = NSDate().dateInFifteenMinutes()
         for _ in 1...10{
             scheduleNotificationForDate(date)
-            date = date.dateInThirtyMinutes()
+            date = date.dateInFifteenMinutes()
         }
     }
     func notificationExistsForDate(date:NSDate) -> Bool{
@@ -147,6 +147,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             for var category in categories {
                 if category.identifier != newCategory.identifier {
                     newCategories.addObject(category)
+                    //print(category.actionsForContext(UIUserNotificationActionContext.Default))
                 }
             }
         }
@@ -265,7 +266,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print(identifier)
         UIApplication.sharedApplication().applicationIconBadgeNumber = 1
         UIApplication.sharedApplication().applicationIconBadgeNumber = 0
-        Tracker.sharedTracker.setCurrentActivity(identifier, currentDate: NSDate().roundDateToThirtyMinutes(), theLength: 30)
+        Tracker.sharedTracker.setCurrentActivity(identifier, currentDate: NSDate().roundDateToFifteenMinutes(), theLength: 15)
     }
 
 
@@ -298,6 +299,16 @@ extension NSDate{
         let comps = cal.components([NSCalendarUnit.Month, NSCalendarUnit.Era , NSCalendarUnit.Year,NSCalendarUnit.Day,NSCalendarUnit.Hour,NSCalendarUnit.Minute], fromDate: self)
         
         comps.minute = (comps.minute / 30 ) * 30
+        
+        let date = cal.dateFromComponents(comps)
+        
+        return date!
+    }
+    func roundDateToFifteenMinutes()->NSDate{
+        let cal = NSCalendar.currentCalendar()
+        let comps = cal.components([NSCalendarUnit.Month, NSCalendarUnit.Era , NSCalendarUnit.Year,NSCalendarUnit.Day,NSCalendarUnit.Hour,NSCalendarUnit.Minute], fromDate: self)
+        
+        comps.minute = (comps.minute / 15 ) * 15
         
         let date = cal.dateFromComponents(comps)
         
