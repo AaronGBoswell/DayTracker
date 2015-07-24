@@ -14,29 +14,27 @@ class Tracker {
     internal var activities : [Activity]{
         get{
             var newActivities = [Activity]()
-            for (index, unit) in dates.enumerate()
+            for activityDictionary in allActivities
             {
-                let addition : Activity = Activity(action: actions[index], date: unit, length: lengths[index])
-                newActivities.insert(addition, atIndex: index)
+                let addition : Activity = Activity(action: activityDictionary["action"] as! String, date: activityDictionary["date"] as! NSDate, length: activityDictionary["length"] as! Int, note: activityDictionary["note"] as! String)
+                newActivities.append(addition)
             }
             return newActivities
         }
         set{
-            var newActions = [String]()
-            var newDates = [NSDate]()
-            var newLengths = [Int]()
+            
+            var newActions = [[String:AnyObject]]()
             for unit in newValue
             {
-                newActions.append(unit.action)
-                newDates.append(unit.date)
-                newLengths.append(unit.length)
-                
+                var newAction = [String:AnyObject]()
+
+                newAction["action"] =  unit.action
+                newAction["date"] = unit.date
+                newAction["length"] = unit.length
+                newAction["note"] = unit.note
+                newActions.append( newAction )
             }
-            
-            
-            actions = newActions
-            dates = newDates
-            lengths = newLengths
+           allActivities = newActions
             
         }
     }
@@ -47,13 +45,15 @@ class Tracker {
         var action : String
         var date : NSDate
         var length : Int
+        var note : String
         
         
-        internal init( action: String, date: NSDate, length : Int)
+        internal init( action: String, date: NSDate, length : Int, note : String)
         {
             self.action = action
             self.date = date
             self.length = length
+            self.note = note
             
             return
             
@@ -64,145 +64,163 @@ class Tracker {
         //public var descritpion:String { get {return "hey"}}
         
     }
+    struct ActivitySetting
+    {
+        var action : String
+        var note : Bool
+        var productive : Bool
+        
+        
+        internal init( action: String, note: Bool, productive : Bool)
+        {
+            self.action = action
+            self.note = note
+            self.productive = productive
+            
+            return
+            
+        }
+        
+        
+    }
+    
+    internal var activityBag : [ActivitySetting]{
+        get{
+            var newActivities = [ActivitySetting]()
+            for activityDictionary in possibleActions
+            {
+                let addition : ActivitySetting = ActivitySetting(action: activityDictionary["action"] as! String, note: activityDictionary["note"] as! Bool, productive: activityDictionary["Productive"] as! Bool)
+                newActivities.append(addition)
+            }
+            return newActivities
+        }
+        set{
+            
+            var newActions = [[String:AnyObject]]()
+            for unit in newValue
+            {
+                var newAction = [String:AnyObject]()
+                
+                newAction["action"] =  unit.action
+                newAction["note"] = unit.note
+                newAction["productive"] = unit.productive
+                newActions.append( newAction )
+            }
+            possibleActions = newActions
+            
+        }
+    }
 
+
+    
     
    
     
     
     private let defaults = NSUserDefaults.standardUserDefaults()
+  
     
-    var actions : [String]{
-        get{ return defaults.objectForKey(Settings.actionsKey) as? [String] ?? [] }
-        set{ defaults.setObject(newValue, forKey:Settings.actionsKey) }
-    }
-    var dates : [NSDate]{
-        get{ return defaults.objectForKey(Settings.datesKey) as? [NSDate] ?? [] }
-        set{ defaults.setObject(newValue, forKey:Settings.datesKey) }
-    }
-    var lengths : [Int]{
-        get{ return defaults.objectForKey(Settings.lengthsKey) as? [Int] ?? [] }
-        set{ defaults.setObject(newValue, forKey:Settings.lengthsKey) }
-    }
-    var possibleActions : [String]{
-        get{ return defaults.objectForKey(Settings.possibleActionsKey) as? [String] ?? ["Working", "Playing","Eating"] }
+    
+    var possibleActions : [[String:AnyObject]]{
+        get{ return defaults.objectForKey(Settings.possibleActionsKey) as? [[String:AnyObject]] ?? [["action" : "Work" , "note" :true, "productive" : true ], ["action" : "Play" , "note" :true, "productive" : false], ["action" : "Eat" , "note" :false, "productive" : false]] }
         set{ defaults.setObject(newValue, forKey:Settings.possibleActionsKey) }
     }
     
     
-    
-    
-    
-    private struct Settings {
-        
-        static let actionsKey = "Tracker.Actions"
-        static let datesKey = "Tracker.Date"
-        static let lengthsKey = "Tracter.length"
-        static let possibleActionsKey = "Tracter.PossibleActions"
-       
+    var allActivities : [[String:AnyObject]] {
+        get{ return defaults.objectForKey(Settings.allActivities) as? [[String:AnyObject]] ?? [] }
+        set{ defaults.setObject(newValue, forKey:Settings.allActivities) }
     }
     
     
-    
-    
+    private struct Settings {
+      
+        static let possibleActionsKey = "Tracker.PossibleActions"
+        static let allActivities = "Tracker.allActivities"
+        
+       
+    }
     
     func  setCurrentActivity(current: Activity) {
         activities.append(current)
     }
-    
-    
-    
-    
-    
-    
-    func  setCurrentActivity(currentAction: String, currentDate: NSDate, theLength: Int) {
-        let current : Activity = Activity(action: currentAction, date: currentDate, length: theLength)
+    func  setCurrentActivity(currentAction: String, currentDate: NSDate, theLength: Int, note:String) {
+        let current : Activity = Activity(action: currentAction, date: currentDate, length: theLength, note: note)
         print("in setCurrentActivity")
         print(current)
         activities.append(current)
     }
     
-    
-    
-    
-    
-    
+    func  setCurrentActivity(currentAction: String, currentDate: NSDate, theLength: Int) {
+        let current : Activity = Activity(action: currentAction, date: currentDate, length: theLength, note: "")
+        print("in setCurrentActivity")
+        print(current)
+        activities.append(current)
+    }
     func  setCurrentActivity(currentAction: String, theLength: Int) {
-        let current : Activity = Activity(action: currentAction, date: NSDate().roundDateToThirtyMinutes(), length: theLength)
+        let current : Activity = Activity(action: currentAction, date: NSDate().roundDateToThirtyMinutes(), length: theLength,  note: "")
         activities.append(current)
     }
     func  setCurrentActivity(currentAction: String) {
-        let current : Activity = Activity(action: currentAction, date: NSDate().roundDateToThirtyMinutes(), length: 30)
+        let current : Activity = Activity(action: currentAction, date: NSDate().roundDateToThirtyMinutes(), length: 30 , note: "")
         activities.append(current)
     }
     
+
     
-    func setActivity(pastAction: String, pastDate: NSDate, theLength: Int)
-    {
-        if let index = dates.indexOf(pastDate)
-        {
-            if lengths[index] == theLength{
-                activities[index].action = pastAction
-            } else if lengths[index] >= theLength
-            {
-                activities[index].action = pastAction
-                activities[index].length = theLength
-            }else if lengths[index] <= theLength
-            {
-                activities[index].action = pastAction
-                activities[index].length = theLength
-                for _ in 0 ... theLength/15 {
-                    
-                    if let indexx = dates.indexOf(pastDate.dateInFifteenMinutes()){
-                        activities.removeAtIndex(indexx)
-                    }
-                }
-            }
+    func addPossibleActivity(activity: String,  note:Bool, productive: Bool){
+        var newAction = [String:AnyObject]()
         
-        } else{
-            let addActivity : Activity = Activity(action: pastAction, date: pastDate, length: theLength)
-            activities.append(addActivity)
-            for _ in 0 ... theLength/15 {
-                
-                if let indexx = dates.indexOf(pastDate.dateInFifteenMinutes()){
-                    activities.removeAtIndex(indexx)
-                }
-            }
-
-            
-        }
-
-    }
-    
-    func addPossibleActivity(activity: String){
-        possibleActions.append(activity)
+        newAction["action"] =  activity
+        newAction["note"] =  note
+        newAction["productive"] =  productive
+        possibleActions.append(newAction)
         
     }
+    
+    
     func deletePossibleActivity(activity: String){
         
-        possibleActions.removeAtIndex(possibleActions.indexOf(activity)!)
+        var test : String
+        for (index, unit) in activityBag.enumerate()
+        {
+           test = unit.action
+            if test == activity
+            {
+                activityBag.removeAtIndex(index)
+                
+            }
+        }
+        
+        //possibleActions.removeAtIndex(possibleActions.indexOf(activity)!)
         
     }
+    
+    func activityDetails(activity: String) -> ActivitySetting?{
+        
+        var test : String
+        for unit in activityBag
+        {
+            test = unit.action
+            if test == activity
+            {
+                return unit
+                
+            }
+        }
+        
+        return nil
+    }
+
+
     
     func predictActivities(dateFor: NSDate) -> [String]?{
-        
-       // var PA = [String]()
-       // PA.append(activities[activities.count - 1].action)
-       // PA.append("Work")
-       // PA.append("Eat")
-       // return PA
-        
-    
-        
-        
-        
-        return ["Working", "Playing","Eating"]
-        
-        
-        
-        
-        
-        
+        return ["Work", "Play","Eat"]
     }
+    
+    
+    
+    
     
     
     
@@ -219,3 +237,9 @@ extension NSDate{
         }
     }
 }
+
+
+
+
+
+
