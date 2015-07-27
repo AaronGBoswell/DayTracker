@@ -11,6 +11,7 @@ import Foundation
 class Tracker {
     
     static let sharedTracker = Tracker()
+    internal let settings = TrackerSettings()
     internal var activities : [Activity]{
         get{
             var newActivities = [Activity]()
@@ -136,8 +137,7 @@ class Tracker {
     }
    
     
-    private struct Settings {
-      
+    struct Settings {
         static let possibleActionsKey = "Tracker.PossibleActions"
         static let allActivities = "Tracker.allActivities"
        
@@ -162,11 +162,11 @@ class Tracker {
         activities.append(current)
     }
     func  setCurrentActivity(currentAction: String, theLength: Int) {
-        let current : Activity = Activity(action: currentAction, date: NSDate().roundDateToThirtyMinutes(), length: theLength,  note: "")
+        let current : Activity = Activity(action: currentAction, date: NSDate().roundDateDownToTimeSlice(Tracker.sharedTracker.settings.timeSlice), length: theLength,  note: "")
         activities.append(current)
     }
     func  setCurrentActivity(currentAction: String) {
-        let current : Activity = Activity(action: currentAction, date: NSDate().roundDateToThirtyMinutes(), length: 30 , note: "")
+        let current : Activity = Activity(action: currentAction, date: NSDate().roundDateDownToTimeSlice(Tracker.sharedTracker.settings.timeSlice), length: 30 , note: "")
         activities.append(current)
     }
     func setNote(note: String, date: NSDate){
@@ -253,17 +253,7 @@ class Tracker {
     
 
 }
-extension NSDate{
-    var humanDate :String {
-        get{
-            let formatter = NSDateFormatter()
-            formatter.dateStyle = NSDateFormatterStyle.LongStyle
-            formatter.timeStyle = .MediumStyle
-            
-            return formatter.stringFromDate(self)
-        }
-    }
-}
+
 
 
 
