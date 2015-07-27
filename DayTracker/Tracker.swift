@@ -40,9 +40,9 @@ class Tracker {
         }
     }
     
-    
-    
-    
+    struct TrackerSettings{
+        var timeSlice: Int = 15
+    }
     struct Activity: CustomStringConvertible
     {
         var action : String
@@ -71,10 +71,10 @@ class Tracker {
     {
         var action : String
         var note : Bool
-        var productive : Int
+        var productive : String
         
         
-        internal init( action: String, note: Bool, productive : Int)
+        internal init( action: String, note: Bool, productive : String)
         {
             self.action = action
             self.note = note
@@ -115,9 +115,38 @@ class Tracker {
     }
 
 
-    
-
-    
+    /*
+    var activitiesByGroup : [[ActivitySetting]] {
+        var newActivities = [[ActivitySetting]]()
+        
+        
+        
+        var found : Bool = false
+        for (index,unit) in activityBag.enumerate()
+        {
+            if index == 0{
+                newActivities[0][0] = unit
+            } else{
+                found = false
+                for (index,unit2) in newActivities[0].enumerate(){
+                    
+                    if unit.productive == unit2.productive
+                    {
+                        newActivities[0][index].appendunit
+                        found = true
+                        
+                    }
+                }
+                if found == false
+                {
+                    newactivities
+                }
+            }
+        }
+        
+        return newActivities
+    }
+    */
     
     
     
@@ -136,6 +165,7 @@ class Tracker {
         set{ defaults.setObject(newValue, forKey:Settings.allActivities) }
     }
    
+    
     
     struct Settings {
         static let possibleActionsKey = "Tracker.PossibleActions"
@@ -193,7 +223,7 @@ class Tracker {
     
 
     
-    func addPossibleActivity(activity: String,  note:Bool, productive: Int){
+    func addPossibleActivity(activity: String,  note:Bool, productive: String){
         var newAction = [String:AnyObject]()
         
         newAction["action"] =  activity
