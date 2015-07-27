@@ -161,8 +161,8 @@ class NotificationManager {
         guard let category = currentCategoryForIdentifier(notification.category) else{
             return nil
         }
-        if category == "noteCategory"{
-            var alert = UIAlertController(title: "Add a note", message: " ", preferredStyle: UIAlertControllerStyle.Alert)
+        if category.identifier == "noteCategory"{
+            let alert = UIAlertController(title: "Add a note", message: " ", preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction(title: "Add", style: UIAlertActionStyle.Default, handler: { (action:UIAlertAction) -> Void in
                 if let tf = alert.textFields?.first as UITextField! {
                     Tracker.sharedTracker.setNote(tf.text ?? "", date: NSDate().roundDateDownToTimeSlice(Tracker.sharedTracker.settings.timeSlice))
@@ -216,7 +216,13 @@ class NotificationManager {
         UIApplication.sharedApplication().applicationIconBadgeNumber = 1
         UIApplication.sharedApplication().applicationIconBadgeNumber = 0
         Tracker.sharedTracker.setCurrentActivity(identifier, currentDate: NSDate().roundDateDownToTimeSlice(Tracker.sharedTracker.settings.timeSlice), theLength: Tracker.sharedTracker.settings.timeSlice)
+        if Tracker.sharedTracker.activityDetails(identifier)?.note == true{
+            fireNoteNotification()
+            checkCurrentNotifications()
+        }
         scheduleNotifications()
+        
+
     }
 }
 extension NSDate{
