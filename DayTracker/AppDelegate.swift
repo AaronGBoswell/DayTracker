@@ -19,6 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NotificationManager.sharedNotificationManager.registerNoteAction()
         NotificationManager.sharedNotificationManager.scheduleNotifications()
         NotificationManager.sharedNotificationManager.checkCurrentNotifications()
+       // NotificationManager.sharedNotificationManager.fireNoteNotification()
+
         return true
     }
     
@@ -46,6 +48,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
         if let alert = NotificationManager.sharedNotificationManager.alertFromNotification(notification){
+            print(alert.description)
             let rootViewController = self.window!.rootViewController
             rootViewController?.presentViewController(alert, animated: true, completion: nil)
         }
@@ -58,11 +61,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print(note)
         } else if identifier != nil {
             NotificationManager.sharedNotificationManager.responseWithIdentifier(identifier!)
-            if Tracker.sharedTracker.activityDetails(identifier!)?.note == true{
-                NotificationManager.sharedNotificationManager.fireNoteNotification()
-                NotificationManager.sharedNotificationManager.checkCurrentNotifications()
-            }
-
         }
 
         completionHandler()
