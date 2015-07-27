@@ -115,38 +115,33 @@ class Tracker {
     }
 
 
-    /*
-    var activitiesByGroup : [[ActivitySetting]] {
-        var newActivities = [[ActivitySetting]]()
-        
-        
-        
-        var found : Bool = false
-        for (index,unit) in activityBag.enumerate()
-        {
-            if index == 0{
-                newActivities[0][0] = unit
-            } else{
-                found = false
-                for (index,unit2) in newActivities[0].enumerate(){
-                    
-                    if unit.productive == unit2.productive
-                    {
-                        newActivities[0][index].appendunit
-                        found = true
-                        
+
+    var actionsByGroup : [[ActivitySetting]] {
+        get{
+            var returnArray = [[ActivitySetting]]()
+            for activity in activityBag{
+                let type = activity.productive
+                var added = false
+                for var arr in returnArray{
+                    if arr.first?.productive == type{
+                        arr.append(activity)
+                        added = true
                     }
                 }
-                if found == false
-                {
-                    newactivities
+                if added == false {
+                    var temp = [ActivitySetting]()
+                    temp.append(activity)
+                    returnArray.append(temp)
                 }
             }
+            return returnArray
         }
         
-        return newActivities
+        
+        
     }
-    */
+    
+    
     
     
     

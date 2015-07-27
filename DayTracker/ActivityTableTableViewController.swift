@@ -28,9 +28,8 @@ class ActivityTableTableViewController: UITableViewController {
     // MARK: - Table view data source
 
    
-    
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return Tracker.sharedTracker.activityTypes.count
+        return Tracker.sharedTracker.actionsByGroup.count
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -38,40 +37,31 @@ class ActivityTableTableViewController: UITableViewController {
         //print(Tracker.sharedTracker.activities)
         //
         //print(Tracker.sharedTracker.activityBag)
-        return Tracker.sharedTracker.activityBag.count
-        
-        
-        
+        return Tracker.sharedTracker.actionsByGroup[section].count
         
     }
     
     
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("ident", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier("identifier", forIndexPath: indexPath)
         
         
         
-        cell.textLabel!.text = Tracker.sharedTracker.activityBag[indexPath.row].action
-        cell.detailTextLabel!.text = Tracker.sharedTracker.activities[indexPath.row].date.humanDate
-        //print(Tracker.sharedTracker.activities[indexPath.row].note)
-        
+        cell.textLabel!.text = Tracker.sharedTracker.actionsByGroup[indexPath.section][indexPath.row].action
+       // cell.textLabel!.text = Tracker.sharedTracker.actionsByGroup[indexPath.section][indexPath.row]
+        //print(Tracker.sharedTracker.activities[
+    
+
         
         return cell
     }
 
-    
-
-    
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
-        
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
-
-        // Configure the cell...
-
-        return cell
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return Tracker.sharedTracker.actionsByGroup[section].first!.productive
     }
+
+    
 
 
     /*
