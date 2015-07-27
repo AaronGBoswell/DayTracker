@@ -74,7 +74,7 @@ class ActionTableViewController: UITableViewController
         
         cell.textLabel!.text = Tracker.sharedTracker.activities[indexPath.row].action
         cell.detailTextLabel!.text = Tracker.sharedTracker.activities[indexPath.row].date.humanDate
-        
+        //print(Tracker.sharedTracker.activities[indexPath.row].note)
         
         
         return cell
