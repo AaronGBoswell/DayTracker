@@ -71,10 +71,10 @@ class Tracker {
     {
         var action : String
         var note : Bool
-        var productive : Bool
+        var productive : String
         
         
-        internal init( action: String, note: Bool, productive : Bool)
+        internal init( action: String, note: Bool, productive : String)
         {
             self.action = action
             self.note = note
@@ -92,7 +92,7 @@ class Tracker {
             var newActivities = [ActivitySetting]()
             for activityDictionary in possibleActions
             {
-                let addition : ActivitySetting = ActivitySetting(action: activityDictionary["action"] as! String, note: activityDictionary["note"] as! Bool, productive: activityDictionary["productive"] as! Bool)
+                let addition : ActivitySetting = ActivitySetting(action: activityDictionary["action"] as! String, note: activityDictionary["note"] as! Bool, productive: activityDictionary["productive"] as! String)
                 newActivities.append(addition)
             }
             return newActivities
@@ -115,9 +115,39 @@ class Tracker {
     }
 
 
+    /*
+    var activitiesByGroup : [[ActivitySetting]] {
+        var newActivities = [[ActivitySetting]]()
+        
+        
+        
+        var found : Bool = false
+        for (index,unit) in activityBag.enumerate()
+        {
+            if index == 0{
+                newActivities[0][0] = unit
+            } else{
+                found = false
+                for (index,unit2) in newActivities[0].enumerate(){
+                    
+                    if unit.productive == unit2.productive
+                    {
+                        newActivities[0][index].appendunit
+                        found = true
+                        
+                    }
+                }
+                if found == false
+                {
+                    newactivities
+                }
+            }
+        }
+        
+        return newActivities
+    }
+    */
     
-    
-   
     
     
     private let defaults = NSUserDefaults.standardUserDefaults()
@@ -125,7 +155,7 @@ class Tracker {
     
     
     var possibleActions : [[String:AnyObject]]{
-        get{ return defaults.objectForKey(Settings.possibleActionsKey) as? [[String:AnyObject]] ?? [["action" : "Work" , "note" :true, "productive" : true ], ["action" : "Play" , "note" :true, "productive" : false], ["action" : "Eat" , "note" :false, "productive" : false]] }
+        get{ return defaults.objectForKey(Settings.possibleActionsKey) as? [[String:AnyObject]] ?? [["action" : "Work" , "note" :true, "productive" : "Job" ], ["action" : "Play" , "note" :true, "productive" : "Entertainment"], ["action" : "Eat" , "note" :false, "productive" : "Nutrition"]] }
         set{ defaults.setObject(newValue, forKey:Settings.possibleActionsKey) }
     }
     
@@ -134,11 +164,15 @@ class Tracker {
         get{ return defaults.objectForKey(Settings.allActivities) as? [[String:AnyObject]] ?? [] }
         set{ defaults.setObject(newValue, forKey:Settings.allActivities) }
     }
+   
     
     
     struct Settings {
         static let possibleActionsKey = "Tracker.PossibleActions"
         static let allActivities = "Tracker.allActivities"
+       
+        
+       
     }
     
     func  setCurrentActivity(current: Activity) {
@@ -189,7 +223,7 @@ class Tracker {
     
 
     
-    func addPossibleActivity(activity: String,  note:Bool, productive: Bool){
+    func addPossibleActivity(activity: String,  note:Bool, productive: String){
         var newAction = [String:AnyObject]()
         
         newAction["action"] =  activity

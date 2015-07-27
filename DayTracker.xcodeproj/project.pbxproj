@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9480C4131B66AC1B00A5D8E1 /* ActivityTableTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9480C4121B66AC1B00A5D8E1 /* ActivityTableTableViewController.swift */; };
+		9480C4141B66B80C00A5D8E1 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD92884E1B66ADFE00AB3684 /* NotificationManager.swift */; };
 		94AD43781B62FEFE0057C56E /* NoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AD43771B62FEFE0057C56E /* NoteViewController.swift */; };
 		94B753491B5FE3230038471B /* Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B753481B5FE3230038471B /* Tracker.swift */; };
-		BD92884F1B66ADFE00AB3684 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD92884E1B66ADFE00AB3684 /* NotificationManager.swift */; };
 		BDBABC361B5FD19C00158459 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBABC351B5FD19C00158459 /* AppDelegate.swift */; };
 		BDBABC3B1B5FD19D00158459 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BDBABC391B5FD19D00158459 /* Main.storyboard */; };
 		BDBABC3D1B5FD19D00158459 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDBABC3C1B5FD19D00158459 /* Assets.xcassets */; };
@@ -68,6 +69,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		9480C4121B66AC1B00A5D8E1 /* ActivityTableTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityTableTableViewController.swift; sourceTree = "<group>"; };
 		94AD43771B62FEFE0057C56E /* NoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteViewController.swift; sourceTree = "<group>"; };
 		94B753481B5FE3230038471B /* Tracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tracker.swift; sourceTree = "<group>"; };
 		BD92884E1B66ADFE00AB3684 /* NotificationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 				BDBABC7C1B5FD58000158459 /* ActionTableViewController.swift */,
 				94AD43771B62FEFE0057C56E /* NoteViewController.swift */,
 				94B753481B5FE3230038471B /* Tracker.swift */,
+				9480C4121B66AC1B00A5D8E1 /* ActivityTableTableViewController.swift */,
 				BDBABC391B5FD19D00158459 /* Main.storyboard */,
 				BDBABC3C1B5FD19D00158459 /* Assets.xcassets */,
 				BDBABC3E1B5FD19D00158459 /* LaunchScreen.storyboard */,
@@ -311,9 +314,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9480C4141B66B80C00A5D8E1 /* NotificationManager.swift in Sources */,
 				94AD43781B62FEFE0057C56E /* NoteViewController.swift in Sources */,
 				94B753491B5FE3230038471B /* Tracker.swift in Sources */,
-				BD92884F1B66ADFE00AB3684 /* NotificationManager.swift in Sources */,
+				9480C4131B66AC1B00A5D8E1 /* ActivityTableTableViewController.swift in Sources */,
 				BDBABC361B5FD19C00158459 /* AppDelegate.swift in Sources */,
 				BDBABC7D1B5FD58000158459 /* ActionTableViewController.swift in Sources */,
 			);
