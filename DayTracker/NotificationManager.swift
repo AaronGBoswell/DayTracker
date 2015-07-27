@@ -153,18 +153,28 @@ class NotificationManager {
         inviteCategory.identifier = "noteCategory"
         
         let categories = NSSet(object: inviteCategory)
-        
-        // Configure other actions and categories and add them to the set...
-        //var types = UIUserNotificationType.Alert.rawValue | UIUserNotificationType.Badge.rawValue | UIUserNotificationType.Sound.rawValue
-        //var ts: UIUserNotificationType = types as! UIUserNotificationType
-        
         let settings = UIUserNotificationSettings(forTypes: [.Alert,.Badge,.Sound], categories: categories as? Set<UIUserNotificationCategory>)
         
         UIApplication.sharedApplication().registerUserNotificationSettings(settings)
     }
     func alertFromNotification(notification:UILocalNotification) -> UIAlertController?{
-        guard let category = currentCategoryForIdentifier(notification.category),
-            let notificationActions = category.actionsForContext(UIUserNotificationActionContext.Default) else{
+        guard let category = currentCategoryForIdentifier(notification.category) else{
+            return nil
+        }
+        if category == "noteCategory"{
+            var alert = UIAlertController(title: "Add a note", message: " ", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "Add", style: UIAlertActionStyle.Default, handler: { (action:UIAlertAction) -> Void in
+                if let tf = alert.textFields?.first as UITextField! {
+                    Tracker.sharedTracker.setNote(tf.text ?? "", date: NSDate().roundDateDownToTimeSlice(Tracker.sharedTracker.settings.timeSlice))
+                } 
+
+            }))
+            alert.addTextFieldWithConfigurationHandler({ (textField: UITextField) -> Void in
+                textField.placeholder = "Note"
+            })
+            return alert
+        }
+        guard let notificationActions = category.actionsForContext(UIUserNotificationActionContext.Default) else{
                 return nil
         }
         var uiActions = [UIAlertAction]()
@@ -175,7 +185,7 @@ class NotificationManager {
             action = UIAlertAction(title: title, style: UIAlertActionStyle.Default, handler: { (alertAction) -> Void in
                 self.responseWithIdentifier(identifier)
             })
-            // var action = UIAlertAction(title: title, style: UIAlertActionStyle.Default, handler: {[unowned self] in self.responseWithIdentifier(identifier)})
+
             uiActions.append(action)
             
         }
