@@ -137,10 +137,35 @@ class Tracker {
             return returnArray
         }
         
+    
+        
         
         
     }
     
+    
+    var groups : [String] {
+        var returnArray =  [String]()
+        for array in actionsByGroup{
+            returnArray.append((array.first?.productive)!)
+            
+        }
+        return returnArray
+
+    }
+    
+    func activitiesBasedOnGroup(group: String) -> [ActivitySetting] {
+        
+        
+        for array in actionsByGroup{
+            if array.first?.productive == group {
+                return array
+            }
+        }
+        // i know this is assanine
+        return [ActivitySetting]()
+        
+    }
     
     
     
