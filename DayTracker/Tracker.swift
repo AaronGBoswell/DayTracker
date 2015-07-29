@@ -162,6 +162,7 @@ class Tracker {
                 return array
             }
         }
+        
         // i know this is assanine
         return [ActivitySetting]()
         
