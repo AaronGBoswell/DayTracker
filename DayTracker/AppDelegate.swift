@@ -59,6 +59,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let note = responseInfo[UIUserNotificationActionResponseTypedTextKey] as? String{
             Tracker.sharedTracker.setNote(note, date: NSDate().roundDateDownToTimeSlice(Tracker.sharedTracker.settings.timeSlice))
             print(note)
+            UIApplication.sharedApplication().applicationIconBadgeNumber--
         } else if identifier != nil {
             NotificationManager.sharedNotificationManager.responseWithIdentifier(identifier!)
         }

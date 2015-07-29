@@ -40,8 +40,8 @@ class NotificationManager {
     }
     
     func cancelNotification(notification:UILocalNotification){
-        UIApplication.sharedApplication().applicationIconBadgeNumber = 1
-        UIApplication.sharedApplication().applicationIconBadgeNumber = 0
+        UIApplication.sharedApplication().applicationIconBadgeNumber++
+        UIApplication.sharedApplication().applicationIconBadgeNumber--
         UIApplication.sharedApplication().cancelLocalNotification(notification)
     }
     func checkCurrentNotifications(){
@@ -89,7 +89,7 @@ class NotificationManager {
         notification.timeZone = NSTimeZone.defaultTimeZone()
         notification.category = date.description
         notification.soundName = UILocalNotificationDefaultSoundName
-        notification.applicationIconBadgeNumber = 0
+        notification.applicationIconBadgeNumber++
         notification.alertBody = "What have you been doing?"
         UIApplication.sharedApplication().scheduleLocalNotification(notification)
         print(date.humanDate)
@@ -102,7 +102,7 @@ class NotificationManager {
         notification.timeZone = NSTimeZone.defaultTimeZone()
         notification.category = "noteCategory"
         notification.soundName = UILocalNotificationDefaultSoundName
-        notification.applicationIconBadgeNumber = 0
+        notification.applicationIconBadgeNumber++
         notification.alertBody = " "        
         UIApplication.sharedApplication().scheduleLocalNotification(notification)
         print("Note scheduled")
@@ -213,8 +213,6 @@ class NotificationManager {
     func responseWithIdentifier(identifier:String){
         consolidateNotifications()
         print(identifier)
-        UIApplication.sharedApplication().applicationIconBadgeNumber = 1
-        UIApplication.sharedApplication().applicationIconBadgeNumber = 0
         Tracker.sharedTracker.setCurrentActivity(identifier, currentDate: NSDate().roundDateDownToTimeSlice(Tracker.sharedTracker.settings.timeSlice), theLength: Tracker.sharedTracker.settings.timeSlice)
         if Tracker.sharedTracker.activityDetails(identifier)?.note == true{
             fireNoteNotification()
