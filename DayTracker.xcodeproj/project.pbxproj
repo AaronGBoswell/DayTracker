@@ -255,7 +255,7 @@
 					};
 					BDBABC541B5FD1DA00158459 = {
 						CreatedOnToolsVersion = 7.0;
-						DevelopmentTeam = 27RHNLCLG4;
+						DevelopmentTeam = NN7HR27RDT;
 					};
 				};
 			};
