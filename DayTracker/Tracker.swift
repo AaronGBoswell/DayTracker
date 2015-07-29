@@ -292,7 +292,9 @@ class Tracker {
 
     
     func predictActivities(dateFor: NSDate) -> [String]?{
-        return ["Work", "Play","Eat","Run", "Walk", "Dance"]
+        return activityBag.map({ (element: ActivitySetting) -> String in
+            return element.action
+        })
     }
     
     
