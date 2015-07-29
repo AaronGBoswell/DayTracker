@@ -122,9 +122,9 @@ class Tracker {
             for activity in activityBag{
                 let type = activity.productive
                 var added = false
-                for var arr in returnArray{
+                for (index, arr) in returnArray.enumerate(){
                     if arr.first?.productive == type{
-                        arr.append(activity)
+                        returnArray[index].append(activity)
                         added = true
                     }
                 }
@@ -150,7 +150,7 @@ class Tracker {
     
     
     var possibleActions : [[String:AnyObject]]{
-        get{ return defaults.objectForKey(Settings.possibleActionsKey) as? [[String:AnyObject]] ?? [["action" : "Work" , "note" :true, "productive" : "Job" ], ["action" : "Play" , "note" :true, "productive" : "Entertainment"], ["action" : "Eat" , "note" :false, "productive" : "Nutrition"]] }
+        get{ return defaults.objectForKey(Settings.possibleActionsKey) as? [[String:AnyObject]] ?? [["action" : "Programing" , "note" :true, "productive" : "Job" ], ["action" : "Yard Work" , "note" :true, "productive" : "Job" ], ["action" : "Television" , "note" :false, "productive" : "Entertainment"], ["action" : "Relaxing" , "note" :false, "productive" : "Entertainment"], ["action" : "Gaming" , "note" :false, "productive" : "Entertainment"],["action" : "Eat" , "note" :false, "productive" : "Nutrition"]] }
         set{ defaults.setObject(newValue, forKey:Settings.possibleActionsKey) }
     }
     
