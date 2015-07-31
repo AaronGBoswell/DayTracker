@@ -143,6 +143,79 @@ class Tracker {
         
     }
     
+    var todaysArray : [Activity] {
+        let date = NSDate()
+        var returnArray = [Activity]()
+        let cal = NSCalendar.currentCalendar()
+        let dateComponents = cal.components([NSCalendarUnit.Month, NSCalendarUnit.Era , NSCalendarUnit.Year,NSCalendarUnit.Day,NSCalendarUnit.Hour,NSCalendarUnit.Minute], fromDate: date)
+        
+        
+        
+        for unit in activities{
+            let unitComponents = cal.components([NSCalendarUnit.Month, NSCalendarUnit.Era , NSCalendarUnit.Year,NSCalendarUnit.Day,NSCalendarUnit.Hour,NSCalendarUnit.Minute], fromDate: unit.date)
+            
+            if dateComponents.month == unitComponents.month && dateComponents.year == unitComponents.year && dateComponents.day == unitComponents.day {
+                returnArray.append(unit)
+            }
+        }
+        return returnArray
+        
+        
+    }
+    /*
+    
+    var todaysOrginizedArray : [[Activity]] {
+        let date = NSDate()
+        var returnArray = [[Activity]]()
+        var early = [Activity]()
+        var morning = [Activity]()
+        var midday = [Activity]()
+        var night = [Activity]()
+        var late = [Activity]()
+        
+        let cal = NSCalendar.currentCalendar()
+        let dateComponents = cal.components([NSCalendarUnit.Month, NSCalendarUnit.Era , NSCalendarUnit.Year,NSCalendarUnit.Day,NSCalendarUnit.Hour,NSCalendarUnit.Minute], fromDate: date)
+        
+        
+        
+        for unit in activities{
+            let unitComponents = cal.components([NSCalendarUnit.Month, NSCalendarUnit.Era , NSCalendarUnit.Year,NSCalendarUnit.Day,NSCalendarUnit.Hour,NSCalendarUnit.Minute], fromDate: unit.date)
+            
+            if dateComponents.month == unitComponents.month && dateComponents.year == unitComponents.year && dateComponents.day == unitComponents.day {
+                if unitComponents.hour < 8 {
+                    early.append(unit)
+                } else if unitComponents.hour < 12 {
+                    morning.append(unit)
+                } else if unitComponents.hour < 16 {
+                    midday.append(unit)
+                } else if unitComponents.hour < 20 {
+                    night.append(unit)
+                } else if unitComponents.hour < 24 {
+                    late.append(unit)
+                }
+            }
+        }
+       
+        if let early.first{
+            returnArray.append(early)
+        }
+        if let morning.first{
+            returnArray.append(morning)
+        }
+        if let midday.first{
+            returnArray.append(midday)
+        }
+        if let night.first{
+            returnArray.append(night)
+        }
+        if let late.first{
+            returnArray.append(late)
+        }
+        return returnArray
+        
+    }
+*/
+    
     
     var groups : [String] {
         var returnArray =  [String]()
@@ -162,6 +235,7 @@ class Tracker {
                 return array
             }
         }
+        
         // i know this is assanine
         return [ActivitySetting]()
         
@@ -290,13 +364,75 @@ class Tracker {
     
 
 
-    
+    /*
     func predictActivities(dateFor: NSDate) -> [String]?{
         return activityBag.map({ (element: ActivitySetting) -> String in
             return element.action
         })
+        
+        
     }
     
+    */
+    func predictActivities(date: NSDate) -> [String]?{
+        
+   // let date = NSDate()
+    var returnArray = [String]()
+    let cal = NSCalendar.currentCalendar()
+    let dateComponents = cal.components([NSCalendarUnit.Month, NSCalendarUnit.Era , NSCalendarUnit.Year,NSCalendarUnit.Day,NSCalendarUnit.Hour,NSCalendarUnit.Minute], fromDate: date)
+    
+    
+    
+        for unit in activities{
+        let unitComponents = cal.components([NSCalendarUnit.Month, NSCalendarUnit.Era , NSCalendarUnit.Year,NSCalendarUnit.Day,NSCalendarUnit.Hour,NSCalendarUnit.Minute], fromDate: unit.date)
+            if dateComponents.month == unitComponents.month && dateComponents.year == unitComponents.year && dateComponents.day == (unitComponents.day - 3) {
+                if dateComponents.hour == (unitComponents.hour - 1) {
+                    print(unit.action)
+                    for unit2 in returnArray {
+                        if unit2 != unit.action {
+                            returnArray.append(unit.action)
+                            print("added")
+                        }
+                    }
+                }
+   
+    
+            }
+        
+        }
+        
+        if returnArray.count < 3 && returnArray.count > 0 {
+            for unit in activitiesBasedOnGroup((activityDetails(returnArray[0])?.productive)!){
+                returnArray.append(unit.action)
+            }
+        }
+        print(returnArray)
+        return returnArray
+    }
+
+    
+    
+    
+    
+    func getArrayForDate(date: NSDate) -> [Activity] {
+        
+        var returnArray = [Activity]()
+        let cal = NSCalendar.currentCalendar()
+        let dateComponents = cal.components([NSCalendarUnit.Month, NSCalendarUnit.Era , NSCalendarUnit.Year,NSCalendarUnit.Day,NSCalendarUnit.Hour,NSCalendarUnit.Minute], fromDate: date)
+        
+        
+        
+        for unit in activities{
+            let unitComponents = cal.components([NSCalendarUnit.Month, NSCalendarUnit.Era , NSCalendarUnit.Year,NSCalendarUnit.Day,NSCalendarUnit.Hour,NSCalendarUnit.Minute], fromDate: unit.date)
+            
+            if dateComponents.month == unitComponents.month && dateComponents.year == unitComponents.year && dateComponents.day == unitComponents.day {
+                returnArray.append(unit)
+            }
+        }
+        return returnArray
+        
+        
+    }
     
     
     
