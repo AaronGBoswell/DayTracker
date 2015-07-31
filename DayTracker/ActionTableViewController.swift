@@ -61,7 +61,8 @@ class ActionTableViewController: UITableViewController
         //print(Tracker.sharedTracker.activities)
        //
         //print(Tracker.sharedTracker.activityBag)
-        return Tracker.sharedTracker.activities.count
+        //return Tracker.sharedTracker.activities.count
+        return Tracker.sharedTracker.todaysArray.count
         
     }
     
@@ -72,8 +73,8 @@ class ActionTableViewController: UITableViewController
         
         
         
-        cell.textLabel!.text = Tracker.sharedTracker.activities[indexPath.row].action
-        cell.detailTextLabel!.text = Tracker.sharedTracker.activities[indexPath.row].date.humanDate
+        cell.textLabel!.text = Tracker.sharedTracker.todaysArray[indexPath.row].action
+        cell.detailTextLabel!.text = Tracker.sharedTracker.todaysArray[indexPath.row].date.humanDate
         //print(Tracker.sharedTracker.activities[indexPath.row].note)
         
         
