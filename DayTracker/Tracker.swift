@@ -361,10 +361,23 @@ class Tracker {
         return nil
     }
     
+    func predictGroup(dateFor:NSDate) -> [String]?{
+        var returnArray = [String]()
+        for arr in actionsByGroup {
+            returnArray.append((arr.first?.productive)!)
+        }
+        return returnArray
+    }
+    func predictActivities(dateFor:NSDate, fromGroup group:String) -> [String]?{
+        var returnArray = [String]()
+        for element in activitiesBasedOnGroup(group) {
+            returnArray.append(element.productive)
+        }
+        return returnArray
+    }
+
+
     
-
-
-    /*
     func predictActivities(dateFor: NSDate) -> [String]?{
         return activityBag.map({ (element: ActivitySetting) -> String in
             return element.action
@@ -373,7 +386,8 @@ class Tracker {
         
     }
     
-    */
+    
+    /*
     func predictActivities(date: NSDate) -> [String]?{
         
    // let date = NSDate()
@@ -411,7 +425,7 @@ class Tracker {
     }
 
     
-    
+    */
     
     
     func getArrayForDate(date: NSDate) -> [Activity] {
