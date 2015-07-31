@@ -42,6 +42,7 @@ class NotificationManager {
     func cancelNotification(notification:UILocalNotification){
         UIApplication.sharedApplication().applicationIconBadgeNumber++
         UIApplication.sharedApplication().applicationIconBadgeNumber--
+        UIApplication.sharedApplication().applicationIconBadgeNumber--
         UIApplication.sharedApplication().cancelLocalNotification(notification)
     }
     func checkCurrentNotifications(){
@@ -69,6 +70,14 @@ class NotificationManager {
             }
             scheduleNotificationForDate(date)
             date = date.dateForNextTimeSlice(Tracker.sharedTracker.settings.timeSlice)
+        }
+    }
+    func cancelPastNotifications(){
+        for notification in UIApplication.sharedApplication().scheduledLocalNotifications!{
+            let date = NSDate().dateByAddingTimeInterval(60)
+            if date.laterDate(notification.fireDate!) == date{
+                cancelNotification(notification)
+            }
         }
     }
     func notificationForDate(date:NSDate) -> UILocalNotification?{
@@ -264,6 +273,7 @@ class NotificationManager {
             }
         }
         scheduleNotifications()
+        cancelPastNotifications()
         
 
     }
