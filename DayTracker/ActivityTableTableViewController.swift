@@ -29,7 +29,7 @@ class ActivityTableTableViewController: UITableViewController {
 
    
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return Tracker.sharedTracker.actionsByGroup.count
+        return Tracker.sharedTracker.activitiesByGroup.count
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -37,7 +37,7 @@ class ActivityTableTableViewController: UITableViewController {
         //print(Tracker.sharedTracker.activities)
         //
         //print(Tracker.sharedTracker.activityBag)
-        return Tracker.sharedTracker.actionsByGroup[section].count
+        return Tracker.sharedTracker.activitiesByGroup[section].count
         
     }
     
@@ -48,7 +48,7 @@ class ActivityTableTableViewController: UITableViewController {
         
         
         
-        cell.textLabel!.text = Tracker.sharedTracker.actionsByGroup[indexPath.section][indexPath.row].action
+        cell.textLabel!.text = Tracker.sharedTracker.activitiesByGroup[indexPath.section][indexPath.row].action
        // cell.textLabel!.text = Tracker.sharedTracker.actionsByGroup[indexPath.section][indexPath.row]
         //print(Tracker.sharedTracker.activities[
     
@@ -58,7 +58,7 @@ class ActivityTableTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return Tracker.sharedTracker.actionsByGroup[section].first!.productive
+        return Tracker.sharedTracker.activitiesByGroup[section].first!.productive
     }
 
     
