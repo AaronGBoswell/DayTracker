@@ -53,7 +53,9 @@ class ActionTableViewController: UITableViewController
     // MARK: - Table view data source
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        
+        
+        return Tracker.sharedTracker.todaysOrginizedArray.count
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {        
@@ -62,7 +64,7 @@ class ActionTableViewController: UITableViewController
        //
         //print(Tracker.sharedTracker.activityBag)
         //return Tracker.sharedTracker.activities.count
-        return Tracker.sharedTracker.todaysArray.count
+        return Tracker.sharedTracker.todaysOrginizedArray[section].count
         
     }
     
@@ -73,12 +75,41 @@ class ActionTableViewController: UITableViewController
         
         
         
-        cell.textLabel!.text = Tracker.sharedTracker.todaysArray[indexPath.row].action
-        cell.detailTextLabel!.text = Tracker.sharedTracker.todaysArray[indexPath.row].date.humanDate
+        //cell.textLabel!.text = Tracker.sharedTracker.todaysArray[indexPath.row].action
+        //cell.detailTextLabel!.text = Tracker.sharedTracker.todaysArray[indexPath.row].date.humanDate
         //print(Tracker.sharedTracker.activities[indexPath.row].note)
         
         
+        cell.textLabel!.text = Tracker.sharedTracker.todaysOrginizedArray[indexPath.section][indexPath.row].action
+        cell.detailTextLabel!.text = Tracker.sharedTracker.todaysOrginizedArray[indexPath.section][indexPath.row].date.humanDate
+        
         return cell
+    }
+    
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+        
+        
+        let cal = NSCalendar.currentCalendar()
+        let unitComponents = cal.components([NSCalendarUnit.Month, NSCalendarUnit.Era , NSCalendarUnit.Year,NSCalendarUnit.Day,NSCalendarUnit.Hour,NSCalendarUnit.Minute], fromDate: Tracker.sharedTracker.todaysOrginizedArray[section].first!.date)
+       
+        if unitComponents.hour < 8 {
+            return "Early"
+        } else if unitComponents.hour < 12 {
+            return "Morning"
+        } else if unitComponents.hour < 16 {
+            return"Midday"
+        } else if unitComponents.hour < 20 {
+            return "Night"
+        } else if unitComponents.hour < 24 {
+            return "Late"
+        }
+        return "Some Time"
+        
+
+        
+        
+        
     }
     
     

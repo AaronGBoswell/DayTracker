@@ -162,7 +162,7 @@ class Tracker {
         
         
     }
-    /*
+    
     
     var todaysOrginizedArray : [[Activity]] {
         let date = NSDate()
@@ -196,25 +196,25 @@ class Tracker {
             }
         }
        
-        if let early.first{
+        if early.first != nil{
             returnArray.append(early)
         }
-        if let morning.first{
+        if morning.first != nil{
             returnArray.append(morning)
         }
-        if let midday.first{
+        if midday.first != nil{
             returnArray.append(midday)
         }
-        if let night.first{
+        if night.first != nil{
             returnArray.append(night)
         }
-        if let late.first{
+        if late.first != nil{
             returnArray.append(late)
         }
         return returnArray
         
     }
-*/
+
     
     
     var groups : [String] {
@@ -227,21 +227,8 @@ class Tracker {
 
     }
     
-    func activitiesBasedOnGroup(group: String) -> [ActivitySetting] {
-        
-        
-        for array in actionsByGroup{
-            if array.first?.productive == group {
-                return array
-            }
-        }
-        
-        // i know this is assanine
-        return [ActivitySetting]()
-        
-    }
     
-    
+   
     
     
     private let defaults = NSUserDefaults.standardUserDefaults()
@@ -268,6 +255,21 @@ class Tracker {
         
        
     }
+    
+    func activitiesBasedOnGroup(group: String) -> [ActivitySetting] {
+        
+        
+        for array in actionsByGroup{
+            if array.first?.productive == group {
+                return array
+            }
+        }
+        
+        // i know this is assanine
+        return [ActivitySetting]()
+        
+    }
+
     
     func  setCurrentActivity(current: Activity) {
         activities.append(current)
@@ -364,7 +366,7 @@ class Tracker {
     
 
 
-    /*
+   
     func predictActivities(dateFor: NSDate) -> [String]?{
         return activityBag.map({ (element: ActivitySetting) -> String in
             return element.action
@@ -373,7 +375,7 @@ class Tracker {
         
     }
     
-    */
+     /*
     func predictActivities(date: NSDate) -> [String]?{
         
    // let date = NSDate()
@@ -411,7 +413,7 @@ class Tracker {
     }
 
     
-    
+    */
     
     
     func getArrayForDate(date: NSDate) -> [Activity] {
