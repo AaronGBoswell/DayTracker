@@ -379,6 +379,7 @@ class Tracker {
     }
 
 
+    
    
     func predictActivities(dateFor: NSDate) -> [String]?{
         return activityBag.map({ (element: ActivitySetting) -> String in
@@ -388,7 +389,8 @@ class Tracker {
         
     }
     
-     /*
+    
+    /*
     func predictActivities(date: NSDate) -> [String]?{
         
    // let date = NSDate()
