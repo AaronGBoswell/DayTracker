@@ -180,7 +180,7 @@ class ActionTableViewController: UITableViewController
                     let cell = sender as? UITableViewCell
                     self.tableView.indexPathForCell(cell!)
                     
-                    let note = Tracker.sharedTracker.activities[self.tableView.indexPathForCell(cell!)!.row]
+                    let note = Tracker.sharedTracker.todaysOrginizedArray[self.tableView.indexPathForCell(cell!)!.section][self.tableView.indexPathForCell(cell!)!.row]
                     NVC.note = note
                 default: break
                 }

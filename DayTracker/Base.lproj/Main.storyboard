@@ -122,7 +122,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="identifier" id="yPw-8A-oIr">
-                                <rect key="frame" x="0.0" y="86" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="22" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yPw-8A-oIr" id="d3B-tB-akt">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
@@ -147,7 +147,7 @@
             </objects>
             <point key="canvasLocation" x="2019" y="1417"/>
         </scene>
-        <!--Activity Detail View Controller-->
+        <!--New Activity-->
         <scene sceneID="9Mi-EO-G1G">
             <objects>
                 <viewController id="3DQ-5Z-Ckk" customClass="ActivityDetailViewController" customModule="DayTracker" customModuleProvider="target" sceneMemberID="viewController">
@@ -159,18 +159,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Name Of Activity" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MDb-te-6i1">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Name Of Activity" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MDb-te-6i1">
                                 <rect key="frame" x="20" y="72" width="560" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w1d-p9-QOO">
+                            <pickerView contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w1d-p9-QOO">
                                 <rect key="frame" x="0.0" y="149" width="600" height="216"/>
                             </pickerView>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ine-WJ-Of6">
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ine-WJ-Of6">
                                 <rect key="frame" x="20" y="110" width="51" height="31"/>
                             </switch>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Note" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="APM-Lf-JDv">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Note" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="APM-Lf-JDv">
                                 <rect key="frame" x="77" y="110" width="49" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="49" id="IVa-SR-aSa"/>
@@ -195,10 +195,20 @@
                             <constraint firstItem="MDb-te-6i1" firstAttribute="leading" secondItem="ine-WJ-Of6" secondAttribute="leading" id="w6R-9V-BN2"/>
                         </constraints>
                     </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="New Activity" id="xT7-GW-Dpu">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="ioc-yr-0VO">
+                            <connections>
+                                <action selector="doneAndSave:" destination="3DQ-5Z-Ckk" id="2Cf-rx-yJK"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="groupPicker" destination="w1d-p9-QOO" id="Hdj-gL-28c"/>
                         <outlet property="nameTextFieldOutlet" destination="MDb-te-6i1" id="qLn-hK-tyS"/>
                         <outlet property="noteSwitch" destination="ine-WJ-Of6" id="qVH-gV-Nl3"/>
+                        <segue destination="em9-PA-96l" kind="show" identifier="Done" id="g1Q-NT-2Am"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NCY-0Z-ASF" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -263,4 +273,7 @@
             <point key="canvasLocation" x="237" y="1058"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="g1Q-NT-2Am"/>
+    </inferredMetricsTieBreakers>
 </document>
