@@ -19,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NotificationManager.sharedNotificationManager.registerNoteAction()
         NotificationManager.sharedNotificationManager.scheduleNotifications()
         NotificationManager.sharedNotificationManager.checkCurrentNotifications()
+        NotificationManager.sharedNotificationManager.cancelPastNotifications()
        // NotificationManager.sharedNotificationManager.fireNoteNotification()
 
         return true
@@ -36,6 +37,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationWillEnterForeground(application: UIApplication) {
+        print("willenterforground")
+        for notification in UIApplication.sharedApplication().scheduledLocalNotifications!{
+            let date = NSDate()
+            if date.laterDate(notification.fireDate!) == date{
+                print(notification.description)
+            }
+        }
+        print("Donewillenterforground")
+
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     }
     
@@ -46,12 +56,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
+    
     func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
+        print("receivedNoty")
+        print(notification.description)
         if let alert = NotificationManager.sharedNotificationManager.alertFromNotification(notification){
             print(alert.description)
             let rootViewController = self.window!.rootViewController
             rootViewController?.presentViewController(alert, animated: true, completion: nil)
         }
+        NotificationManager.sharedNotificationManager.cancelNotification(notification)
+        print("outrecivedNoty")
+
 
     }
     

@@ -18,7 +18,7 @@ class ActivityDetailViewController: UIViewController ,UIPickerViewDataSource,UIP
     @IBOutlet weak var noteSwitch: UISwitch!
     @IBOutlet weak var groupPicker: UIPickerView!
     
-    let pickerData = Tracker.sharedTracker.groups
+    var pickerData = Tracker.sharedTracker.groups
     
     
     
