@@ -138,7 +138,7 @@
                     <navigationItem key="navigationItem" title="Activities" id="73m-iy-hqY">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="hDQ-vk-5Og">
                             <connections>
-                                <segue destination="3DQ-5Z-Ckk" kind="show" id="CjW-C7-Upm"/>
+                                <segue destination="3DQ-5Z-Ckk" kind="show" identifier="ShowActivityDetail" id="CjW-C7-Upm"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

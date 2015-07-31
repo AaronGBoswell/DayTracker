@@ -11,13 +11,13 @@ import UIKit
 class ActivityDetailViewController: UIViewController ,UIPickerViewDataSource,UIPickerViewDelegate{
 
     
-    @IBOutlet weak var nameTextFieldOutlet: UITextField!
     
+    var populate : Tracker.Activity?
+    
+    @IBOutlet weak var nameTextFieldOutlet: UITextField!
     @IBOutlet weak var noteSwitch: UISwitch!
-
     @IBOutlet weak var groupPicker: UIPickerView!
     
-  
     let pickerData = Tracker.sharedTracker.groups
     
     

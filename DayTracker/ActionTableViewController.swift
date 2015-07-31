@@ -112,14 +112,15 @@ class ActionTableViewController: UITableViewController
         
     }
     
-    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
         
-       
+        
         performSegueWithIdentifier("ShowNote", sender: tableView.cellForRowAtIndexPath(indexPath))
         
         
     }
+    
+    
     
     
     /*
