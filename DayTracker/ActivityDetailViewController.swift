@@ -18,7 +18,7 @@ class ActivityDetailViewController: UIViewController ,UIPickerViewDataSource,UIP
     @IBOutlet weak var groupPicker: UIPickerView!
     
   
-    let pickerData = Tracker.sharedTracker.groups
+    var pickerData = Tracker.sharedTracker.groups
     
     
     
@@ -48,5 +48,21 @@ class ActivityDetailViewController: UIViewController ,UIPickerViewDataSource,UIP
     }
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-         }
+        if row == pickerData.count {
+            
+            let alert = UIAlertController(title: "Add a group", message: " ", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "Add", style: UIAlertActionStyle.Default, handler: { (action:UIAlertAction) -> Void in
+                if let tf = alert.textFields?.first as UITextField! {
+                    self.pickerData.append(tf.text ?? "")
+                    self.groupPicker.reloadAllComponents()
+                }
+                
+            }))
+            alert.addTextFieldWithConfigurationHandler({ (textField: UITextField) -> Void in
+                textField.placeholder = "group"
+            })
+            presentViewController(alert, animated: true, completion: nil)
+
+        }
+    }
 }
