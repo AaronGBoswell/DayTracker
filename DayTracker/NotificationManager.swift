@@ -96,6 +96,22 @@ class NotificationManager {
         print("scheduled")
         
     }
+    
+    func scheduleNotificationWithCategoryForNow(category:String){
+        let notification = UILocalNotification()
+        notification.fireDate = NSDate()
+        notification.timeZone = NSTimeZone.defaultTimeZone()
+        notification.category = category
+        notification.soundName = UILocalNotificationDefaultSoundName
+        notification.applicationIconBadgeNumber++
+        notification.alertBody = "What have you been doing?"
+        UIApplication.sharedApplication().scheduleLocalNotification(notification)
+        //print(date.humanDate)
+        //print("scheduled")
+        
+    }
+    
+    
     func fireNoteNotification(){
         let notification = UILocalNotification()
         notification.fireDate = NSDate()
@@ -109,11 +125,17 @@ class NotificationManager {
         
     }
     func refreshCategoryForDate(date:NSDate){
-        guard let strings = Tracker.sharedTracker.predictActivities(date) else{
+        guard   let strings = Tracker.sharedTracker.predictActivities(date),
+                let groups = Tracker.sharedTracker.predictGroup(date) else{
             return
         }
+        makeCategoryWithOptions(strings, minimalOptions : groups, identifier: date.description)
+        
+    }
+    func makeCategoryWithOptions(options: [String], minimalOptions:[String]? = nil, identifier:String){
+        let newCategory = UIMutableUserNotificationCategory()
         var actions = [UIMutableUserNotificationAction]()
-        for string in strings{
+        for string in options{
             let action = UIMutableUserNotificationAction()
             action.title = string
             action.identifier = string
@@ -121,9 +143,20 @@ class NotificationManager {
             action.authenticationRequired = false
             actions.append(action)
         }
-        let newCategory = UIMutableUserNotificationCategory()
+        if let minOptions = minimalOptions{
+            var minimalActions = [ UIMutableUserNotificationAction]()
+            for string in minOptions{
+                let action = UIMutableUserNotificationAction()
+                action.title = string
+                action.identifier = "/"+string
+                action.activationMode = UIUserNotificationActivationMode.Background
+                action.authenticationRequired = false
+                minimalActions.append(action)
+            }
+            newCategory.setActions(minimalActions, forContext: UIUserNotificationActionContext.Minimal)
+        }
         newCategory.setActions(actions, forContext: UIUserNotificationActionContext.Default)
-        newCategory.identifier = date.description
+        newCategory.identifier = identifier
         let newCategories = NSMutableSet()
         if let categories = UIApplication.sharedApplication().currentUserNotificationSettings()?.categories{
             for category in categories {
@@ -136,7 +169,7 @@ class NotificationManager {
         let set = NSSet(set:newCategories)
         let settings = UIUserNotificationSettings(forTypes: [.Alert,.Badge,.Sound], categories: set as? Set<UIUserNotificationCategory>)
         UIApplication.sharedApplication().registerUserNotificationSettings(settings)
-        
+
     }
     func registerNoteAction() {
         
@@ -213,10 +246,22 @@ class NotificationManager {
     func responseWithIdentifier(identifier:String){
         consolidateNotifications()
         print(identifier)
-        Tracker.sharedTracker.setCurrentActivity(identifier, currentDate: NSDate().roundDateDownToTimeSlice(Tracker.sharedTracker.settings.timeSlice), theLength: Tracker.sharedTracker.settings.timeSlice)
-        if Tracker.sharedTracker.activityDetails(identifier)?.note == true{
-            fireNoteNotification()
-            checkCurrentNotifications()
+        if identifier.hasPrefix("/") {
+            let group = identifier.substringFromIndex(identifier.startIndex.successor())
+            if let activities = Tracker.sharedTracker.predictActivities(NSDate().roundDateDownToTimeSlice(Tracker.sharedTracker.settings.timeSlice), fromGroup: group){
+                makeCategoryWithOptions(activities, identifier: group)
+                scheduleNotificationWithCategoryForNow(group)
+            } else{
+                
+                print(group + "doesnt exist as a gorup")
+            }
+            
+        }else {
+            Tracker.sharedTracker.setCurrentActivity(identifier, currentDate: NSDate().roundDateDownToTimeSlice(Tracker.sharedTracker.settings.timeSlice), theLength: Tracker.sharedTracker.settings.timeSlice)
+            if Tracker.sharedTracker.activityDetails(identifier)?.note == true{
+                fireNoteNotification()
+                checkCurrentNotifications()
+            }
         }
         scheduleNotifications()
         

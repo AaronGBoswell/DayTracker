@@ -256,7 +256,7 @@ class Tracker {
        
     }
     
-    func activitiesBasedOnGroup(group: String) -> [ActivitySetting] {
+    func activitiesBasedOnGroup(group: String) -> [ActivitySetting]? {
         
         
         for array in actionsByGroup{
@@ -266,7 +266,7 @@ class Tracker {
         }
         
         // i know this is assanine
-        return [ActivitySetting]()
+        return nil
         
     }
 
@@ -372,10 +372,13 @@ class Tracker {
     }
     func predictActivities(dateFor:NSDate, fromGroup group:String) -> [String]?{
         var returnArray = [String]()
-        for element in activitiesBasedOnGroup(group) {
-            returnArray.append(element.productive)
+        if let  activities = activitiesBasedOnGroup(group){
+            for element in activities {
+                returnArray.append(element.action)
+            }
+            return returnArray
         }
-        return returnArray
+        return nil
     }
 
 
