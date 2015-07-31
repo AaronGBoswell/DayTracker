@@ -147,10 +147,10 @@
             </objects>
             <point key="canvasLocation" x="2019" y="1417"/>
         </scene>
-        <!--View Controller-->
+        <!--Activity Detail View Controller-->
         <scene sceneID="9Mi-EO-G1G">
             <objects>
-                <viewController id="3DQ-5Z-Ckk" sceneMemberID="viewController">
+                <viewController id="3DQ-5Z-Ckk" customClass="ActivityDetailViewController" customModule="DayTracker" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="k1C-gB-fNl"/>
                         <viewControllerLayoutGuide type="bottom" id="DKg-3M-ucP"/>
@@ -158,12 +158,52 @@
                     <view key="view" contentMode="scaleToFill" id="IzV-Sh-ApR">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Name Of Activity" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MDb-te-6i1">
+                                <rect key="frame" x="20" y="72" width="560" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w1d-p9-QOO">
+                                <rect key="frame" x="0.0" y="149" width="600" height="216"/>
+                            </pickerView>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ine-WJ-Of6">
+                                <rect key="frame" x="20" y="110" width="51" height="31"/>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Note" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="APM-Lf-JDv">
+                                <rect key="frame" x="77" y="110" width="49" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="49" id="IVa-SR-aSa"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="w1d-p9-QOO" secondAttribute="trailing" id="AfS-KE-pfB"/>
+                            <constraint firstItem="w1d-p9-QOO" firstAttribute="centerX" secondItem="MDb-te-6i1" secondAttribute="centerX" id="C0P-bJ-o6z"/>
+                            <constraint firstItem="w1d-p9-QOO" firstAttribute="top" secondItem="ine-WJ-Of6" secondAttribute="bottom" constant="8" symbolic="YES" id="Dtp-uO-j3R"/>
+                            <constraint firstItem="w1d-p9-QOO" firstAttribute="top" secondItem="APM-Lf-JDv" secondAttribute="bottom" constant="8" symbolic="YES" id="Rv6-gw-Se7"/>
+                            <constraint firstItem="w1d-p9-QOO" firstAttribute="leading" secondItem="IzV-Sh-ApR" secondAttribute="leading" id="Srq-8P-IFM"/>
+                            <constraint firstItem="MDb-te-6i1" firstAttribute="top" secondItem="k1C-gB-fNl" secondAttribute="bottom" constant="8" symbolic="YES" id="UMA-9r-wZG"/>
+                            <constraint firstItem="ine-WJ-Of6" firstAttribute="top" secondItem="APM-Lf-JDv" secondAttribute="top" id="WAk-eG-Blz"/>
+                            <constraint firstItem="ine-WJ-Of6" firstAttribute="top" secondItem="MDb-te-6i1" secondAttribute="bottom" constant="8" symbolic="YES" id="X4I-bc-dQu"/>
+                            <constraint firstItem="APM-Lf-JDv" firstAttribute="leading" secondItem="ine-WJ-Of6" secondAttribute="trailing" constant="8" symbolic="YES" id="YmK-tL-l1c"/>
+                            <constraint firstItem="ine-WJ-Of6" firstAttribute="leading" secondItem="IzV-Sh-ApR" secondAttribute="leadingMargin" id="sHf-aY-SOw"/>
+                            <constraint firstItem="MDb-te-6i1" firstAttribute="leading" secondItem="ine-WJ-Of6" secondAttribute="leading" id="w6R-9V-BN2"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="groupPicker" destination="w1d-p9-QOO" id="Hdj-gL-28c"/>
+                        <outlet property="nameTextFieldOutlet" destination="MDb-te-6i1" id="qLn-hK-tyS"/>
+                        <outlet property="noteSwitch" destination="ine-WJ-Of6" id="qVH-gV-Nl3"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NCY-0Z-ASF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2815" y="1417"/>
+            <point key="canvasLocation" x="2761" y="1407"/>
         </scene>
         <!--Item-->
         <scene sceneID="wvA-hC-PgR">

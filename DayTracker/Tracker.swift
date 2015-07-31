@@ -15,7 +15,7 @@ class Tracker {
     internal var activities : [Activity]{
         get{
             var newActivities = [Activity]()
-            for activityDictionary in allActivities
+            for activityDictionary in RecordOf
             {
                 let addition : Activity = Activity(action: activityDictionary["action"] as! String, date: activityDictionary["date"] as! NSDate, length: activityDictionary["length"] as! Int, note: activityDictionary["note"] as! String)
                 newActivities.append(addition)
@@ -35,7 +35,7 @@ class Tracker {
                 newAction["note"] = unit.note
                 newActions.append( newAction )
             }
-           allActivities = newActions
+           RecordOf = newActions
             
         }
     }
@@ -90,7 +90,7 @@ class Tracker {
     internal var activityBag : [ActivitySetting]{
         get{
             var newActivities = [ActivitySetting]()
-            for activityDictionary in possibleActions
+            for activityDictionary in ThingsToDo
             {
                 let addition : ActivitySetting = ActivitySetting(action: activityDictionary["action"] as! String, note: activityDictionary["note"] as! Bool, productive: activityDictionary["productive"] as! String)
                 newActivities.append(addition)
@@ -109,14 +109,14 @@ class Tracker {
                 newAction["productive"] = unit.productive
                 newActions.append( newAction )
             }
-            possibleActions = newActions
+            ThingsToDo = newActions
             
         }
     }
 
 
 
-    var actionsByGroup : [[ActivitySetting]] {
+    var activitiesByGroup : [[ActivitySetting]] {
         get{
             var returnArray = [[ActivitySetting]]()
             for activity in activityBag{
@@ -219,7 +219,7 @@ class Tracker {
     
     var groups : [String] {
         var returnArray =  [String]()
-        for array in actionsByGroup{
+        for array in activitiesByGroup{
             returnArray.append((array.first?.productive)!)
             
         }
@@ -235,13 +235,13 @@ class Tracker {
   
     
     
-    var possibleActions : [[String:AnyObject]]{
+    var ThingsToDo : [[String:AnyObject]]{
         get{ return defaults.objectForKey(Settings.possibleActionsKey) as? [[String:AnyObject]] ?? [["action" : "Programing" , "note" :true, "productive" : "Job" ], ["action" : "Yard Work" , "note" :true, "productive" : "Job" ], ["action" : "Television" , "note" :false, "productive" : "Entertainment"], ["action" : "Relaxing" , "note" :false, "productive" : "Entertainment"], ["action" : "Gaming" , "note" :false, "productive" : "Entertainment"],["action" : "Eat" , "note" :false, "productive" : "Nutrition"]] }
         set{ defaults.setObject(newValue, forKey:Settings.possibleActionsKey) }
     }
     
     
-    var allActivities : [[String:AnyObject]] {
+    var RecordOf : [[String:AnyObject]] {
         get{ return defaults.objectForKey(Settings.allActivities) as? [[String:AnyObject]] ?? [] }
         set{ defaults.setObject(newValue, forKey:Settings.allActivities) }
     }
@@ -259,7 +259,7 @@ class Tracker {
     func activitiesBasedOnGroup(group: String) -> [ActivitySetting] {
         
         
-        for array in actionsByGroup{
+        for array in activitiesByGroup{
             if array.first?.productive == group {
                 return array
             }
@@ -325,7 +325,7 @@ class Tracker {
         newAction["action"] =  activity
         newAction["note"] =  note
         newAction["productive"] =  productive
-        possibleActions.append(newAction)
+        ThingsToDo.append(newAction)
         
     }
     
@@ -365,7 +365,7 @@ class Tracker {
     
     func predictGroup(dateFor:NSDate) -> [String]?{
         var returnArray = [String]()
-        for arr in actionsByGroup {
+        for arr in activitiesByGroup {
             returnArray.append((arr.first?.productive)!)
         }
         return returnArray
