@@ -363,7 +363,20 @@ class Tracker {
         return nil
     }
     
-    
+    func predictGroup(dateFor:NSDate) -> [String]?{
+        var returnArray = [String]()
+        for arr in actionsByGroup {
+            returnArray.append((arr.first?.productive)!)
+        }
+        return returnArray
+    }
+    func predictActivities(dateFor:NSDate, fromGroup group:String) -> [String]?{
+        var returnArray = [String]()
+        for element in activitiesBasedOnGroup(group) {
+            returnArray.append(element.productive)
+        }
+        return returnArray
+    }
 
 
    
