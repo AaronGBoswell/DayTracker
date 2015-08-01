@@ -138,7 +138,11 @@ class NotificationManager {
                 let groups = Tracker.sharedTracker.predictGroup(date) else{
             return
         }
+        print("refresh")
         print(strings)
+        print(Tracker.sharedTracker.activityStrings)
+        print("refreshdone")
+
         makeCategoryWithOptions(strings, minimalOptions : groups, identifier: date.description)
         
     }
