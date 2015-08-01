@@ -10,6 +10,10 @@ import UIKit
 
 class ActivityTableTableViewController: UITableViewController {
 
+    @IBAction func goBack(seuge: UIStoryboardSegue) {
+        tableView.reloadData()
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
