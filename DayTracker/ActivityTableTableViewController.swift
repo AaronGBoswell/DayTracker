@@ -69,9 +69,9 @@ class ActivityTableTableViewController: UITableViewController {
         return false
         
     }
-    override func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
-        return UITableViewCellEditingStyle.None
-    }
+    //override func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
+    //    return UITableViewCellEditingStyle.None
+    //}
 
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return Tracker.sharedTracker.activitiesByGroup[section].first!.productive
