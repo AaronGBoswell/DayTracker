@@ -518,7 +518,7 @@ class Tracker {
     
     
         for unit in sortedActivityStrings{
-            if activityStrings.contains(unit)
+            if activityStrings.contains(unit) && !returnArray.contains(unit)
             {
                 returnArray.append(unit)
             }
