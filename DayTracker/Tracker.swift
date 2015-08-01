@@ -42,6 +42,8 @@ class Tracker {
     
     struct TrackerSettings{
         var timeSlice: Int = 15
+        var wakeHour = 8
+        var wakeMinute = 0
     }
     struct Activity: CustomStringConvertible
     {

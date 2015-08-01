@@ -284,7 +284,7 @@ class NotificationManager {
             
         }else if identifier.hasPrefix("::") {
             cancelAllNotifications()
-            scheduleNotificationsStartingWithDate(NSDate().dateForTomorrowAt(8))
+            scheduleNotificationsStartingWithDate(NSDate().dateForTomorrowAt(Tracker.sharedTracker.settings.wakeHour, minute: Tracker.sharedTracker.settings.wakeMinute))
             Tracker.sharedTracker.setCurrentActivity("Turned Off")
             checkCurrentNotifications()
 
@@ -312,11 +312,11 @@ extension NSDate{
         
         return date!
     }
-    func dateForTomorrowAt(hour: Int) -> NSDate{
+    func dateForTomorrowAt(hour: Int, minute: Int) -> NSDate{
         let cal = NSCalendar.currentCalendar()
         let comps = cal.components([NSCalendarUnit.Month, NSCalendarUnit.Era , NSCalendarUnit.Year,NSCalendarUnit.Day,NSCalendarUnit.Hour,NSCalendarUnit.Minute], fromDate: self)
         
-        comps.minute = 0
+        comps.minute = minute
         comps.hour = hour
         comps.day++
         
