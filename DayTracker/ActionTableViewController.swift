@@ -32,6 +32,12 @@ class ActionTableViewController: UITableViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView?.reloadData()
+        
+        
+        
+        Tracker.sharedTracker.ThingsToDo = [["action" : "Programing" , "note" :true, "productive" : "Job", "pushToFront" : 0 ], ["action" : "Yard Work" , "note" :true, "productive" : "Job" , "pushToFront" : 0 ], ["action" : "Television" , "note" :false, "productive" : "Entertainment" , "pushToFront" : 0 ], ["action" : "Relaxing" , "note" :false, "productive" : "Entertainment" , "pushToFront" : 0 ], ["action" : "Gaming" , "note" :false, "productive" : "Entertainment" , "pushToFront" : 0 ],["action" : "Eat" , "note" :false, "productive" : "Nutrition" , "pushToFront" : 0 ]]
+        
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         

@@ -74,13 +74,15 @@ class Tracker {
         var action : String
         var note : Bool
         var productive : String
+        var pushToFront : Int
         
         
-        internal init( action: String, note: Bool, productive : String)
+        internal init( action: String, note: Bool, productive : String, pushToFront :  Int)
         {
             self.action = action
             self.note = note
             self.productive = productive
+            self.pushToFront = pushToFront
             
             return
             
@@ -94,7 +96,7 @@ class Tracker {
             var newActivities = [ActivitySetting]()
             for activityDictionary in ThingsToDo
             {
-                let addition : ActivitySetting = ActivitySetting(action: activityDictionary["action"] as! String, note: activityDictionary["note"] as! Bool, productive: activityDictionary["productive"] as! String)
+                let addition : ActivitySetting = ActivitySetting(action: activityDictionary["action"] as! String, note: activityDictionary["note"] as! Bool, productive: activityDictionary["productive"] as! String, pushToFront: activityDictionary["pushToFront"] as! Int)
                 newActivities.append(addition)
             }
             return newActivities
@@ -109,6 +111,7 @@ class Tracker {
                 newAction["action"] =  unit.action
                 newAction["note"] = unit.note
                 newAction["productive"] = unit.productive
+                 newAction["pushToFront"] = unit.pushToFront
                 newActions.append( newAction )
             }
             ThingsToDo = newActions
@@ -265,7 +268,7 @@ class Tracker {
     
     
     var ThingsToDo : [[String:AnyObject]]{
-        get{ return defaults.objectForKey(Settings.possibleActionsKey) as? [[String:AnyObject]] ?? [["action" : "Programing" , "note" :true, "productive" : "Job" ], ["action" : "Yard Work" , "note" :true, "productive" : "Job" ], ["action" : "Television" , "note" :false, "productive" : "Entertainment"], ["action" : "Relaxing" , "note" :false, "productive" : "Entertainment"], ["action" : "Gaming" , "note" :false, "productive" : "Entertainment"],["action" : "Eat" , "note" :false, "productive" : "Nutrition"]] }
+        get{ return defaults.objectForKey(Settings.possibleActionsKey) as? [[String:AnyObject]] ?? [["action" : "Programing" , "note" :true, "productive" : "Job", "pushToFront" : 0 ], ["action" : "Yard Work" , "note" :true, "productive" : "Job" , "pushToFront" : 0 ], ["action" : "Television" , "note" :false, "productive" : "Entertainment" , "pushToFront" : 0 ], ["action" : "Relaxing" , "note" :false, "productive" : "Entertainment" , "pushToFront" : 0 ], ["action" : "Gaming" , "note" :false, "productive" : "Entertainment" , "pushToFront" : 0 ],["action" : "Eat" , "note" :false, "productive" : "Nutrition" , "pushToFront" : 0 ]] }
         set{ defaults.setObject(newValue, forKey:Settings.possibleActionsKey) }
     }
     
@@ -400,15 +403,15 @@ class Tracker {
    
     
     
-    func addActivityToBag (action: String, note: Bool, productive: String)
+    func addActivityToBag (action: String, note: Bool, productive: String, pushToFront: Int)
     {
-        let addToBag = ActivitySetting(action: action, note: note, productive: productive)
+        let addToBag = ActivitySetting(action: action, note: note, productive: productive, pushToFront: pushToFront)
         activityBag.append(addToBag)
     }
-    func editActivityInBag (editable: ActivitySetting, action: String, note: Bool, productive: String)
+    func editActivityInBag (editable: ActivitySetting, action: String, note: Bool, productive: String, pushToFront: Int)
     {
         deletePossibleActivity(editable.action)
-        let addToBag = ActivitySetting(action: action, note: note, productive: productive)
+        let addToBag = ActivitySetting(action: action, note: note, productive: productive, pushToFront: pushToFront)
         activityBag.append(addToBag)
     }
     
@@ -512,7 +515,12 @@ class Tracker {
             }
         }
     
-    
+    for (index,unit) in activityBag.enumerate()     {
+        if unit.pushToFront > 0{
+            activityBag[index].pushToFront--
+            returnArray.insert(unit.action, atIndex: 0)
+        }
+    }
     return  returnArray
     
    
