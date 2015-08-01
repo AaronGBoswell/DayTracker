@@ -11,7 +11,6 @@ import UIKit
 class ActivityTableTableViewController: UITableViewController {
 
     
-    var fromTableView = false
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -65,10 +64,18 @@ class ActivityTableTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
         
-        fromTableView = true
         performSegueWithIdentifier("ShowActivityDetail", sender: tableView.cellForRowAtIndexPath(indexPath))
         
-        
+    }
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == UITableViewCellEditingStyle.Delete {
+            let activity = Tracker.sharedTracker.activitiesByGroup[indexPath.section][indexPath.row]
+            Tracker.sharedTracker.deletePossibleActivity(activity.action)
+            tableView.reloadData()
+        }
     }
 
     
@@ -84,14 +91,11 @@ class ActivityTableTableViewController: UITableViewController {
                 switch identifier{
                 case "ShowActivityDetail":
                     
-                    if fromTableView
-                    {
-                        let cell = sender as? UITableViewCell
-                        self.tableView.indexPathForCell(cell!)
-                        let populateFrom = Tracker.sharedTracker.activitiesByGroup[self.tableView.indexPathForCell(cell!)!.section][self.tableView.indexPathForCell(cell!)!.row]
+                    if let cell = sender as? UITableViewCell {
+                        self.tableView.indexPathForCell(cell)
+                        let populateFrom = Tracker.sharedTracker.activitiesByGroup[self.tableView.indexPathForCell(cell)!.section][self.tableView.indexPathForCell(cell)!.row]
                         ADVC.populate = populateFrom
                         ADVC.edit = true
-                        fromTableView = false
                     } else{
                        ADVC.edit = false
                         
