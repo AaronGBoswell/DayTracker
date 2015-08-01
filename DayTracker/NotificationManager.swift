@@ -38,7 +38,13 @@ class NotificationManager {
             }
         }
     }
-    
+    func cancelAllNotifications(){
+        if let notifications = UIApplication.sharedApplication().scheduledLocalNotifications {
+            for notification in notifications{
+                cancelNotification(notification)
+            }
+        }
+    }
     func cancelNotification(notification:UILocalNotification){
         UIApplication.sharedApplication().applicationIconBadgeNumber++
         UIApplication.sharedApplication().applicationIconBadgeNumber--
@@ -63,7 +69,10 @@ class NotificationManager {
     }
 
     func scheduleNotifications(){
-        var date = NSDate().dateForNextTimeSlice(Tracker.sharedTracker.settings.timeSlice)
+        let date = NSDate().dateForNextTimeSlice(Tracker.sharedTracker.settings.timeSlice)
+        scheduleNotificationsStartingWithDate(date)
+    }
+    func scheduleNotificationsStartingWithDate(var date:NSDate){
         for _ in 1...10{
             if let notification = notificationForDate(date){
                 cancelNotification(notification)
@@ -134,12 +143,14 @@ class NotificationManager {
         
     }
     func refreshCategoryForDate(date:NSDate){
-        guard   let strings = Tracker.sharedTracker.predictActivities(date),
+        guard   var strings = Tracker.sharedTracker.predictActivities(date),
                 let groups = Tracker.sharedTracker.predictGroup(date) else{
             return
         }
-        print(strings)
-
+        
+        if Tracker.sharedTracker.predictSleep(date) {
+            strings.insert("Good Night", atIndex: 0)
+        }
         makeCategoryWithOptions(strings, minimalOptions : groups, identifier: date.description)
         
     }
@@ -150,6 +161,9 @@ class NotificationManager {
             let action = UIMutableUserNotificationAction()
             action.title = string
             action.identifier = string
+            if string == "Good Night" {
+                action.identifier = "::"+string
+            }
             action.activationMode = UIUserNotificationActivationMode.Background
             action.authenticationRequired = false
             actions.append(action)
@@ -224,9 +238,8 @@ class NotificationManager {
         var uiActions = [UIAlertAction]()
         for notificationAction in notificationActions {
             guard   let identifier = notificationAction.identifier,
-                let title = notificationAction.title else{continue}
-            let
-            action = UIAlertAction(title: title, style: UIAlertActionStyle.Default, handler: { (alertAction) -> Void in
+                    let title = notificationAction.title else{continue}
+            let action = UIAlertAction(title: title, style: UIAlertActionStyle.Default, handler: { (alertAction) -> Void in
                 self.responseWithIdentifier(identifier)
             })
 
@@ -269,6 +282,12 @@ class NotificationManager {
                 print(group + "doesnt exist as a gorup")
             }
             
+        }else if identifier.hasPrefix("::") {
+            cancelAllNotifications()
+            scheduleNotificationsStartingWithDate(NSDate().dateForTomorrowAt(8))
+            Tracker.sharedTracker.setCurrentActivity("Turned Off")
+            checkCurrentNotifications()
+
         }else {
             Tracker.sharedTracker.setCurrentActivity(identifier, currentDate: NSDate().roundDateDownToTimeSlice(Tracker.sharedTracker.settings.timeSlice), theLength: Tracker.sharedTracker.settings.timeSlice)
             if Tracker.sharedTracker.activityDetails(identifier)?.note == true{
@@ -291,6 +310,17 @@ extension NSDate{
         
         let date = cal.dateFromComponents(comps)
         
+        return date!
+    }
+    func dateForTomorrowAt(hour: Int) -> NSDate{
+        let cal = NSCalendar.currentCalendar()
+        let comps = cal.components([NSCalendarUnit.Month, NSCalendarUnit.Era , NSCalendarUnit.Year,NSCalendarUnit.Day,NSCalendarUnit.Hour,NSCalendarUnit.Minute], fromDate: self)
+        
+        comps.minute = 0
+        comps.hour = hour
+        comps.day++
+        
+        let date = cal.dateFromComponents(comps)
         return date!
     }
     func roundDateDownToTimeSlice(timeSlice: Int)->NSDate{
