@@ -138,6 +138,7 @@ class NotificationManager {
                 let groups = Tracker.sharedTracker.predictGroup(date) else{
             return
         }
+        print(strings)
         makeCategoryWithOptions(strings, minimalOptions : groups, identifier: date.description)
         
     }
