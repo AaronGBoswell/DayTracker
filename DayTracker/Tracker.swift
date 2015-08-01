@@ -496,12 +496,6 @@ class Tracker {
         }
     
    
-        for unit in sortedActivityStrings {
-            if groups.indexOf(unit) != nil{
-                returnArray.append(unit)
-            }
-        }
-    
         for unit in activitiesByGroup {
             if !sortedActivityStrings.contains((unit.first?.action)!){
                 sortedActivityStrings.append((unit.first?.action)!)
