@@ -8,10 +8,12 @@
 
 import Foundation
 
+private var KVOcontext = 0
 class Tracker {
     
     static let sharedTracker = Tracker()
     internal var settings = TrackerSettings()
+    var observers = [Observer]()
 
     internal var activities : [Activity]{
         get{
@@ -36,7 +38,11 @@ class Tracker {
                 newAction["note"] = unit.note
                 newActions.append( newAction )
             }
-           RecordOf = newActions
+            RecordOf = newActions
+            
+            for observer in observers{
+                observer.observedValueChanged()
+            }
             
         }
     }

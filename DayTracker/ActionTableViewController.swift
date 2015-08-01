@@ -8,48 +8,24 @@
 
 import UIKit
 
-class ActionTableViewController: UITableViewController
+class ActionTableViewController: UITableViewController, Observer
 {
    
-    private let defaults = NSUserDefaults.standardUserDefaults()
-    
-    var history : [String]{
-        get{ return defaults.objectForKey(Default.History) as? [String] ?? [] }
-        set{ defaults.setObject(newValue, forKey: Default.History) }
-        
-    }
-    var time : [NSDate]{
-        get{ return defaults.objectForKey(Default.Time) as? [NSDate] ?? [] }
-        set{ defaults.setObject(newValue, forKey: Default.Time) }
-        
-    }
-    private struct Default{
-        static let History = "WhatDoing.History"
-        static let Time = "WhatDoing.Time"
-    }
-    
-    
+    var todaysArray = Tracker.sharedTracker.todaysOrginizedArray
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView?.reloadData()
         
-        /*
-        
-        Tracker.sharedTracker.ThingsToDo = [["action" : "Programing" , "note" :true, "productive" : "Job", "pushToFront" : 0 ], ["action" : "Yard Work" , "note" :true, "productive" : "Job" , "pushToFront" : 0 ], ["action" : "Television" , "note" :false, "productive" : "Entertainment" , "pushToFront" : 0 ], ["action" : "Relaxing" , "note" :false, "productive" : "Entertainment" , "pushToFront" : 0 ], ["action" : "Gaming" , "note" :false, "productive" : "Entertainment" , "pushToFront" : 0 ],["action" : "Eat" , "note" :false, "productive" : "Nutrition" , "pushToFront" : 0 ]]
-        */
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         tableView?.reloadData()
     }
     
-    
+    func observedValueChanged() {
+        todaysArray = Tracker.sharedTracker.todaysOrginizedArray
+        tableView.reloadData()
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -60,16 +36,12 @@ class ActionTableViewController: UITableViewController
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         
         
-        return Tracker.sharedTracker.todaysOrginizedArray.count
+        return todaysArray.count
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {        
-        //print(Tracker.sharedTracker.activities)
-        //print(Tracker.sharedTracker.activities)
-       //
-        //print(Tracker.sharedTracker.activityBag)
-        //return Tracker.sharedTracker.activities.count
-        return Tracker.sharedTracker.todaysOrginizedArray[section].count
+
+        return todaysArray[section].count
         
     }
     
@@ -77,16 +49,9 @@ class ActionTableViewController: UITableViewController
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("ident", forIndexPath: indexPath)
-        
-        
-        
-        //cell.textLabel!.text = Tracker.sharedTracker.todaysArray[indexPath.row].action
-        //cell.detailTextLabel!.text = Tracker.sharedTracker.todaysArray[indexPath.row].date.humanDate
-        //print(Tracker.sharedTracker.activities[indexPath.row].note)
-        
-        
-        cell.textLabel!.text = Tracker.sharedTracker.todaysOrginizedArray[indexPath.section][indexPath.row].action
-        cell.detailTextLabel!.text = Tracker.sharedTracker.todaysOrginizedArray[indexPath.section][indexPath.row].date.humanDate
+
+        cell.textLabel!.text = todaysArray[indexPath.section][indexPath.row].action
+        cell.detailTextLabel!.text = todaysArray[indexPath.section][indexPath.row].date.humanDate
         
         return cell
     }
@@ -96,7 +61,7 @@ class ActionTableViewController: UITableViewController
         
         
         let cal = NSCalendar.currentCalendar()
-        let unitComponents = cal.components([NSCalendarUnit.Month, NSCalendarUnit.Era , NSCalendarUnit.Year,NSCalendarUnit.Day,NSCalendarUnit.Hour,NSCalendarUnit.Minute], fromDate: Tracker.sharedTracker.todaysOrginizedArray[section].first!.date)
+        let unitComponents = cal.components([NSCalendarUnit.Month, NSCalendarUnit.Era , NSCalendarUnit.Year,NSCalendarUnit.Day,NSCalendarUnit.Hour,NSCalendarUnit.Minute], fromDate: todaysArray[section].first!.date)
        
         if unitComponents.hour < 8 {
             return "Early"
@@ -185,7 +150,7 @@ class ActionTableViewController: UITableViewController
                     let cell = sender as? UITableViewCell
                     self.tableView.indexPathForCell(cell!)
                     
-                    let note = Tracker.sharedTracker.todaysOrginizedArray[self.tableView.indexPathForCell(cell!)!.section][self.tableView.indexPathForCell(cell!)!.row]
+                    let note = todaysArray[self.tableView.indexPathForCell(cell!)!.section][self.tableView.indexPathForCell(cell!)!.row]
                     NVC.note = note
                 default: break
                 }
@@ -198,4 +163,7 @@ class ActionTableViewController: UITableViewController
     }
 
     
+}
+protocol Observer{
+    func observedValueChanged()
 }
