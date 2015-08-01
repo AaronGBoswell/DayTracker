@@ -93,11 +93,19 @@ class ActivityTableTableViewController: UITableViewController {
             if let identifier = segue.identifier{
                 switch identifier{
                 case "ShowActivityDetail":
-                    let cell = sender as? UITableViewCell
-                    self.tableView.indexPathForCell(cell!)
                     
-                    let note = Tracker.sharedTracker.activities[self.tableView.indexPathForCell(cell!)!.row]
-                    
+                    if fromTableView
+                    {
+                        let cell = sender as? UITableViewCell
+                        self.tableView.indexPathForCell(cell!)
+                        let populateFrom = Tracker.sharedTracker.activitiesByGroup[self.tableView.indexPathForCell(cell!)!.section][self.tableView.indexPathForCell(cell!)!.row]
+                        ADVC.populate = populateFrom
+                        ADVC.edit = true
+                        fromTableView = false
+                    } else{
+                       ADVC.edit = false
+                        
+                    }
                 default: break
                 }
             }

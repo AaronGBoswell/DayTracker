@@ -12,13 +12,20 @@ class ActivityDetailViewController: UIViewController ,UIPickerViewDataSource,UIP
 
     
     
-    var populate : Tracker.Activity?
+    
     
     @IBOutlet weak var nameTextFieldOutlet: UITextField!
     @IBOutlet weak var noteSwitch: UISwitch!
     @IBOutlet weak var groupPicker: UIPickerView!
     
+   
+    @IBAction func doneAndSave(sender: UIBarButtonItem) {
+        performSegueWithIdentifier("Done", sender: sender)
+    }
+  
     var pickerData = Tracker.sharedTracker.groups
+    var populate : Tracker.ActivitySetting?
+    var edit = false
     
     
     
@@ -26,6 +33,12 @@ class ActivityDetailViewController: UIViewController ,UIPickerViewDataSource,UIP
         super.viewDidLoad()
         groupPicker.dataSource = self
         groupPicker.delegate = self
+        if edit {
+            noteSwitch.on = populate!.note
+            nameTextFieldOutlet.text = populate!.action
+            //find in array 
+            groupPicker.selectRow(pickerData.indexOf((populate?.productive)!)!, inComponent: 0, animated: true)
+        }
     }
     
     
