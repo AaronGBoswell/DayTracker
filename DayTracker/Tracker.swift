@@ -384,16 +384,22 @@ class Tracker {
 
     
    
-    func predictActivities(dateFor: NSDate) -> [String]?{
-        return activityBag.map({ (element: ActivitySetting) -> String in
-            return element.action
-        })
-        
-        
+    
+    
+    func addActivityToBag (action: String, note: Bool, productive: String)
+    {
+        let addToBag = ActivitySetting(action: action, note: note, productive: productive)
+        activityBag.append(addToBag)
+    }
+    func editActivityInBag (editable: ActivitySetting, action: String, note: Bool, productive: String)
+    {
+        deletePossibleActivity(editable.action)
+        let addToBag = ActivitySetting(action: action, note: note, productive: productive)
+        activityBag.append(addToBag)
     }
     
-    
     /*
+    
     func predictActivities(date: NSDate) -> [String]?{
         
    // let date = NSDate()
@@ -431,7 +437,43 @@ class Tracker {
     }
 
     
-    */
+
+    func predictActivities(dateFor: NSDate) -> [String]?{
+        return activityBag.map({ (element: ActivitySetting) -> String in
+            return element.action
+        })
+        
+        
+    }
+*/
+   func predictActivities(dateFor: NSDate) -> [String]?{
+        var returnArray = [String]()
+    
+        var date = NSDate()
+        
+        var preDictonary = getDictonaryForTimeSlice(date)
+        
+        var sortedActivityStrings = Array(preDictonary.keys)
+        sortedActivityStrings.sortInPlace(){
+            let obj1 = preDictonary[$0]
+            let obj2 = preDictonary[$1]
+            return obj1 > obj2
+            }
+        print(sortedActivityStrings)
+    if let one = activities.last?.action{
+        if groups.indexOf(one) != nil{
+             sortedActivityStrings.insert(one, atIndex: 0)
+        }
+    }
+    
+   
+    
+    return sortedActivityStrings
+    
+    
+        
+    }
+    
     
     
     func getArrayForDate(date: NSDate) -> [Activity] {
@@ -455,11 +497,61 @@ class Tracker {
     }
     
     
-    
-    
-    
-    
+    func getDictonaryForTimeSlice(date: NSDate) -> [String:Int]
+    {
+        var returnDict = [String:Int]()
+        let cal = NSCalendar.currentCalendar()
+        let dateComponents = cal.components([NSCalendarUnit.Month, NSCalendarUnit.Era , NSCalendarUnit.Year,NSCalendarUnit.Day,NSCalendarUnit.Hour,NSCalendarUnit.Minute], fromDate: date)
+        
+        
+        
+        for unit in activities{
+            let unitComponents = cal.components([NSCalendarUnit.Month, NSCalendarUnit.Era , NSCalendarUnit.Year,NSCalendarUnit.Day,NSCalendarUnit.Hour,NSCalendarUnit.Minute], fromDate: unit.date)
+            if (dateComponents.hour + 2) > unitComponents.hour && (dateComponents.hour - 2) < unitComponents.hour
+            {
+                for  entry in returnDict.keys
+                {
+                    if unit.action == entry {
+                        returnDict[entry]?++
+                    }
+                }
+            }
+        }
+        print(returnDict)
+        return returnDict
 
+    }
+    
+   
+
+}
+extension Dictionary {
+    func sortedKeys(isOrderedBefore:(String,String) -> Bool) -> [String] {
+        var array = Array(self.keys)
+        array.sort(isOrderedBefore)
+        return array
+    }
+    
+    // Slower because of a lot of lookups, but probably takes less memory (this is equivalent to Pascals answer in an generic extension)
+    func sortedKeysByValue(isOrderedBefore:(ValueType, ValueType) -> Bool) -> [String] {
+        return sortedKeys {
+            isOrderedBefore(self[$0]!, self[$1]!)
+        }
+    }
+    
+    // Faster because of no lookups, may take more memory because of duplicating contents
+    func keysSortedByValue(isOrderedBefore:(Int, ValueType) -> Bool) -> [String] {
+        var array = Array(self)
+        sort(&array) {
+            let (lk, lv) = $0
+            let (rk, rv) = $1
+            return isOrderedBefore(lv, rv)
+        }
+        return array.map {
+            let (k, v) = $0
+            return k
+        }
+    }
 }
 
 

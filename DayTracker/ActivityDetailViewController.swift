@@ -20,12 +20,20 @@ class ActivityDetailViewController: UIViewController ,UIPickerViewDataSource,UIP
     
    
     @IBAction func doneAndSave(sender: UIBarButtonItem) {
+        if edit
+        {
+            Tracker.sharedTracker.editActivityInBag(populate!,action: nameTextFieldOutlet.text!, note: noteSwitch.on, productive: pickerData[groupPicker.selectedRowInComponent(0)])
+        } else {
+            Tracker.sharedTracker.addActivityToBag(nameTextFieldOutlet.text!, note: noteSwitch.on, productive: pickerData[groupPicker.selectedRowInComponent(0)])
+        }
         performSegueWithIdentifier("Done", sender: sender)
     }
+    
   
     var pickerData = Tracker.sharedTracker.groups
     var populate : Tracker.ActivitySetting?
     var edit = false
+    //var currentPicked : String
     
     
     
