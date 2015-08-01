@@ -244,7 +244,17 @@ class Tracker {
 
     }
     
-    
+    var averageSleepHour : Int {
+        var total = 0
+        for unit in SleepHour
+        {
+            total += unit
+        }
+        total = total/SleepHour.count
+        print("Sleep Hour ")
+        print(total)
+        return total
+    }
    
     
     
@@ -262,12 +272,15 @@ class Tracker {
         get{ return defaults.objectForKey(Settings.allActivities) as? [[String:AnyObject]] ?? [] }
         set{ defaults.setObject(newValue, forKey:Settings.allActivities) }
     }
-   
-    
+    var SleepHour : [Int] {
+        get{ return defaults.objectForKey(Settings.sleep) as? [Int] ?? [21] }
+        set{ defaults.setObject(newValue, forKey:Settings.sleep) }
+    }
     
     struct Settings {
         static let possibleActionsKey = "Tracker.PossibleActions"
         static let allActivities = "Tracker.allActivities"
+        static let sleep = "Tracker.sleep"
        
         
        
@@ -380,28 +393,7 @@ class Tracker {
         return nil
     }
     
-    func predictGroup(dateFor:NSDate) -> [String]?{
-        var returnArray = [String]()
-        for arr in activitiesByGroup {
-            returnArray.append((arr.first?.productive)!)
-        }
-        return returnArray
-    }
-    func predictActivities(dateFor:NSDate, fromGroup group:String) -> [String]?{
-        var returnArray = [String]()
-        if let  activities = activitiesBasedOnGroup(group){
-            for element in activities {
-                returnArray.append(element.action)
-            }
-            return returnArray
-        }
-        return nil
-    }
     
-    func predictSleep(date:NSDate) -> Bool {
-        return true
-    }
-
     
    
     
@@ -603,7 +595,41 @@ class Tracker {
         
     }
 
-   
+    func predictGroup(dateFor:NSDate) -> [String]?{
+        var returnArray = [String]()
+        for arr in activitiesByGroup {
+            returnArray.append((arr.first?.productive)!)
+        }
+        return returnArray
+    }
+    func predictActivities(dateFor:NSDate, fromGroup group:String) -> [String]?{
+        var returnArray = [String]()
+        if let  activities = activitiesBasedOnGroup(group){
+            for element in activities {
+                returnArray.append(element.action)
+            }
+            return returnArray
+        }
+        return nil
+    }
+    
+    func predictSleep(date:NSDate) -> Bool {
+        let cal = NSCalendar.currentCalendar()
+        let dateComponents = cal.components([NSCalendarUnit.Month, NSCalendarUnit.Era , NSCalendarUnit.Year,NSCalendarUnit.Day,NSCalendarUnit.Hour,NSCalendarUnit.Minute], fromDate: date)
+        if dateComponents.hour > averageSleepHour + 1 {
+            return true
+        } else{
+        return false
+        }
+    }
+    func sleepSelected(date: NSDate)
+    {
+        let cal = NSCalendar.currentCalendar()
+        let dateComponents = cal.components([NSCalendarUnit.Month, NSCalendarUnit.Era , NSCalendarUnit.Year,NSCalendarUnit.Day,NSCalendarUnit.Hour,NSCalendarUnit.Minute], fromDate: date)
+
+        SleepHour.append(dateComponents.hour)
+    }
+
 
 }
 
