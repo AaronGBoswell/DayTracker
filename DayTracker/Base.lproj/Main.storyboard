@@ -174,15 +174,15 @@
                         <sections>
                             <tableViewSection headerTitle=" " id="Uq3-6c-fTF">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="SFb-93-hwi" style="IBUITableViewCellStyleDefault" id="Aiu-tY-CYn">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="SFb-93-hwi" style="IBUITableViewCellStyleDefault" id="Aiu-tY-CYn">
                                         <rect key="frame" x="0.0" y="86" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Aiu-tY-CYn" id="Yw6-PR-MPU">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="567" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Group Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="SFb-93-hwi">
-                                                    <rect key="frame" x="15" y="0.0" width="570" height="43.5"/>
+                                                    <rect key="frame" x="15" y="0.0" width="550" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -205,12 +205,15 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="144.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="30" useCurrentDate="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xgw-r1-eIN">
+                                                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="15" useCurrentDate="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xgw-r1-eIN">
                                                     <rect key="frame" x="0.0" y="-35" width="600" height="216"/>
                                                     <animations/>
                                                     <date key="date" timeIntervalSinceReferenceDate="460123200.946316">
                                                         <!--2015-08-01 12:00:00 +0000-->
                                                     </date>
+                                                    <connections>
+                                                        <action selector="datePickerChanged:" destination="k5i-W6-CF2" eventType="valueChanged" id="PAz-ez-y8m"/>
+                                                    </connections>
                                                 </datePicker>
                                             </subviews>
                                             <animations/>

@@ -285,7 +285,7 @@ class NotificationManager {
         }else if identifier.hasPrefix("::") {
             cancelAllNotifications()
             scheduleNotificationsStartingWithDate(NSDate().dateForTomorrowAt(Tracker.sharedTracker.settings.wakeHour, minute: Tracker.sharedTracker.settings.wakeMinute))
-            Tracker.sharedTracker.setCurrentActivity("Turned Off")
+            Tracker.sharedTracker.sleepSelected(NSDate())
             checkCurrentNotifications()
 
         }else {

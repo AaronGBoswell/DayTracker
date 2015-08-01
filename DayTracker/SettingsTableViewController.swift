@@ -25,6 +25,15 @@ class SettingsTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    @IBAction func datePickerChanged(sender: UIDatePicker) {
+        let cal = NSCalendar.currentCalendar()
+        let comps = cal.components([NSCalendarUnit.Month, NSCalendarUnit.Era , NSCalendarUnit.Year,NSCalendarUnit.Day,NSCalendarUnit.Hour,NSCalendarUnit.Minute], fromDate: sender.date)
+        Tracker.sharedTracker.settings.wakeHour = comps.hour
+        Tracker.sharedTracker.settings.wakeHour = comps.minute
+
+        
+
+    }
     // MARK: - Table view data source
 
 
