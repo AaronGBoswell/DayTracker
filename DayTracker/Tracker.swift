@@ -113,6 +113,9 @@ class Tracker {
             
         }
     }
+    var activityStrings : [String]{
+        return activityBag.map { (element) -> String in return element.action }
+    }
 
 
 
@@ -450,6 +453,9 @@ class Tracker {
         var returnArray = [String]()
         
         var preDictonary = getDictonaryForTimeSlice(dateFor)
+    
+    
+    
         
         var sortedActivityStrings = Array(preDictonary.keys)
         sortedActivityStrings.sortInPlace(){
@@ -459,10 +465,17 @@ class Tracker {
             }
         print(sortedActivityStrings)
     
+    
+        var preDictonaryOfAllTime = getDictonaryForAllTime()
+        var sortedAllTimeActivityStrings = Array(preDictonaryOfAllTime.keys)
+        sortedAllTimeActivityStrings.sortInPlace(){
+            let obj1 = preDictonary[$0]
+            let obj2 = preDictonary[$1]
+            return obj1 > obj2
+        }
+    
         if let one = activities.last?.action{
-            if groups.indexOf(one) != nil{
-                sortedActivityStrings.insert(one, atIndex: 0)
-            }
+            sortedActivityStrings.insert(one, atIndex: 0)
         }
     
    
@@ -471,15 +484,33 @@ class Tracker {
                 returnArray.append(unit)
             }
         }
-        if sortedActivityStrings.count < 4 {
-            for unit in activitiesByGroup {
-                if !sortedActivityStrings.contains((unit.first?.action)!){
-                    sortedActivityStrings.append((unit.first?.action)!)
-                }
+    
+        for unit in activitiesByGroup {
+            if !sortedActivityStrings.contains((unit.first?.action)!){
+                sortedActivityStrings.append((unit.first?.action)!)
             }
         }
-    return  sortedActivityStrings
     
+    
+    
+        for unit in sortedAllTimeActivityStrings {
+            if !sortedActivityStrings.contains(unit){
+                sortedActivityStrings.append(unit)
+            }
+        }
+    
+    
+        for unit in sortedActivityStrings{
+            if activityStrings.contains(unit)
+            {
+                returnArray.append(unit)
+            }
+        }
+    
+    
+    return  returnArray
+    
+   
     
     }
     
@@ -535,7 +566,33 @@ class Tracker {
         return returnDict
 
     }
+
     
+    func getDictonaryForAllTime() -> [String:Int]
+    {
+        var returnDict = [String:Int]()
+        
+        for unit in activities{
+            
+            var exists = false
+           
+            for  entry in returnDict.keys
+            {
+                if unit.action == entry {
+                    exists = true
+                    returnDict[entry]?++
+                }
+            }
+            if exists == false{
+                returnDict[unit.action] = 1
+            }
+        }
+        print("All Time")
+        print(returnDict)
+        return returnDict
+        
+    }
+
    
 
 }
