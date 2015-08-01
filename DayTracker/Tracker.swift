@@ -392,6 +392,18 @@ class Tracker {
         
     }
     
+    func addActivityToBag (action: String, note: Bool, productive: String)
+    {
+        let addToBag = ActivitySetting(action: action, note: note, productive: productive)
+        activityBag.append(addToBag)
+    }
+    func editActivityInBag (editable: ActivitySetting, action: String, note: Bool, productive: String)
+    {
+        deletePossibleActivity(editable.action)
+        let addToBag = ActivitySetting(action: action, note: note, productive: productive)
+        activityBag.append(addToBag)
+    }
+    
     
     /*
     func predictActivities(date: NSDate) -> [String]?{
