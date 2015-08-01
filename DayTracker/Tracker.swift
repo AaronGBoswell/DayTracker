@@ -448,8 +448,6 @@ class Tracker {
 */
    func predictActivities(dateFor: NSDate) -> [String]?{
         var returnArray = [String]()
-    
-        var date = NSDate()
         
         var preDictonary = getDictonaryForTimeSlice(dateFor)
         
@@ -461,18 +459,28 @@ class Tracker {
             }
         print(sortedActivityStrings)
     
-    if let one = activities.last?.action{
-        if groups.indexOf(one) != nil{
-             sortedActivityStrings.insert(one, atIndex: 0)
+        if let one = activities.last?.action{
+            if groups.indexOf(one) != nil{
+                sortedActivityStrings.insert(one, atIndex: 0)
+            }
         }
-    }
     
    
+        for unit in sortedActivityStrings {
+            if groups.indexOf(unit) != nil{
+                returnArray.append(unit)
+            }
+        }
+        if returnArray.count < 4 {
+            for unit in activitiesByGroup {
+                if !returnArray.contains((unit.first?.action)!){
+                    returnArray.append((unit.first?.action)!)
+                }
+            }
+        }
+    return  returnArray
     
-    return sortedActivityStrings
     
-    
-        
     }
     
     
@@ -506,6 +514,7 @@ class Tracker {
         
         
         for unit in activities{
+           
             var exists = false
             let unitComponents = cal.components([NSCalendarUnit.Month, NSCalendarUnit.Era , NSCalendarUnit.Year,NSCalendarUnit.Day,NSCalendarUnit.Hour,NSCalendarUnit.Minute], fromDate: unit.date)
             if (dateComponents.hour + 2) > unitComponents.hour && (dateComponents.hour - 2) < unitComponents.hour

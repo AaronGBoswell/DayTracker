@@ -26,6 +26,8 @@ class ActivityDetailViewController: UIViewController ,UIPickerViewDataSource,UIP
         } else {
             Tracker.sharedTracker.addActivityToBag(nameTextFieldOutlet.text!, note: noteSwitch.on, productive: pickerData[groupPicker.selectedRowInComponent(0)])
         }
+        
+        print("here")
         performSegueWithIdentifier("Done", sender: sender)
     }
     

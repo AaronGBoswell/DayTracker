@@ -10,8 +10,7 @@ import UIKit
 
 class ActionTableViewController: UITableViewController
 {
-    
-    
+   
     private let defaults = NSUserDefaults.standardUserDefaults()
     
     var history : [String]{
