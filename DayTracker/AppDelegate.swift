@@ -15,6 +15,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        /*
+        
+        Tracker.sharedTracker.ThingsToDo = [["action" : "Programing" , "note" :true, "productive" : "Job", "pushToFront" : 0 ], ["action" : "Yard Work" , "note" :true, "productive" : "Job" , "pushToFront" : 0 ], ["action" : "Television" , "note" :false, "productive" : "Entertainment" , "pushToFront" : 0 ], ["action" : "Relaxing" , "note" :false, "productive" : "Entertainment" , "pushToFront" : 0 ], ["action" : "Gaming" , "note" :false, "productive" : "Entertainment" , "pushToFront" : 0 ],["action" : "Eat" , "note" :false, "productive" : "Nutrition" , "pushToFront" : 0 ]]
+        
+        */
 
         NotificationManager.sharedNotificationManager.registerNoteAction()
         NotificationManager.sharedNotificationManager.scheduleNotifications()

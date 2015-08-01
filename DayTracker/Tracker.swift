@@ -123,7 +123,13 @@ class Tracker {
         return activityBag.map { (element) -> String in return element.action }
     }
 
-
+    var activityToGroupDictonary : [String:String] {
+        var returnDict = [String:String]()
+        for unit in activityBag {
+            returnDict[unit.action] = unit.productive
+        }
+        return returnDict
+    }
 
     var activitiesByGroup : [[ActivitySetting]] {
         get{
@@ -494,7 +500,7 @@ class Tracker {
     
    
     
-    for unit in activitiesByGroup {
+        for unit in activitiesByGroup {
             if !sortedActivityStrings.contains((unit.first?.action)!){
                 sortedActivityStrings.append((unit.first?.action)!)
             }
@@ -509,22 +515,26 @@ class Tracker {
         }
     
     
+    
+    
+        for (index,unit) in activityBag.enumerate()     {
+            if unit.pushToFront > 0{
+                activityBag[index].pushToFront--
+                returnArray.insert(unit.action, atIndex: 0)
+            }
+        }
+    
         for unit in sortedActivityStrings{
             if activityStrings.contains(unit) && !returnArray.contains(unit)
             {
                 returnArray.append(unit)
             }
         }
-    
-    for (index,unit) in activityBag.enumerate()     {
-        if unit.pushToFront > 0{
-            activityBag[index].pushToFront--
-            returnArray.insert(unit.action, atIndex: 0)
-        }
-    }
-    return  returnArray
+        return  returnArray
     
    
+    
+    
     
     }
     
@@ -639,6 +649,29 @@ class Tracker {
         let dateComponents = cal.components([NSCalendarUnit.Month, NSCalendarUnit.Era , NSCalendarUnit.Year,NSCalendarUnit.Day,NSCalendarUnit.Hour,NSCalendarUnit.Minute], fromDate: date)
 
         SleepHour.append(dateComponents.hour)
+    }
+    
+    func predictGroups(dateFor: NSDate) -> [String]?{
+        let arrayWithActivities = predictActivities(dateFor)
+        var returnArray = [String]()
+        
+        for unit in arrayWithActivities! {
+            if !returnArray.contains(activityToGroupDictonary[unit]!){
+                returnArray.append(activityToGroupDictonary[unit]!)
+            }
+            //activityToGroupDictonary[unit]
+        }
+        return returnArray
+    }
+    func predictActivitiesForGroup(dateFor: NSDate, group: String) -> [String]?{
+         var returnArray = [String]()
+        let arrayWithActivities = predictActivities(dateFor)
+        for unit in arrayWithActivities! {
+            if activityToGroupDictonary[unit] == group {
+                returnArray.append(unit)
+            }
+        }
+        return returnArray
     }
 
 
