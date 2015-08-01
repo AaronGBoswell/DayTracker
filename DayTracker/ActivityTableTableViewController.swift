@@ -89,8 +89,23 @@ class ActivityTableTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == UITableViewCellEditingStyle.Delete {
             let activity = Tracker.sharedTracker.activitiesByGroup[indexPath.section][indexPath.row]
+            //tableView.delet
+            
+            var sections = Tracker.sharedTracker.activitiesByGroup.count
             Tracker.sharedTracker.deletePossibleActivity(activity.action)
-            tableView.reloadData()
+            var newSections = Tracker.sharedTracker.activitiesByGroup.count
+            tableView.beginUpdates()
+            if sections != newSections{
+                let indexSet = NSMutableIndexSet()
+                indexSet.addIndex(indexPath.section)
+                tableView.deleteSections(indexSet, withRowAnimation: UITableViewRowAnimation.Middle)
+            } else{
+                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Middle)
+            }
+            tableView.endUpdates()
+            //tableView.reloadData()
+            
+
         }
     }
     override func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
