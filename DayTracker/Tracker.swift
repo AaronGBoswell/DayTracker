@@ -134,6 +134,20 @@ class Tracker {
                     returnArray.append(temp)
                 }
             }
+            returnArray.sortInPlace { (one,two) -> Bool in
+                if one.first?.productive < two.first?.productive{
+                    return true
+                }
+                return false
+            }
+            for index in 0..<returnArray.count{
+                returnArray[index].sortInPlace{(one,two) -> Bool in
+                    if one.action < two.action{
+                        return true
+                    }
+                    return false
+                }
+            }
             return returnArray
         }
         
@@ -380,7 +394,10 @@ class Tracker {
         }
         return nil
     }
-
+    
+    func predictSleep(date:NSDate) -> Bool {
+        return true
+    }
 
     
    
