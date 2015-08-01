@@ -11,7 +11,8 @@ import Foundation
 class Tracker {
     
     static let sharedTracker = Tracker()
-    internal let settings = TrackerSettings()
+    internal var settings = TrackerSettings()
+
     internal var activities : [Activity]{
         get{
             var newActivities = [Activity]()

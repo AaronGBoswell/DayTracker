@@ -90,14 +90,15 @@ class ActivityTableTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         return true
     }
+    
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == UITableViewCellEditingStyle.Delete {
             let activity = Tracker.sharedTracker.activitiesByGroup[indexPath.section][indexPath.row]
             //tableView.delet
             
-            var sections = Tracker.sharedTracker.activitiesByGroup.count
+            let sections = Tracker.sharedTracker.activitiesByGroup.count
             Tracker.sharedTracker.deletePossibleActivity(activity.action)
-            var newSections = Tracker.sharedTracker.activitiesByGroup.count
+            let newSections = Tracker.sharedTracker.activitiesByGroup.count
             tableView.beginUpdates()
             if sections != newSections{
                 let indexSet = NSMutableIndexSet()
