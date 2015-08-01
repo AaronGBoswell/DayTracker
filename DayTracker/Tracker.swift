@@ -451,7 +451,7 @@ class Tracker {
     
         var date = NSDate()
         
-        var preDictonary = getDictonaryForTimeSlice(date)
+        var preDictonary = getDictonaryForTimeSlice(dateFor)
         
         var sortedActivityStrings = Array(preDictonary.keys)
         sortedActivityStrings.sortInPlace(){
@@ -460,6 +460,7 @@ class Tracker {
             return obj1 > obj2
             }
         print(sortedActivityStrings)
+    
     if let one = activities.last?.action{
         if groups.indexOf(one) != nil{
              sortedActivityStrings.insert(one, atIndex: 0)
@@ -504,16 +505,20 @@ class Tracker {
         let dateComponents = cal.components([NSCalendarUnit.Month, NSCalendarUnit.Era , NSCalendarUnit.Year,NSCalendarUnit.Day,NSCalendarUnit.Hour,NSCalendarUnit.Minute], fromDate: date)
         
         
-        
         for unit in activities{
+            var exists = false
             let unitComponents = cal.components([NSCalendarUnit.Month, NSCalendarUnit.Era , NSCalendarUnit.Year,NSCalendarUnit.Day,NSCalendarUnit.Hour,NSCalendarUnit.Minute], fromDate: unit.date)
             if (dateComponents.hour + 2) > unitComponents.hour && (dateComponents.hour - 2) < unitComponents.hour
             {
                 for  entry in returnDict.keys
                 {
                     if unit.action == entry {
+                        exists = true
                         returnDict[entry]?++
                     }
+                }
+                if exists == false{
+                    returnDict[unit.action] = 1
                 }
             }
         }
