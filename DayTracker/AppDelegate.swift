@@ -16,6 +16,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 
+        
+        
+        //Tracker.sharedTracker.resetThingToDo()
+        
+        
+        
         NotificationManager.sharedNotificationManager.registerNoteAction()
         NotificationManager.sharedNotificationManager.scheduleNotifications()
         NotificationManager.sharedNotificationManager.checkCurrentNotifications()
