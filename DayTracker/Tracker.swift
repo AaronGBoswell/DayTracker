@@ -525,36 +525,6 @@ class Tracker {
    
 
 }
-extension Dictionary {
-    func sortedKeys(isOrderedBefore:(String,String) -> Bool) -> [String] {
-        var array = Array(self.keys)
-        array.sort(isOrderedBefore)
-        return array
-    }
-    
-    // Slower because of a lot of lookups, but probably takes less memory (this is equivalent to Pascals answer in an generic extension)
-    func sortedKeysByValue(isOrderedBefore:(ValueType, ValueType) -> Bool) -> [String] {
-        return sortedKeys {
-            isOrderedBefore(self[$0]!, self[$1]!)
-        }
-    }
-    
-    // Faster because of no lookups, may take more memory because of duplicating contents
-    func keysSortedByValue(isOrderedBefore:(Int, ValueType) -> Bool) -> [String] {
-        var array = Array(self)
-        sort(&array) {
-            let (lk, lv) = $0
-            let (rk, rv) = $1
-            return isOrderedBefore(lv, rv)
-        }
-        return array.map {
-            let (k, v) = $0
-            return k
-        }
-    }
-}
-
-
 
 
 
