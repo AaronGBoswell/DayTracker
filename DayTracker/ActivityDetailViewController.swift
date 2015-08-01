@@ -18,13 +18,22 @@ class ActivityDetailViewController: UIViewController ,UIPickerViewDataSource,UIP
     @IBOutlet weak var noteSwitch: UISwitch!
     @IBOutlet weak var groupPicker: UIPickerView!
     
+    @IBOutlet weak var notificationSwitch: UISwitch!
    
     @IBAction func doneAndSave(sender: UIBarButtonItem) {
         if edit
         {
+            if notificationSwitch.on{
             Tracker.sharedTracker.editActivityInBag(populate!,action: nameTextFieldOutlet.text!, note: noteSwitch.on, productive: pickerData[groupPicker.selectedRowInComponent(0)], pushToFront: 4)
+            } else {
+            Tracker.sharedTracker.editActivityInBag(populate!,action: nameTextFieldOutlet.text!, note: noteSwitch.on, productive: pickerData[groupPicker.selectedRowInComponent(0)], pushToFront: 0)
+            }
         } else {
+            if notificationSwitch.on{
             Tracker.sharedTracker.addActivityToBag(nameTextFieldOutlet.text!, note: noteSwitch.on, productive: pickerData[groupPicker.selectedRowInComponent(0)], pushToFront: 4)
+            } else{
+                Tracker.sharedTracker.addActivityToBag(nameTextFieldOutlet.text!, note: noteSwitch.on, productive: pickerData[groupPicker.selectedRowInComponent(0)], pushToFront: 0)
+            }
         }
         
         print("here")
@@ -48,6 +57,11 @@ class ActivityDetailViewController: UIViewController ,UIPickerViewDataSource,UIP
             nameTextFieldOutlet.text = populate!.action
             //find in array 
             groupPicker.selectRow(pickerData.indexOf((populate?.productive)!)!, inComponent: 0, animated: true)
+            notificationSwitch.on = false
+        }
+        else {
+            notificationSwitch.on = true
+            
         }
     }
     

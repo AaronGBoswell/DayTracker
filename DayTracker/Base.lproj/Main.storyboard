@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8164.2" systemVersion="15A235d" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="pCc-T9-dHV">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8164.2" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="pCc-T9-dHV">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8135.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -325,7 +325,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nvn-fT-XoC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2612" y="2188"/>
+            <point key="canvasLocation" x="2044" y="2294"/>
         </scene>
         <!--New Activity-->
         <scene sceneID="9Mi-EO-G1G">
@@ -339,45 +339,57 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Name Of Activity" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MDb-te-6i1">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name Of Activity" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MDb-te-6i1">
                                 <rect key="frame" x="20" y="72" width="560" height="30"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w1d-p9-QOO">
-                                <rect key="frame" x="0.0" y="149" width="600" height="216"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Require Note" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="APM-Lf-JDv">
+                                <rect key="frame" x="20" y="110" width="109" height="31"/>
                                 <animations/>
-                            </pickerView>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ine-WJ-Of6">
-                                <rect key="frame" x="20" y="110" width="51" height="31"/>
-                                <animations/>
-                            </switch>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Note" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="APM-Lf-JDv">
-                                <rect key="frame" x="77" y="110" width="49" height="31"/>
-                                <animations/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="49" id="IVa-SR-aSa"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Make Priority" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VzM-xJ-dqs">
+                                <rect key="frame" x="20" y="149" width="153" height="31"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="ine-WJ-Of6">
+                                <rect key="frame" x="181" y="110" width="51" height="31"/>
+                                <animations/>
+                            </switch>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DJs-9h-JUh">
+                                <rect key="frame" x="181" y="149" width="51" height="31"/>
+                            </switch>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w1d-p9-QOO">
+                                <rect key="frame" x="0.0" y="192" width="600" height="216"/>
+                                <animations/>
+                            </pickerView>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="w1d-p9-QOO" secondAttribute="trailing" id="AfS-KE-pfB"/>
-                            <constraint firstItem="w1d-p9-QOO" firstAttribute="centerX" secondItem="MDb-te-6i1" secondAttribute="centerX" id="C0P-bJ-o6z"/>
-                            <constraint firstItem="w1d-p9-QOO" firstAttribute="top" secondItem="ine-WJ-Of6" secondAttribute="bottom" constant="8" symbolic="YES" id="Dtp-uO-j3R"/>
-                            <constraint firstItem="w1d-p9-QOO" firstAttribute="top" secondItem="APM-Lf-JDv" secondAttribute="bottom" constant="8" symbolic="YES" id="Rv6-gw-Se7"/>
-                            <constraint firstItem="w1d-p9-QOO" firstAttribute="leading" secondItem="IzV-Sh-ApR" secondAttribute="leading" id="Srq-8P-IFM"/>
-                            <constraint firstItem="MDb-te-6i1" firstAttribute="top" secondItem="k1C-gB-fNl" secondAttribute="bottom" constant="8" symbolic="YES" id="UMA-9r-wZG"/>
-                            <constraint firstItem="ine-WJ-Of6" firstAttribute="top" secondItem="APM-Lf-JDv" secondAttribute="top" id="WAk-eG-Blz"/>
-                            <constraint firstItem="ine-WJ-Of6" firstAttribute="top" secondItem="MDb-te-6i1" secondAttribute="bottom" constant="8" symbolic="YES" id="X4I-bc-dQu"/>
-                            <constraint firstItem="APM-Lf-JDv" firstAttribute="leading" secondItem="ine-WJ-Of6" secondAttribute="trailing" constant="8" symbolic="YES" id="YmK-tL-l1c"/>
-                            <constraint firstItem="ine-WJ-Of6" firstAttribute="leading" secondItem="IzV-Sh-ApR" secondAttribute="leadingMargin" id="sHf-aY-SOw"/>
-                            <constraint firstItem="MDb-te-6i1" firstAttribute="leading" secondItem="ine-WJ-Of6" secondAttribute="leading" id="w6R-9V-BN2"/>
+                            <constraint firstItem="DJs-9h-JUh" firstAttribute="top" secondItem="VzM-xJ-dqs" secondAttribute="top" id="2fr-XR-zFm"/>
+                            <constraint firstItem="MDb-te-6i1" firstAttribute="top" secondItem="k1C-gB-fNl" secondAttribute="bottom" constant="8" symbolic="YES" id="2ml-5v-LIW"/>
+                            <constraint firstItem="w1d-p9-QOO" firstAttribute="centerY" secondItem="IzV-Sh-ApR" secondAttribute="centerY" id="4lv-b5-SvI"/>
+                            <constraint firstItem="w1d-p9-QOO" firstAttribute="leading" secondItem="IzV-Sh-ApR" secondAttribute="leading" id="6Gz-lN-MrK"/>
+                            <constraint firstItem="ine-WJ-Of6" firstAttribute="top" secondItem="APM-Lf-JDv" secondAttribute="top" id="8gF-ae-xYP"/>
+                            <constraint firstItem="w1d-p9-QOO" firstAttribute="centerX" secondItem="MDb-te-6i1" secondAttribute="centerX" id="AsY-fO-mb4"/>
+                            <constraint firstItem="DJs-9h-JUh" firstAttribute="bottom" secondItem="VzM-xJ-dqs" secondAttribute="bottom" id="DJa-Es-qLr"/>
+                            <constraint firstItem="ine-WJ-Of6" firstAttribute="leading" secondItem="DJs-9h-JUh" secondAttribute="leading" id="GUk-0z-YWH"/>
+                            <constraint firstItem="APM-Lf-JDv" firstAttribute="top" secondItem="MDb-te-6i1" secondAttribute="bottom" constant="8" symbolic="YES" id="H6x-ve-3ut"/>
+                            <constraint firstItem="MDb-te-6i1" firstAttribute="leading" secondItem="APM-Lf-JDv" secondAttribute="leading" id="Mat-Wi-P7n"/>
+                            <constraint firstAttribute="trailing" secondItem="w1d-p9-QOO" secondAttribute="trailing" id="Ovu-FI-7fj"/>
+                            <constraint firstItem="DJs-9h-JUh" firstAttribute="top" secondItem="ine-WJ-Of6" secondAttribute="bottom" constant="8" symbolic="YES" id="bVu-EO-thl"/>
+                            <constraint firstItem="ine-WJ-Of6" firstAttribute="leading" secondItem="APM-Lf-JDv" secondAttribute="trailing" constant="52" id="eXK-87-AnZ"/>
+                            <constraint firstItem="MDb-te-6i1" firstAttribute="leading" secondItem="IzV-Sh-ApR" secondAttribute="leadingMargin" id="he4-uI-ujs"/>
+                            <constraint firstItem="APM-Lf-JDv" firstAttribute="leading" secondItem="VzM-xJ-dqs" secondAttribute="leading" id="kAW-of-1ML"/>
+                            <constraint firstItem="VzM-xJ-dqs" firstAttribute="top" secondItem="APM-Lf-JDv" secondAttribute="bottom" constant="8" symbolic="YES" id="ya4-sw-gzy"/>
+                            <constraint firstItem="DJs-9h-JUh" firstAttribute="leading" secondItem="VzM-xJ-dqs" secondAttribute="trailing" constant="8" symbolic="YES" id="zFQ-pY-Jvg"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
@@ -393,6 +405,7 @@
                         <outlet property="groupPicker" destination="w1d-p9-QOO" id="Hdj-gL-28c"/>
                         <outlet property="nameTextFieldOutlet" destination="MDb-te-6i1" id="qLn-hK-tyS"/>
                         <outlet property="noteSwitch" destination="ine-WJ-Of6" id="qVH-gV-Nl3"/>
+                        <outlet property="notificationSwitch" destination="DJs-9h-JUh" id="eXE-TN-kZH"/>
                         <segue destination="XJn-EB-BR6" kind="unwind" identifier="Done" unwindAction="goBack:" id="5l6-GC-0tL"/>
                     </connections>
                 </viewController>
@@ -460,7 +473,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BJn-A6-D5i" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="237" y="1058"/>
+            <point key="canvasLocation" x="269" y="1417"/>
         </scene>
         <!--Item-->
         <scene sceneID="SE5-Ef-oI1">
@@ -480,7 +493,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dht-7c-x7J" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1270" y="2210"/>
+            <point key="canvasLocation" x="1225" y="2294"/>
         </scene>
     </scenes>
 </document>
