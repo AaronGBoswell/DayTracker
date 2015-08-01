@@ -471,14 +471,14 @@ class Tracker {
                 returnArray.append(unit)
             }
         }
-        if returnArray.count < 4 {
+        if sortedActivityStrings.count < 4 {
             for unit in activitiesByGroup {
-                if !returnArray.contains((unit.first?.action)!){
-                    returnArray.append((unit.first?.action)!)
+                if !sortedActivityStrings.contains((unit.first?.action)!){
+                    sortedActivityStrings.append((unit.first?.action)!)
                 }
             }
         }
-    return  returnArray
+    return  sortedActivityStrings
     
     
     }
