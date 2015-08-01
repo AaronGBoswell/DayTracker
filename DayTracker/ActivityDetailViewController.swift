@@ -28,6 +28,7 @@ class ActivityDetailViewController: UIViewController ,UIPickerViewDataSource,UIP
         }
         performSegueWithIdentifier("Done", sender: sender)
     }
+    
   
     var pickerData = Tracker.sharedTracker.groups
     var populate : Tracker.ActivitySetting?
