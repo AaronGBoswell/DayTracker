@@ -13,6 +13,8 @@ class ActivityTableTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.leftBarButtonItem = self.editButtonItem()
+        tableView.allowsSelectionDuringEditing = true
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -42,7 +44,10 @@ class ActivityTableTableViewController: UITableViewController {
         
     }
     
-    
+    override func setEditing(editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        tableView.setEditing(editing, animated: animated)
+    }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("identifier", forIndexPath: indexPath)
@@ -50,12 +55,22 @@ class ActivityTableTableViewController: UITableViewController {
         
         
         cell.textLabel!.text = Tracker.sharedTracker.activitiesByGroup[indexPath.section][indexPath.row].action
+        //cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        cell.shouldIndentWhileEditing = false
+        cell.editingAccessoryType = UITableViewCellAccessoryType.DisclosureIndicator
        // cell.textLabel!.text = Tracker.sharedTracker.actionsByGroup[indexPath.section][indexPath.row]
         //print(Tracker.sharedTracker.activities[
-    
+        
 
         
         return cell
+    }
+    override func tableView(tableView: UITableView, shouldIndentWhileEditingRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return false
+        
+    }
+    override func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
+        return UITableViewCellEditingStyle.None
     }
 
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -63,8 +78,9 @@ class ActivityTableTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
-        
-        performSegueWithIdentifier("ShowActivityDetail", sender: tableView.cellForRowAtIndexPath(indexPath))
+        if tableView.editing == true {
+            performSegueWithIdentifier("ShowActivityDetail", sender: tableView.cellForRowAtIndexPath(indexPath))
+        }
         
     }
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -77,9 +93,9 @@ class ActivityTableTableViewController: UITableViewController {
             tableView.reloadData()
         }
     }
-
-    
-    
+    override func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return tableView.editing
+    }
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         var destination = segue.destinationViewController as UIViewController
