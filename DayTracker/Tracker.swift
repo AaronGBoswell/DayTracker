@@ -480,7 +480,6 @@ class Tracker {
             let obj2 = preDictonary[$1]
             return obj1 > obj2
             }
-        print(sortedActivityStrings)
     
     
         var preDictonaryOfAllTime = getDictonaryForAllTime()
@@ -574,7 +573,7 @@ class Tracker {
                 }
             }
         }
-        print(returnDict)
+       
         return returnDict
 
     }
@@ -599,8 +598,7 @@ class Tracker {
                 returnDict[unit.action] = 1
             }
         }
-        print("All Time")
-        print(returnDict)
+       
         return returnDict
         
     }
