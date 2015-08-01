@@ -253,7 +253,9 @@ class NotificationManager {
         return nil
     }
     func responseWithIdentifier(identifier:String){
-        consolidateNotifications()
+        scheduleNotifications()
+        cancelPastNotifications()
+        
         print(identifier)
         if identifier.hasPrefix("/") {
             let group = identifier.substringFromIndex(identifier.startIndex.successor())
@@ -272,8 +274,7 @@ class NotificationManager {
                 checkCurrentNotifications()
             }
         }
-        scheduleNotifications()
-        cancelPastNotifications()
+
         
 
     }
