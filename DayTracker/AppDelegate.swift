@@ -21,6 +21,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         */
 
+        
+        
+        //Tracker.sharedTracker.resetThingToDo()
+        
+        
+        
         NotificationManager.sharedNotificationManager.registerNoteAction()
         NotificationManager.sharedNotificationManager.scheduleNotifications()
         NotificationManager.sharedNotificationManager.checkCurrentNotifications()
