@@ -496,7 +496,8 @@ class Tracker {
         }
     
    
-        for unit in activitiesByGroup {
+    
+    for unit in activitiesByGroup {
             if !sortedActivityStrings.contains((unit.first?.action)!){
                 sortedActivityStrings.append((unit.first?.action)!)
             }
