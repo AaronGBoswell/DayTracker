@@ -15,6 +15,7 @@ class ActionTableViewController: UITableViewController, Observer
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView?.reloadData()
+        Tracker.sharedTracker.observers.append(self)
         
     }
     override func viewWillAppear(animated: Bool) {
@@ -24,7 +25,7 @@ class ActionTableViewController: UITableViewController, Observer
     
     func observedValueChanged() {
         todaysArray = Tracker.sharedTracker.todaysOrginizedArray
-        tableView.reloadData()
+        tableView?.reloadData()
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -65,14 +66,16 @@ class ActionTableViewController: UITableViewController, Observer
        
         if unitComponents.hour < 8 {
             return "Early"
-        } else if unitComponents.hour < 12 {
+        } else if unitComponents.hour < 11 {
             return "Morning"
-        } else if unitComponents.hour < 16 {
+        } else if unitComponents.hour < 14 {
             return"Midday"
-        } else if unitComponents.hour < 20 {
+        } else if unitComponents.hour < 17 {
+            return "Afternoon"
+        } else if unitComponents.hour < 21 {
+            return "Evening"
+        }else if unitComponents.hour < 24 {
             return "Night"
-        } else if unitComponents.hour < 24 {
-            return "Late"
         }
         return "Some Time"
         

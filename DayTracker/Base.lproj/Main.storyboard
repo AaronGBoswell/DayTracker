@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8164.2" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="pCc-T9-dHV">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8164.2" systemVersion="15A235d" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="pCc-T9-dHV">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8135.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -186,7 +186,7 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -241,7 +241,7 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -265,7 +265,7 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -285,7 +285,7 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -305,7 +305,7 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -354,6 +354,7 @@
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Make Priority" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VzM-xJ-dqs">
                                 <rect key="frame" x="20" y="149" width="153" height="31"/>
+                                <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -364,6 +365,7 @@
                             </switch>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DJs-9h-JUh">
                                 <rect key="frame" x="181" y="149" width="51" height="31"/>
+                                <animations/>
                             </switch>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w1d-p9-QOO">
                                 <rect key="frame" x="0.0" y="192" width="600" height="216"/>
@@ -414,11 +416,11 @@
             </objects>
             <point key="canvasLocation" x="2789" y="1423"/>
         </scene>
-        <!--Item-->
+        <!--Today-->
         <scene sceneID="wvA-hC-PgR">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Bk8-tm-4Ov" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="gEo-d4-TBB"/>
+                    <tabBarItem key="tabBarItem" title="Today" image="Today" selectedImage="Today" id="gEo-d4-TBB"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="o7y-S3-CqG">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -434,11 +436,11 @@
             </objects>
             <point key="canvasLocation" x="1225" y="464"/>
         </scene>
-        <!--Item-->
+        <!--Dashboard-->
         <scene sceneID="Ahe-ag-BNY">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="wqg-4U-vrf" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="0YH-NA-1mK"/>
+                    <tabBarItem key="tabBarItem" title="Dashboard" image="Dashboard" id="0YH-NA-1mK"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="jfm-6h-1XC">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -475,11 +477,11 @@
             </objects>
             <point key="canvasLocation" x="269" y="1417"/>
         </scene>
-        <!--Item-->
+        <!--Settings-->
         <scene sceneID="SE5-Ef-oI1">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7p5-UV-Omc" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="LWb-SU-FPv"/>
+                    <tabBarItem key="tabBarItem" title="Settings" image="Settings" id="LWb-SU-FPv"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="6Pd-sv-L92">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -496,4 +498,9 @@
             <point key="canvasLocation" x="1225" y="2294"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Dashboard" width="25" height="25"/>
+        <image name="Settings" width="25" height="25"/>
+        <image name="Today" width="25" height="25"/>
+    </resources>
 </document>

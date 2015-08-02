@@ -207,6 +207,8 @@ class Tracker {
         var midday = [Activity]()
         var night = [Activity]()
         var late = [Activity]()
+        var veryLate = [Activity]()
+
         
         let cal = NSCalendar.currentCalendar()
         let dateComponents = cal.components([NSCalendarUnit.Month, NSCalendarUnit.Era , NSCalendarUnit.Year,NSCalendarUnit.Day,NSCalendarUnit.Hour,NSCalendarUnit.Minute], fromDate: date)
@@ -219,14 +221,16 @@ class Tracker {
             if dateComponents.month == unitComponents.month && dateComponents.year == unitComponents.year && dateComponents.day == unitComponents.day {
                 if unitComponents.hour < 8 {
                     early.append(unit)
-                } else if unitComponents.hour < 12 {
+                } else if unitComponents.hour < 11 {
                     morning.append(unit)
-                } else if unitComponents.hour < 16 {
+                } else if unitComponents.hour < 14 {
                     midday.append(unit)
-                } else if unitComponents.hour < 20 {
+                } else if unitComponents.hour < 17 {
                     night.append(unit)
-                } else if unitComponents.hour < 24 {
+                } else if unitComponents.hour < 21 {
                     late.append(unit)
+                }else if unitComponents.hour < 24 {
+                    veryLate.append(unit)
                 }
             }
         }
@@ -245,6 +249,9 @@ class Tracker {
         }
         if late.first != nil{
             returnArray.append(late)
+        }
+        if veryLate.first != nil{
+            returnArray.append(veryLate)
         }
         return returnArray
         
