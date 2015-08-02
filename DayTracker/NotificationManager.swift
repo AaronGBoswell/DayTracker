@@ -44,6 +44,9 @@ class NotificationManager {
                 cancelNotification(notification)
             }
         }
+        UIApplication.sharedApplication().applicationIconBadgeNumber = 1
+        UIApplication.sharedApplication().applicationIconBadgeNumber = -1
+
     }
     func cancelNotification(notification:UILocalNotification){
         UIApplication.sharedApplication().applicationIconBadgeNumber++
@@ -55,14 +58,9 @@ class NotificationManager {
         print("Check start")
         if let notifications = UIApplication.sharedApplication().scheduledLocalNotifications {
             for notification in notifications{
-                print(notification.fireDate?.humanDate)
+                print(notification.fireDate)
             }
             print(notifications.count)
-        }
-        if let categories = UIApplication.sharedApplication().currentUserNotificationSettings()?.categories{
-            for category in categories{
-                print(category.identifier)
-            }
         }
         print("Check Complete")
 
@@ -80,6 +78,7 @@ class NotificationManager {
             scheduleNotificationForDate(date)
             date = date.dateForNextTimeSlice(Tracker.sharedTracker.settings.timeSlice)
         }
+        
     }
     func cancelPastNotifications(){
         for notification in UIApplication.sharedApplication().scheduledLocalNotifications!{
@@ -99,9 +98,18 @@ class NotificationManager {
         }
         return nil
     }
-    func scheduleNotificationForDate(date:NSDate){
+    func scheduleNotificationForDate(date:NSDate, bypassSleep : Bool = false){
+        if(!bypassSleep){
+            if Tracker.sharedTracker.SleepUntil != nil {
+                if  date.dateByAddingTimeInterval(60).laterDate(Tracker.sharedTracker.SleepUntil!) == Tracker.sharedTracker.SleepUntil! {
+                    return
+                } else{
+                    
+                }
+                
+            }
+        }
         refreshCategoryForDate(date)
-        
         let notification = UILocalNotification()
         notification.fireDate = date
         notification.timeZone = NSTimeZone.defaultTimeZone()
@@ -125,7 +133,7 @@ class NotificationManager {
         notification.alertBody = "What have you been doing?"
         UIApplication.sharedApplication().scheduleLocalNotification(notification)
         //print(date.humanDate)
-        //print("scheduled")
+        print("scheduled")
         
     }
     
@@ -268,35 +276,41 @@ class NotificationManager {
         return nil
     }
     func responseWithIdentifier(identifier:String){
-        scheduleNotifications()
-        cancelPastNotifications()
         
-        print(identifier)
-        if identifier.hasPrefix("/") {
-            let group = identifier.substringFromIndex(identifier.startIndex.successor())
-            if let activities = Tracker.sharedTracker.predictActivities(NSDate().roundDateDownToTimeSlice(Tracker.sharedTracker.settings.timeSlice), fromGroup: group){
-                makeCategoryWithOptions(activities, identifier: group)
-                scheduleNotificationWithCategoryForNow(group)
-            } else{
+        let qos = Int(QOS_CLASS_USER_INITIATED.rawValue)
+        dispatch_async(dispatch_get_global_queue(qos, 0)){ () -> Void in
+            self.cancelPastNotifications()
+            print(identifier)
+            if identifier.hasPrefix("/") {
+                let group = identifier.substringFromIndex(identifier.startIndex.successor())
+                if let activities = Tracker.sharedTracker.predictActivities(NSDate().roundDateDownToTimeSlice(Tracker.sharedTracker.settings.timeSlice), fromGroup: group){
+                    self.makeCategoryWithOptions(activities, identifier: group)
+                    self.scheduleNotificationWithCategoryForNow(group)
+                } else{
+                    
+                    
+                    print(group + "doesnt exist as a gorup")
+                }
                 
-                print(group + "doesnt exist as a gorup")
-            }
-            
-        }else if identifier.hasPrefix("::") {
-            cancelAllNotifications()
-            scheduleNotificationsStartingWithDate(NSDate().dateForTomorrowAt(Tracker.sharedTracker.settings.wakeHour, minute: Tracker.sharedTracker.settings.wakeMinute))
-            Tracker.sharedTracker.sleepSelected(NSDate())
-            checkCurrentNotifications()
+            }else if identifier.hasPrefix("::") {
+                self.cancelAllNotifications()
+                let sleepTime = NSDate().dateForTomorrowAt(Tracker.sharedTracker.settings.wakeHour, minute: Tracker.sharedTracker.settings.wakeMinute)
+                Tracker.sharedTracker.SleepUntil = sleepTime
+                self.scheduleNotificationsStartingWithDate(NSDate().dateForTomorrowAt(Tracker.sharedTracker.settings.wakeHour, minute: Tracker.sharedTracker.settings.wakeMinute))
+                Tracker.sharedTracker.sleepSelected(NSDate())
+                self.checkCurrentNotifications()
 
-        }else {
-            Tracker.sharedTracker.setCurrentActivity(identifier, currentDate: NSDate().roundDateDownToTimeSlice(Tracker.sharedTracker.settings.timeSlice), theLength: Tracker.sharedTracker.settings.timeSlice)
-            if Tracker.sharedTracker.activityDetails(identifier)?.note == true{
-                fireNoteNotification()
-                checkCurrentNotifications()
+            }else {
+                Tracker.sharedTracker.setCurrentActivity(identifier, currentDate: NSDate().roundDateDownToTimeSlice(Tracker.sharedTracker.settings.timeSlice), theLength: Tracker.sharedTracker.settings.timeSlice)
+                if Tracker.sharedTracker.activityDetails(identifier)?.note == true{
+                    self.fireNoteNotification()
+                    self.checkCurrentNotifications()
+                }
+                self.scheduleNotifications()
             }
+
+            self.checkCurrentNotifications()
         }
-
-        
 
     }
 }
@@ -319,7 +333,7 @@ extension NSDate{
         comps.minute = minute
         comps.hour = hour
         comps.day++
-        
+
         let date = cal.dateFromComponents(comps)
         return date!
     }

@@ -15,22 +15,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        /*
         
-        Tracker.sharedTracker.ThingsToDo = [["action" : "Programing" , "note" :true, "productive" : "Job", "pushToFront" : 0, "color" : 1 ], ["action" : "Yard Work" , "note" :true, "productive" : "Job" , "pushToFront" : 0 , "color" : 1], ["action" : "Television" , "note" :false, "productive" : "Entertainment" , "pushToFront" : 0 , "color" : 2], ["action" : "Relaxing" , "note" :false, "productive" : "Entertainment" , "pushToFront" : 0 , "color" : 2], ["action" : "Gaming" , "note" :false, "productive" : "Entertainment" , "pushToFront" : 0 , "color" : 2],["action" : "Eat" , "note" :false, "productive" : "Nutrition" , "pushToFront" : 0 , "color" : 3]]
+        
+        //Tracker.sharedTracker.ThingsToDo =  [["action" : "Programing" , "note" :true, "productive" : "Job", "pushToFront" : 0, "color" : 1 ], ["action" : "Yard Work" , "note" :true, "productive" : "Job" , "pushToFront" : 0 , "color" : 1], ["action" : "Television" , "note" :false, "productive" : "Entertainment" , "pushToFront" : 0 , "color" : 2], ["action" : "Relaxing" , "note" :false, "productive" : "Entertainment" , "pushToFront" : 0 , "color" : 2], ["action" : "Gaming" , "note" :false, "productive" : "Entertainment" , "pushToFront" : 0 , "color" : 2],["action" : "Eat" , "note" :false, "productive" : "Nutrition" , "pushToFront" : 0 , "color" : 3]]
         
 
 
-        */
+
         
         //Tracker.sharedTracker.resetThingToDo()
         
+        //Tracker.sharedTracker.SleepUntil = nil
+        UINavigationBar.appearance().barTintColor = UIColor(red: 2.0/255.0, green: 77.0/255.0, blue: 109.0/255.0, alpha: 1.0)
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+        UINavigationBar.appearance().tintColor = UIColor.whiteColor()
+       // UINavigationBar.appearance().barTintColor = UIColor.orangeColor()
+        UINavigationBar.appearance().translucent = true
+        UITabBar.appearance().tintColor = UIColor(red: 2.0/255.0, green: 77.0/255.0, blue: 109.0/255.0, alpha: 1.0)
+        UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
+        print( Tracker.sharedTracker.SleepUntil)
         
-        
-        NotificationManager.sharedNotificationManager.registerNoteAction()
-        NotificationManager.sharedNotificationManager.scheduleNotifications()
-        NotificationManager.sharedNotificationManager.checkCurrentNotifications()
-        NotificationManager.sharedNotificationManager.cancelPastNotifications()
+        let qos = Int(QOS_CLASS_USER_INITIATED.rawValue)
+        dispatch_async(dispatch_get_global_queue(qos, 0)){ () -> Void in
+
+            NotificationManager.sharedNotificationManager.registerNoteAction()
+            NotificationManager.sharedNotificationManager.scheduleNotifications()
+            NotificationManager.sharedNotificationManager.checkCurrentNotifications()
+            NotificationManager.sharedNotificationManager.cancelPastNotifications()
+        }
+        //NotificationManager.sharedNotificationManager.scheduleNotificationForDate(NSDate().dateByAddingTimeInterval(10), bypassSleep: true)
+
        // NotificationManager.sharedNotificationManager.fireNoteNotification()
 
         return true
@@ -49,10 +63,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationWillEnterForeground(application: UIApplication) {
         print("willenterforground")
+        if UIApplication.sharedApplication().applicationIconBadgeNumber > 0 {
+            let date = NSDate().roundDateDownToTimeSlice(Tracker.sharedTracker.settings.timeSlice)
+            NotificationManager.sharedNotificationManager.refreshCategoryForDate(date)
+            let notification = UILocalNotification()
+            notification.fireDate = date
+            notification.timeZone = NSTimeZone.defaultTimeZone()
+            notification.category = date.description
+            notification.soundName = UILocalNotificationDefaultSoundName
+            notification.applicationIconBadgeNumber++
+            notification.alertBody = "What have you been doing?"
+            
+            if let alert = NotificationManager.sharedNotificationManager.alertFromNotification(notification){
+                print(alert.description)
+                let rootViewController = self.window!.rootViewController
+                print(rootViewController)
+                rootViewController?.presentViewController(alert, animated: true, completion: nil)
+            }
+        }
         for notification in UIApplication.sharedApplication().scheduledLocalNotifications!{
             let date = NSDate()
+            print(notification.fireDate!.humanDate)
             if date.laterDate(notification.fireDate!) == date{
                 print(notification.description)
+                
             }
         }
         print("Donewillenterforground")
@@ -74,6 +108,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let alert = NotificationManager.sharedNotificationManager.alertFromNotification(notification){
             print(alert.description)
             let rootViewController = self.window!.rootViewController
+            print(rootViewController)
+
             rootViewController?.presentViewController(alert, animated: true, completion: nil)
         }
         NotificationManager.sharedNotificationManager.cancelNotification(notification)
@@ -90,7 +126,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else if identifier != nil {
             NotificationManager.sharedNotificationManager.responseWithIdentifier(identifier!)
         }
-
+        NotificationManager.sharedNotificationManager.checkCurrentNotifications()
         completionHandler()
     }
 
