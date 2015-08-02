@@ -8,45 +8,41 @@
 
 import UIKit
 
-class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
+class SettingsTableViewController: UITableViewController {
 
+    @IBOutlet weak var wakeTimeTableCell: UITableViewCell!
     override func viewDidLoad() {
         super.viewDidLoad()
+        popDatePicker = PopDatePicker(forView: wakeTimeTableCell)
+        refreshWakeTime()
         
-        popDatePicker = PopDatePicker(forTextField: wakeTimeTextField)
-        wakeTimeTextField.delegate = self
-        
+    }
+    func refreshWakeTime(){
+        let wakeMinute: String = (Tracker.sharedTracker.settings.wakeMinute == 0) ? "00" : Tracker.sharedTracker.settings.wakeMinute.description
+        wakeTimeTableCell.textLabel?.text = "Wake Time               \(Tracker.sharedTracker.settings.wakeHour):\(wakeMinute)"
     }
     var popDatePicker : PopDatePicker?
-    @IBOutlet weak var wakeTimeTextField: UITextField!
-    
-    func resign() {
-        
-        wakeTimeTextField.resignFirstResponder()
-        
-    }
-    
-    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
-        
-        if (textField === wakeTimeTextField) {
-            resign()
+
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if wakeTimeTableCell == tableView.cellForRowAtIndexPath(indexPath){
             let formatter = NSDateFormatter()
             formatter.dateStyle = .MediumStyle
             formatter.timeStyle = .NoStyle
-            let initDate : NSDate? = formatter.dateFromString(wakeTimeTextField.text!)
+            //let initDate : NSDate? = formatter.dateFromString(wakeTimeTextField.text!)
             
-            let dataChangedCallback : PopDatePicker.PopDatePickerCallback = { (newDate : NSDate, forTextField : UITextField) -> () in
+            let dataChangedCallback : PopDatePicker.PopDatePickerCallback = { (newDate : NSDate) -> () in
                 
-                // here we don't use self (no retain cycle)
-                forTextField.text = (newDate.humanDate ?? "?") as String
+                let cal = NSCalendar.currentCalendar()
+                let comps = cal.components([NSCalendarUnit.Month, NSCalendarUnit.Era , NSCalendarUnit.Year,NSCalendarUnit.Day,NSCalendarUnit.Hour,NSCalendarUnit.Minute], fromDate: newDate)
                 
+                Tracker.sharedTracker.settings.wakeMinute = comps.minute
+                Tracker.sharedTracker.settings.wakeHour = comps.hour
+                self.refreshWakeTime()
+                self.wakeTimeTableCell.selected = false
+
             }
             
-            popDatePicker!.pick(self, initDate: initDate, dataChanged: dataChangedCallback)
-            return false
-        }
-        else {
-            return true
+            popDatePicker!.pick(self, dataChanged: dataChangedCallback)
         }
     }
     

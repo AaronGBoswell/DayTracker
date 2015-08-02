@@ -11,7 +11,7 @@ import UIKit
 class ActionTableViewController: UITableViewController, Observer
 {
    
-    var todaysArray = Tracker.sharedTracker.todaysOrginizedArray
+    var todaysArray = Tracker.sharedTracker.actionsOrganizedForDay(NSDate())
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView?.reloadData()
@@ -24,7 +24,7 @@ class ActionTableViewController: UITableViewController, Observer
     }
     
     func observedValueChanged() {
-        todaysArray = Tracker.sharedTracker.todaysOrginizedArray
+        todaysArray = Tracker.sharedTracker.actionsOrganizedForDay(NSDate())
         tableView?.reloadData()
     }
     override func didReceiveMemoryWarning() {
@@ -59,7 +59,9 @@ class ActionTableViewController: UITableViewController, Observer
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
-        
+        if todaysArray[section].isEmpty {
+            return nil
+        }
         
         let cal = NSCalendar.currentCalendar()
         let unitComponents = cal.components([NSCalendarUnit.Month, NSCalendarUnit.Era , NSCalendarUnit.Year,NSCalendarUnit.Day,NSCalendarUnit.Hour,NSCalendarUnit.Minute], fromDate: todaysArray[section].first!.date)

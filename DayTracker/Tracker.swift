@@ -177,9 +177,7 @@ class Tracker {
         
         
     }
-    
-    var todaysArray : [Activity] {
-        let date = NSDate()
+    func actionsForDay(date:NSDate) -> [Activity]{
         var returnArray = [Activity]()
         let cal = NSCalendar.currentCalendar()
         let dateComponents = cal.components([NSCalendarUnit.Month, NSCalendarUnit.Era , NSCalendarUnit.Year,NSCalendarUnit.Day,NSCalendarUnit.Hour,NSCalendarUnit.Minute], fromDate: date)
@@ -194,11 +192,38 @@ class Tracker {
             }
         }
         return returnArray
-        
-        
+
     }
-    
-    
+    //public let
+    func actionsOrganizedForDay(date:NSDate) ->[[Activity]]{
+        let actionsForDate = actionsForDay(date)
+        let cal = NSCalendar.currentCalendar()
+
+        var returnArray = [[Activity]]()
+        for _ in 0...5{
+            returnArray.append([Activity]())
+        }
+        for unit in actionsForDate{
+            let unitComponents = cal.components(NSCalendarUnit.Hour, fromDate: unit.date)
+            if unitComponents.hour < 8 {
+                returnArray[0].append(unit)
+            } else if unitComponents.hour < 11 {
+                returnArray[1].append(unit)
+            } else if unitComponents.hour < 14 {
+                returnArray[2].append(unit)
+            } else if unitComponents.hour < 17 {
+                returnArray[3].append(unit)
+            } else if unitComponents.hour < 21 {
+                returnArray[4].append(unit)
+            }else if unitComponents.hour < 24 {
+                returnArray[5].append(unit)
+            }
+
+        }
+        
+        return returnArray
+    }
+    /*
     var todaysOrginizedArray : [[Activity]] {
         let date = NSDate()
         var returnArray = [[Activity]]()
@@ -257,7 +282,7 @@ class Tracker {
         
     }
 
-    
+    */
     
     var groups : [String] {
         var returnArray =  [String]()
