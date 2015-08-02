@@ -19,6 +19,8 @@ class ActivityTableTableViewController: UITableViewController {
         super.viewDidLoad()
         self.navigationItem.leftBarButtonItem = self.editButtonItem()
         tableView.allowsSelectionDuringEditing = true
+        navigationController!.navigationBar.barTintColor = UIColor.purpleColor()
+
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -136,6 +138,7 @@ class ActivityTableTableViewController: UITableViewController {
                        ADVC.edit = false
                         
                     }
+                   ADVC.firstPicker = Tracker.sharedTracker.groups.count
                 default: break
                 }
             }

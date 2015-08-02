@@ -42,6 +42,7 @@ class ActivityDetailViewController: UIViewController ,UIPickerViewDataSource,UIP
     
   
     var pickerData = Tracker.sharedTracker.groups
+    var firstPicker = 0
     var populate : Tracker.ActivitySetting?
     var edit = false
     //var currentPicked : String
@@ -58,9 +59,13 @@ class ActivityDetailViewController: UIViewController ,UIPickerViewDataSource,UIP
             //find in array 
             groupPicker.selectRow(pickerData.indexOf((populate?.productive)!)!, inComponent: 0, animated: true)
             notificationSwitch.on = false
+            navigationController!.navigationBar.barTintColor = UIColor.purpleColor()
+            title = "Edit Activity"
         }
         else {
             notificationSwitch.on = true
+            navigationController!.navigationBar.barTintColor = UIColor.purpleColor()
+            title = "New Activity"
             
         }
     }
@@ -90,27 +95,28 @@ class ActivityDetailViewController: UIViewController ,UIPickerViewDataSource,UIP
     }
 */
     
+    
     func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView?) -> UIView {
         var pickerLabel = view as! UILabel!
         if view == nil {  //if no label there yet
             pickerLabel = UILabel()
-            //color the label's background
-            //let hue = CGFloat(row)/CGFloat(pickerData.count)
+            
            
-        if row < pickerData.count{
-            pickerLabel.backgroundColor =  Tracker.sharedTracker.colorForNumber(Tracker.sharedTracker.groupsWithColorAsIntDictonary[pickerData[row]]!)
-        }else {
+            if row < firstPicker{
+                
+                pickerLabel.backgroundColor =  Tracker.sharedTracker.colorForNumber(Tracker.sharedTracker.groupsWithColorAsIntDictonary[pickerData[row]]!)
+            }else {
             pickerLabel.backgroundColor = UIColor.clearColor()
+        
             }
         }
-        
-        
         if row < pickerData.count{
             pickerLabel!.attributedText =  NSAttributedString(string: pickerData[row])
         } else{
             //pickerLabel.backgroundColor = UIColor
             let warningTitle = NSAttributedString(string: "Add New", attributes: [NSForegroundColorAttributeName: UIColor.redColor()])
             pickerLabel!.attributedText = warningTitle
+            pickerLabel.textAlignment = .Center
             // NSAttributedString(
         }
      

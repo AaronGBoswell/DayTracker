@@ -682,8 +682,8 @@ class Tracker {
     }
     func predictActivities(dateFor:NSDate, fromGroup group:String) -> [String]?{
         var returnArray = [String]()
-        if let  activities = activitiesBasedOnGroup(group){
-            for element in activities {
+        if let  activitiesForGroup = activitiesBasedOnGroup(group){
+            for element in activitiesForGroup {
                 returnArray.append(element.action)
             }
             return returnArray
@@ -731,17 +731,22 @@ class Tracker {
         return returnArray
     }
     func colorForNumber(number: Int) -> UIColor {
+        
+        var returnColor : UIColor
+        returnColor = UIColor.clearColor()
         if number == 1{
-            return UIColor.redColor()
+            returnColor =  UIColor.redColor()
             
         } else if number == 2 {
-            return UIColor.blueColor()
+            returnColor = UIColor.blueColor()
         } else if number == 3 {
-            return UIColor.greenColor()
+            returnColor = UIColor.greenColor()
         } else if number == 4 {
-            return UIColor.yellowColor()
+            returnColor = UIColor.yellowColor()
         }
-        return UIColor.clearColor()
+        
+        return returnColor.colorWithAlphaComponent(0.05)
+        
     }
 
 

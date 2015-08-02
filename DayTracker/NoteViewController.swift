@@ -22,5 +22,7 @@ class NoteViewController: UIViewController {
         super.viewDidLoad()
         noteText.text = note?.note
         print(note?.note)
+        navigationController!.navigationBar.barTintColor = UIColor.purpleColor()
+
     }
    }

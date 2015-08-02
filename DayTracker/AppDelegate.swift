@@ -21,7 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
 
 
-        
+
+        */
         
         //Tracker.sharedTracker.resetThingToDo()
         
