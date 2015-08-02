@@ -16,7 +16,6 @@ class ActionTableViewController: UITableViewController, Observer
         super.viewDidLoad()
         tableView?.reloadData()
         Tracker.sharedTracker.observers.append(self)
-        navigationController!.navigationBar.barTintColor = UIColor.purpleColor()
 
         
     }

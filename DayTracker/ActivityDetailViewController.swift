@@ -59,12 +59,10 @@ class ActivityDetailViewController: UIViewController ,UIPickerViewDataSource,UIP
             //find in array 
             groupPicker.selectRow(pickerData.indexOf((populate?.productive)!)!, inComponent: 0, animated: true)
             notificationSwitch.on = false
-            navigationController!.navigationBar.barTintColor = UIColor.purpleColor()
             title = "Edit Activity"
         }
         else {
             notificationSwitch.on = true
-            navigationController!.navigationBar.barTintColor = UIColor.purpleColor()
             title = "New Activity"
             
         }

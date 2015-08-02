@@ -22,17 +22,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 
-        */
         
         //Tracker.sharedTracker.resetThingToDo()
         
         //Tracker.sharedTracker.SleepUntil = nil
+        //UINavigationBar.appearance().tintColor = UIColor(red: 255.0/255.0, green: 171.0/255.0, blue: 17.0/255.0, alpha: 1.0)
+        //UINavigationBar.appearance().tintColor = UIColor.greenColor()
+        UINavigationBar.appearance().barTintColor = UIColor(red: 255.0/255.0, green: 170.0/255.0, blue: 50.0/255.0, alpha: 1.0)
+        UINavigationBar.appearance().translucent = true
         print( Tracker.sharedTracker.SleepUntil)
         NotificationManager.sharedNotificationManager.registerNoteAction()
         NotificationManager.sharedNotificationManager.scheduleNotifications()
         NotificationManager.sharedNotificationManager.checkCurrentNotifications()
         NotificationManager.sharedNotificationManager.cancelPastNotifications()
-       // NotificationManager.sharedNotificationManager.scheduleNotificationForDate(NSDate().dateByAddingTimeInterval(10), bypassSleep: true)
+        //NotificationManager.sharedNotificationManager.scheduleNotificationForDate(NSDate().dateByAddingTimeInterval(10), bypassSleep: true)
 
        // NotificationManager.sharedNotificationManager.fireNoteNotification()
 
@@ -52,15 +55,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationWillEnterForeground(application: UIApplication) {
         print("willenterforground")
+        if UIApplication.sharedApplication().applicationIconBadgeNumber > 0 {
+            let date = NSDate().roundDateDownToTimeSlice(Tracker.sharedTracker.settings.timeSlice)
+            NotificationManager.sharedNotificationManager.refreshCategoryForDate(date)
+            let notification = UILocalNotification()
+            notification.fireDate = date
+            notification.timeZone = NSTimeZone.defaultTimeZone()
+            notification.category = date.description
+            notification.soundName = UILocalNotificationDefaultSoundName
+            notification.applicationIconBadgeNumber++
+            notification.alertBody = "What have you been doing?"
+            
+            if let alert = NotificationManager.sharedNotificationManager.alertFromNotification(notification){
+                print(alert.description)
+                let rootViewController = self.window!.rootViewController
+                print(rootViewController)
+                rootViewController?.presentViewController(alert, animated: true, completion: nil)
+            }
+        }
         for notification in UIApplication.sharedApplication().scheduledLocalNotifications!{
             let date = NSDate()
+            print(notification.fireDate!.humanDate)
             if date.laterDate(notification.fireDate!) == date{
                 print(notification.description)
-                if let alert = NotificationManager.sharedNotificationManager.alertFromNotification(notification){
-                    print(alert.description)
-                    let rootViewController = self.window!.rootViewController
-                    rootViewController?.presentViewController(alert, animated: true, completion: nil)
-                }
+                
             }
         }
         print("Donewillenterforground")
@@ -82,6 +100,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let alert = NotificationManager.sharedNotificationManager.alertFromNotification(notification){
             print(alert.description)
             let rootViewController = self.window!.rootViewController
+            print(rootViewController)
+
             rootViewController?.presentViewController(alert, animated: true, completion: nil)
         }
         NotificationManager.sharedNotificationManager.cancelNotification(notification)
