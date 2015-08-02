@@ -15,9 +15,6 @@ class SettingsTableViewController: UITableViewController {
         super.viewDidLoad()
         popDatePicker = PopDatePicker(forView: wakeTimeTableCell)
         refreshWakeTime()
-        navigationController!.navigationBar.barTintColor = UIColor.purpleColor()
-
-        
     }
     func refreshWakeTime(){
         let wakeMinute: String = (Tracker.sharedTracker.settings.wakeMinute == 0) ? "00" : Tracker.sharedTracker.settings.wakeMinute.description

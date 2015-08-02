@@ -16,9 +16,6 @@ class ActionTableViewController: UITableViewController, Observer
         super.viewDidLoad()
         tableView?.reloadData()
         Tracker.sharedTracker.observers.append(self)
-        navigationController!.navigationBar.barTintColor = UIColor.purpleColor()
-
-        
     }
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -47,6 +44,43 @@ class ActionTableViewController: UITableViewController, Observer
         return todaysArray[section].count
         
     }
+    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerLabel = UILabel()
+        
+        var timeOfDay = ""
+        if todaysArray[section].isEmpty {
+            return nil
+        }
+        
+        let cal = NSCalendar.currentCalendar()
+        let unitComponents = cal.components([NSCalendarUnit.Month, NSCalendarUnit.Era , NSCalendarUnit.Year,NSCalendarUnit.Day,NSCalendarUnit.Hour,NSCalendarUnit.Minute], fromDate: todaysArray[section].first!.date)
+        
+        if unitComponents.hour < 8 {
+            timeOfDay =  "  Early"
+        } else if unitComponents.hour < 11 {
+            timeOfDay = "   Morning"
+        } else if unitComponents.hour < 14 {
+            timeOfDay = "   Midday"
+        } else if unitComponents.hour < 17 {
+            timeOfDay =  "  Afternoon"
+        } else if unitComponents.hour < 21 {
+            timeOfDay =  "  Evening"
+        }else if unitComponents.hour < 24 {
+            timeOfDay =  "  Night"
+        }
+        
+        headerLabel.backgroundColor = UIColor(red: 2.0/255.0, green: 77.0/255.0, blue: 109.0/255.0, alpha: 0.89)
+        let font = [NSFontAttributeName : UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)]
+        
+        let attributedTitle = NSAttributedString(string: timeOfDay, attributes: [NSFontAttributeName : UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline), NSForegroundColorAttributeName: UIColor.whiteColor()])
+        headerLabel.attributedText = attributedTitle
+        
+        return headerLabel
+        
+        
+    }
+    
+    
     
     
     override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
@@ -72,7 +106,7 @@ class ActionTableViewController: UITableViewController, Observer
     
     
     
-    
+    /*
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
@@ -104,6 +138,8 @@ class ActionTableViewController: UITableViewController, Observer
         
     }
     
+
+    */
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
         
         

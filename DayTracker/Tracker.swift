@@ -13,7 +13,8 @@ class Tracker {
     static let sharedTracker = Tracker()
     internal var settings = TrackerSettings()
     var observers = [Observer]()
-
+     var themeColor = UIColor(red: 255, green: 171, blue: 17, alpha: 1)
+    var oppositeThemeColor = UIColor.yellowColor()
     internal var activities : [Activity]{
         get{
             var newActivities = [Activity]()

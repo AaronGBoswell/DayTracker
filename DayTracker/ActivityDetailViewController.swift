@@ -59,19 +59,20 @@ class ActivityDetailViewController: UIViewController ,UIPickerViewDataSource,UIP
             //find in array 
             groupPicker.selectRow(pickerData.indexOf((populate?.productive)!)!, inComponent: 0, animated: true)
             notificationSwitch.on = false
-            navigationController!.navigationBar.barTintColor = UIColor.purpleColor()
+           
             title = "Edit Activity"
         }
         else {
             notificationSwitch.on = true
-            navigationController!.navigationBar.barTintColor = UIColor.purpleColor()
+          
             title = "New Activity"
             
         }
+    
     }
-    
-    
-    
+
+
+
     //MARK: - Delegates and data sources
     //MARK: Data Sources
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
@@ -116,11 +117,11 @@ class ActivityDetailViewController: UIViewController ,UIPickerViewDataSource,UIP
             //pickerLabel.backgroundColor = UIColor
             let warningTitle = NSAttributedString(string: "Add New", attributes: [NSForegroundColorAttributeName: UIColor.redColor()])
             pickerLabel!.attributedText = warningTitle
-            pickerLabel.textAlignment = .Center
+            
             // NSAttributedString(
         }
      
-        
+        pickerLabel.textAlignment = .Center
         return pickerLabel
         
     }
