@@ -24,15 +24,15 @@ class ActivityDetailViewController: UIViewController ,UIPickerViewDataSource,UIP
         if edit
         {
             if notificationSwitch.on{
-            Tracker.sharedTracker.editActivityInBag(populate!,action: nameTextFieldOutlet.text!, note: noteSwitch.on, productive: pickerData[groupPicker.selectedRowInComponent(0)], pushToFront: 4)
+            Tracker.sharedTracker.editActivityInBag(populate!,action: nameTextFieldOutlet.text!, note: noteSwitch.on, productive: pickerData[groupPicker.selectedRowInComponent(0)], pushToFront: 4, color: Tracker.sharedTracker.groupsWithColorAsIntDictonary[pickerData[groupPicker.selectedRowInComponent(0)]]!)
             } else {
-            Tracker.sharedTracker.editActivityInBag(populate!,action: nameTextFieldOutlet.text!, note: noteSwitch.on, productive: pickerData[groupPicker.selectedRowInComponent(0)], pushToFront: 0)
+            Tracker.sharedTracker.editActivityInBag(populate!,action: nameTextFieldOutlet.text!, note: noteSwitch.on, productive: pickerData[groupPicker.selectedRowInComponent(0)], pushToFront: 0, color: Tracker.sharedTracker.groupsWithColorAsIntDictonary[pickerData[groupPicker.selectedRowInComponent(0)]]!)
             }
         } else {
             if notificationSwitch.on{
-            Tracker.sharedTracker.addActivityToBag(nameTextFieldOutlet.text!, note: noteSwitch.on, productive: pickerData[groupPicker.selectedRowInComponent(0)], pushToFront: 4)
+            Tracker.sharedTracker.addActivityToBag(nameTextFieldOutlet.text!, note: noteSwitch.on, productive: pickerData[groupPicker.selectedRowInComponent(0)], pushToFront: 4, color: Tracker.sharedTracker.groupsWithColorAsIntDictonary[pickerData[groupPicker.selectedRowInComponent(0)]]!)
             } else{
-                Tracker.sharedTracker.addActivityToBag(nameTextFieldOutlet.text!, note: noteSwitch.on, productive: pickerData[groupPicker.selectedRowInComponent(0)], pushToFront: 0)
+                Tracker.sharedTracker.addActivityToBag(nameTextFieldOutlet.text!, note: noteSwitch.on, productive: pickerData[groupPicker.selectedRowInComponent(0)], pushToFront: 0, color: Tracker.sharedTracker.groupsWithColorAsIntDictonary[pickerData[groupPicker.selectedRowInComponent(0)]]!)
             }
         }
         
@@ -75,6 +75,8 @@ class ActivityDetailViewController: UIViewController ,UIPickerViewDataSource,UIP
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return pickerData.count + 1
     }
+    
+    /*
     //MARK: Delegates
      func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         if row < pickerData.count{
@@ -86,7 +88,36 @@ class ActivityDetailViewController: UIViewController ,UIPickerViewDataSource,UIP
            // NSAttributedString(
         }
     }
+*/
     
+    func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView?) -> UIView {
+        var pickerLabel = view as! UILabel!
+        if view == nil {  //if no label there yet
+            pickerLabel = UILabel()
+            //color the label's background
+            //let hue = CGFloat(row)/CGFloat(pickerData.count)
+           
+        if row < pickerData.count{
+            pickerLabel.backgroundColor =  Tracker.sharedTracker.colorForNumber(Tracker.sharedTracker.groupsWithColorAsIntDictonary[pickerData[row]]!)
+        }else {
+            pickerLabel.backgroundColor = UIColor.clearColor()
+            }
+        }
+        
+        
+        if row < pickerData.count{
+            pickerLabel!.attributedText =  NSAttributedString(string: pickerData[row])
+        } else{
+            //pickerLabel.backgroundColor = UIColor
+            let warningTitle = NSAttributedString(string: "Add New", attributes: [NSForegroundColorAttributeName: UIColor.redColor()])
+            pickerLabel!.attributedText = warningTitle
+            // NSAttributedString(
+        }
+     
+        
+        return pickerLabel
+        
+    }
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if row == pickerData.count {
