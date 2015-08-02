@@ -16,6 +16,8 @@ class ActionTableViewController: UITableViewController, Observer
         super.viewDidLoad()
         tableView?.reloadData()
         Tracker.sharedTracker.observers.append(self)
+        navigationController!.navigationBar.barTintColor = UIColor.purpleColor()
+
         
     }
     override func viewWillAppear(animated: Bool) {
@@ -47,15 +49,30 @@ class ActionTableViewController: UITableViewController, Observer
     }
     
     
-    
+    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        cell.contentView.backgroundColor =  Tracker.sharedTracker.colorForNumber(Tracker.sharedTracker.groupsWithColorAsIntDictonary[Tracker.sharedTracker.activityToGroupDictonary[todaysArray[indexPath.section][indexPath.row].action]!]!)
+        
+        cell.textLabel?.backgroundColor = UIColor.clearColor()
+        cell.detailTextLabel!.backgroundColor = UIColor.clearColor()
+    }
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("ident", forIndexPath: indexPath)
 
         cell.textLabel!.text = todaysArray[indexPath.section][indexPath.row].action
         cell.detailTextLabel!.text = todaysArray[indexPath.section][indexPath.row].date.humanDate
         
+
+        
+       
+        
         return cell
+        
+        
     }
+    
+    
+    
+    
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         

@@ -17,11 +17,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         /*
         
-        Tracker.sharedTracker.ThingsToDo = [[String:AnyObject]] ?? [["action" : "Programing" , "note" :true, "productive" : "Job", "pushToFront" : 0, "color" : 1 ], ["action" : "Yard Work" , "note" :true, "productive" : "Job" , "pushToFront" : 0 , "color" : 1], ["action" : "Television" , "note" :false, "productive" : "Entertainment" , "pushToFront" : 0 , "color" : 2], ["action" : "Relaxing" , "note" :false, "productive" : "Entertainment" , "pushToFront" : 0 , "color" : 2], ["action" : "Gaming" , "note" :false, "productive" : "Entertainment" , "pushToFront" : 0 , "color" : 2],["action" : "Eat" , "note" :false, "productive" : "Nutrition" , "pushToFront" : 0 , "color" : 3]]
+        Tracker.sharedTracker.ThingsToDo = [["action" : "Programing" , "note" :true, "productive" : "Job", "pushToFront" : 0, "color" : 1 ], ["action" : "Yard Work" , "note" :true, "productive" : "Job" , "pushToFront" : 0 , "color" : 1], ["action" : "Television" , "note" :false, "productive" : "Entertainment" , "pushToFront" : 0 , "color" : 2], ["action" : "Relaxing" , "note" :false, "productive" : "Entertainment" , "pushToFront" : 0 , "color" : 2], ["action" : "Gaming" , "note" :false, "productive" : "Entertainment" , "pushToFront" : 0 , "color" : 2],["action" : "Eat" , "note" :false, "productive" : "Nutrition" , "pushToFront" : 0 , "color" : 3]]
         
-        */
 
-        
+
+        */
         
         //Tracker.sharedTracker.resetThingToDo()
         
