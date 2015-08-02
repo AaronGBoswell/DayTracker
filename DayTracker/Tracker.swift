@@ -7,8 +7,7 @@
 //
 
 import Foundation
-
-private var KVOcontext = 0
+import UIKit
 class Tracker {
     
     static let sharedTracker = Tracker()
@@ -82,15 +81,16 @@ class Tracker {
         var note : Bool
         var productive : String
         var pushToFront : Int
+        var color : Int
         
         
-        internal init( action: String, note: Bool, productive : String, pushToFront :  Int)
+        internal init( action: String, note: Bool, productive : String, pushToFront :  Int, color : Int)
         {
             self.action = action
             self.note = note
             self.productive = productive
             self.pushToFront = pushToFront
-            
+            self.color = color
             return
             
         }
@@ -103,7 +103,7 @@ class Tracker {
             var newActivities = [ActivitySetting]()
             for activityDictionary in ThingsToDo
             {
-                let addition : ActivitySetting = ActivitySetting(action: activityDictionary["action"] as! String, note: activityDictionary["note"] as! Bool, productive: activityDictionary["productive"] as! String, pushToFront: activityDictionary["pushToFront"] as! Int)
+                let addition : ActivitySetting = ActivitySetting(action: activityDictionary["action"] as! String, note: activityDictionary["note"] as! Bool, productive: activityDictionary["productive"] as! String, pushToFront: activityDictionary["pushToFront"] as! Int,  color: activityDictionary["color"] as! Int)
                 newActivities.append(addition)
             }
             return newActivities
@@ -119,6 +119,7 @@ class Tracker {
                 newAction["note"] = unit.note
                 newAction["productive"] = unit.productive
                  newAction["pushToFront"] = unit.pushToFront
+                newAction["color"]=unit.color
                 newActions.append( newAction )
             }
             ThingsToDo = newActions
@@ -268,6 +269,15 @@ class Tracker {
         return returnArray
 
     }
+    var groupsWithColorAsIntDictonary : [String:Int] {
+        var returnDict =  [String:Int]()
+        for array in activitiesByGroup{
+            returnDict[(array.first?.productive)!] = (array.first?.color)!
+            
+        }
+        return returnDict
+        
+    }
     
     var averageSleepHour : Int {
         var total = 0
@@ -288,10 +298,9 @@ class Tracker {
     
     
     var ThingsToDo : [[String:AnyObject]]{
-        get{ return defaults.objectForKey(Settings.possibleActionsKey) as? [[String:AnyObject]] ?? [["action" : "Programing" , "note" :true, "productive" : "Job", "pushToFront" : 0 ], ["action" : "Yard Work" , "note" :true, "productive" : "Job" , "pushToFront" : 0 ], ["action" : "Television" , "note" :false, "productive" : "Entertainment" , "pushToFront" : 0 ], ["action" : "Relaxing" , "note" :false, "productive" : "Entertainment" , "pushToFront" : 0 ], ["action" : "Gaming" , "note" :false, "productive" : "Entertainment" , "pushToFront" : 0 ],["action" : "Eat" , "note" :false, "productive" : "Nutrition" , "pushToFront" : 0 ]] }
+        get{ return defaults.objectForKey(Settings.possibleActionsKey) as? [[String:AnyObject]] ?? [["action" : "Programing" , "note" :true, "productive" : "Job", "pushToFront" : 0, "color" : 1 ], ["action" : "Yard Work" , "note" :true, "productive" : "Job" , "pushToFront" : 0 , "color" : 1], ["action" : "Television" , "note" :false, "productive" : "Entertainment" , "pushToFront" : 0 , "color" : 2], ["action" : "Relaxing" , "note" :false, "productive" : "Entertainment" , "pushToFront" : 0 , "color" : 2], ["action" : "Gaming" , "note" :false, "productive" : "Entertainment" , "pushToFront" : 0 , "color" : 2],["action" : "Eat" , "note" :false, "productive" : "Nutrition" , "pushToFront" : 0 , "color" : 3]] }
         set{ defaults.setObject(newValue, forKey:Settings.possibleActionsKey) }
     }
-    
     
     var RecordOf : [[String:AnyObject]] {
         get{ return defaults.objectForKey(Settings.allActivities) as? [[String:AnyObject]] ?? [] }
@@ -301,6 +310,8 @@ class Tracker {
         get{ return defaults.objectForKey(Settings.sleep) as? [Int] ?? [21] }
         set{ defaults.setObject(newValue, forKey:Settings.sleep) }
     }
+    
+    
     
     struct Settings {
         static let possibleActionsKey = "Tracker.PossibleActions"
@@ -423,15 +434,15 @@ class Tracker {
    
     
     
-    func addActivityToBag (action: String, note: Bool, productive: String, pushToFront: Int)
+    func addActivityToBag (action: String, note: Bool, productive: String, pushToFront: Int, color: Int)
     {
-        let addToBag = ActivitySetting(action: action, note: note, productive: productive, pushToFront: pushToFront)
+        let addToBag = ActivitySetting(action: action, note: note, productive: productive, pushToFront: pushToFront, color: color)
         activityBag.append(addToBag)
     }
-    func editActivityInBag (editable: ActivitySetting, action: String, note: Bool, productive: String, pushToFront: Int)
+    func editActivityInBag (editable: ActivitySetting, action: String, note: Bool, productive: String, pushToFront: Int, color: Int)
     {
         deletePossibleActivity(editable.action)
-        let addToBag = ActivitySetting(action: action, note: note, productive: productive, pushToFront: pushToFront)
+        let addToBag = ActivitySetting(action: action, note: note, productive: productive, pushToFront: pushToFront, color: color)
         activityBag.append(addToBag)
     }
     
@@ -650,7 +661,7 @@ class Tracker {
     func predictSleep(date:NSDate) -> Bool {
         let cal = NSCalendar.currentCalendar()
         let dateComponents = cal.components([NSCalendarUnit.Month, NSCalendarUnit.Era , NSCalendarUnit.Year,NSCalendarUnit.Day,NSCalendarUnit.Hour,NSCalendarUnit.Minute], fromDate: date)
-        if dateComponents.hour > averageSleepHour + 1 {
+        if dateComponents.hour > averageSleepHour - 1 {
             return true
         } else{
         return false
@@ -685,6 +696,19 @@ class Tracker {
             }
         }
         return returnArray
+    }
+    func colorForNumber(number: Int) -> UIColor {
+        if number == 1{
+            return UIColor.redColor()
+            
+        } else if number == 2 {
+            return UIColor.blueColor()
+        } else if number == 3 {
+            return UIColor.greenColor()
+        } else if number == 4 {
+            return UIColor.yellowColor()
+        }
+        return UIColor.clearColor()
     }
 
 
