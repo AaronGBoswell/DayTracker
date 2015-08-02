@@ -12,6 +12,9 @@
 		948870BE1B6C072D0009553B /* ActivityDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948870BD1B6C072D0009553B /* ActivityDetailViewController.swift */; };
 		94AD43781B62FEFE0057C56E /* NoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AD43771B62FEFE0057C56E /* NoteViewController.swift */; };
 		94B753491B5FE3230038471B /* Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B753481B5FE3230038471B /* Tracker.swift */; };
+		94E2BEF11B6D9189000E0FF0 /* PopDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E2BEF01B6D9189000E0FF0 /* PopDateViewController.swift */; };
+		94E2BEF31B6D92CF000E0FF0 /* PopDateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94E2BEF21B6D92CF000E0FF0 /* PopDateViewController.xib */; };
+		94E2BEF51B6D957D000E0FF0 /* PopDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E2BEF41B6D957D000E0FF0 /* PopDatePicker.swift */; };
 		BD833F111B6D431B00B4B8E0 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD833F101B6D431B00B4B8E0 /* SettingsTableViewController.swift */; };
 		BDBABC361B5FD19C00158459 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBABC351B5FD19C00158459 /* AppDelegate.swift */; };
 		BDBABC3B1B5FD19D00158459 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BDBABC391B5FD19D00158459 /* Main.storyboard */; };
@@ -75,6 +78,9 @@
 		948870BD1B6C072D0009553B /* ActivityDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityDetailViewController.swift; sourceTree = "<group>"; };
 		94AD43771B62FEFE0057C56E /* NoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteViewController.swift; sourceTree = "<group>"; };
 		94B753481B5FE3230038471B /* Tracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tracker.swift; sourceTree = "<group>"; };
+		94E2BEF01B6D9189000E0FF0 /* PopDateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopDateViewController.swift; sourceTree = "<group>"; };
+		94E2BEF21B6D92CF000E0FF0 /* PopDateViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PopDateViewController.xib; path = ../PopDateViewController.xib; sourceTree = "<group>"; };
+		94E2BEF41B6D957D000E0FF0 /* PopDatePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopDatePicker.swift; sourceTree = "<group>"; };
 		BD833F101B6D431B00B4B8E0 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		BD92884E1B66ADFE00AB3684 /* NotificationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		BDBABC321B5FD19C00158459 /* DayTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DayTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -116,6 +122,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		945F4B471B6D9F1C001B0120 /* PopDate */ = {
+			isa = PBXGroup;
+			children = (
+				94E2BEF21B6D92CF000E0FF0 /* PopDateViewController.xib */,
+				94E2BEF41B6D957D000E0FF0 /* PopDatePicker.swift */,
+				94E2BEF01B6D9189000E0FF0 /* PopDateViewController.swift */,
+			);
+			name = PopDate;
+			sourceTree = "<group>";
+		};
 		BDBABC291B5FD19C00158459 = {
 			isa = PBXGroup;
 			children = (
@@ -139,6 +155,7 @@
 		BDBABC341B5FD19C00158459 /* DayTracker */ = {
 			isa = PBXGroup;
 			children = (
+				945F4B471B6D9F1C001B0120 /* PopDate */,
 				BD833F101B6D431B00B4B8E0 /* SettingsTableViewController.swift */,
 				BDBABC351B5FD19C00158459 /* AppDelegate.swift */,
 				BD92884E1B66ADFE00AB3684 /* NotificationManager.swift */,
@@ -292,6 +309,7 @@
 			files = (
 				BDBABC401B5FD19D00158459 /* LaunchScreen.storyboard in Resources */,
 				BDBABC3D1B5FD19D00158459 /* Assets.xcassets in Resources */,
+				94E2BEF31B6D92CF000E0FF0 /* PopDateViewController.xib in Resources */,
 				BDBABC3B1B5FD19D00158459 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -322,8 +340,10 @@
 			files = (
 				9480C4141B66B80C00A5D8E1 /* NotificationManager.swift in Sources */,
 				94AD43781B62FEFE0057C56E /* NoteViewController.swift in Sources */,
+				94E2BEF11B6D9189000E0FF0 /* PopDateViewController.swift in Sources */,
 				948870BE1B6C072D0009553B /* ActivityDetailViewController.swift in Sources */,
 				94B753491B5FE3230038471B /* Tracker.swift in Sources */,
+				94E2BEF51B6D957D000E0FF0 /* PopDatePicker.swift in Sources */,
 				BD833F111B6D431B00B4B8E0 /* SettingsTableViewController.swift in Sources */,
 				9480C4131B66AC1B00A5D8E1 /* ActivityTableTableViewController.swift in Sources */,
 				BDBABC361B5FD19C00158459 /* AppDelegate.swift in Sources */,

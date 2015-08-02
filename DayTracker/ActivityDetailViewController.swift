@@ -76,13 +76,17 @@ class ActivityDetailViewController: UIViewController ,UIPickerViewDataSource,UIP
         return pickerData.count + 1
     }
     //MARK: Delegates
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+     func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         if row < pickerData.count{
-            return pickerData[row]
+            return NSAttributedString(string: pickerData[row])
         } else{
-        return "Add New"
+        //pickerLabel.backgroundColor = UIColor
+            let warningTitle = NSAttributedString(string: "Add New", attributes: [NSForegroundColorAttributeName: UIColor.redColor()])
+        return warningTitle
+           // NSAttributedString(
         }
     }
+    
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if row == pickerData.count {
