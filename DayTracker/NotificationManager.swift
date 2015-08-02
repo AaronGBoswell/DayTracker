@@ -58,7 +58,7 @@ class NotificationManager {
         print("Check start")
         if let notifications = UIApplication.sharedApplication().scheduledLocalNotifications {
             for notification in notifications{
-                print(notification)
+                print(notification.fireDate)
             }
             print(notifications.count)
         }
@@ -276,36 +276,41 @@ class NotificationManager {
         return nil
     }
     func responseWithIdentifier(identifier:String){
-        cancelPastNotifications()
-        print(identifier)
-        if identifier.hasPrefix("/") {
-            let group = identifier.substringFromIndex(identifier.startIndex.successor())
-            if let activities = Tracker.sharedTracker.predictActivities(NSDate().roundDateDownToTimeSlice(Tracker.sharedTracker.settings.timeSlice), fromGroup: group){
-                makeCategoryWithOptions(activities, identifier: group)
-                scheduleNotificationWithCategoryForNow(group)
-            } else{
+        
+        let qos = Int(QOS_CLASS_USER_INITIATED.rawValue)
+        dispatch_async(dispatch_get_global_queue(qos, 0)){ () -> Void in
+            self.cancelPastNotifications()
+            print(identifier)
+            if identifier.hasPrefix("/") {
+                let group = identifier.substringFromIndex(identifier.startIndex.successor())
+                if let activities = Tracker.sharedTracker.predictActivities(NSDate().roundDateDownToTimeSlice(Tracker.sharedTracker.settings.timeSlice), fromGroup: group){
+                    self.makeCategoryWithOptions(activities, identifier: group)
+                    self.scheduleNotificationWithCategoryForNow(group)
+                } else{
+                    
+                    
+                    print(group + "doesnt exist as a gorup")
+                }
                 
-                print(group + "doesnt exist as a gorup")
-            }
-            
-        }else if identifier.hasPrefix("::") {
-            cancelAllNotifications()
-            let sleepTime = NSDate().dateForTomorrowAt(Tracker.sharedTracker.settings.wakeHour, minute: Tracker.sharedTracker.settings.wakeMinute)
-            Tracker.sharedTracker.SleepUntil = sleepTime
-            scheduleNotificationsStartingWithDate(NSDate().dateForTomorrowAt(Tracker.sharedTracker.settings.wakeHour, minute: Tracker.sharedTracker.settings.wakeMinute))
-            Tracker.sharedTracker.sleepSelected(NSDate())
-            checkCurrentNotifications()
+            }else if identifier.hasPrefix("::") {
+                self.cancelAllNotifications()
+                let sleepTime = NSDate().dateForTomorrowAt(Tracker.sharedTracker.settings.wakeHour, minute: Tracker.sharedTracker.settings.wakeMinute)
+                Tracker.sharedTracker.SleepUntil = sleepTime
+                self.scheduleNotificationsStartingWithDate(NSDate().dateForTomorrowAt(Tracker.sharedTracker.settings.wakeHour, minute: Tracker.sharedTracker.settings.wakeMinute))
+                Tracker.sharedTracker.sleepSelected(NSDate())
+                self.checkCurrentNotifications()
 
-        }else {
-            Tracker.sharedTracker.setCurrentActivity(identifier, currentDate: NSDate().roundDateDownToTimeSlice(Tracker.sharedTracker.settings.timeSlice), theLength: Tracker.sharedTracker.settings.timeSlice)
-            if Tracker.sharedTracker.activityDetails(identifier)?.note == true{
-                fireNoteNotification()
-                checkCurrentNotifications()
+            }else {
+                Tracker.sharedTracker.setCurrentActivity(identifier, currentDate: NSDate().roundDateDownToTimeSlice(Tracker.sharedTracker.settings.timeSlice), theLength: Tracker.sharedTracker.settings.timeSlice)
+                if Tracker.sharedTracker.activityDetails(identifier)?.note == true{
+                    self.fireNoteNotification()
+                    self.checkCurrentNotifications()
+                }
+                self.scheduleNotifications()
             }
-            scheduleNotifications()
+
+            self.checkCurrentNotifications()
         }
-
-        checkCurrentNotifications()
 
     }
 }

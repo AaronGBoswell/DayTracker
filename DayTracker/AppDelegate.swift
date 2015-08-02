@@ -26,15 +26,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //Tracker.sharedTracker.resetThingToDo()
         
         //Tracker.sharedTracker.SleepUntil = nil
-        //UINavigationBar.appearance().tintColor = UIColor(red: 255.0/255.0, green: 171.0/255.0, blue: 17.0/255.0, alpha: 1.0)
-        //UINavigationBar.appearance().tintColor = UIColor.greenColor()
-        UINavigationBar.appearance().barTintColor = UIColor(red: 255.0/255.0, green: 170.0/255.0, blue: 50.0/255.0, alpha: 1.0)
+        UINavigationBar.appearance().barTintColor = UIColor(red: 2.0/255.0, green: 77.0/255.0, blue: 109.0/255.0, alpha: 1.0)
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+        UINavigationBar.appearance().tintColor = UIColor.whiteColor()
+       // UINavigationBar.appearance().barTintColor = UIColor.orangeColor()
         UINavigationBar.appearance().translucent = true
+        UITabBar.appearance().tintColor = UIColor(red: 2.0/255.0, green: 77.0/255.0, blue: 109.0/255.0, alpha: 1.0)
+        UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
         print( Tracker.sharedTracker.SleepUntil)
-        NotificationManager.sharedNotificationManager.registerNoteAction()
-        NotificationManager.sharedNotificationManager.scheduleNotifications()
-        NotificationManager.sharedNotificationManager.checkCurrentNotifications()
-        NotificationManager.sharedNotificationManager.cancelPastNotifications()
+        
+        let qos = Int(QOS_CLASS_USER_INITIATED.rawValue)
+        dispatch_async(dispatch_get_global_queue(qos, 0)){ () -> Void in
+
+            NotificationManager.sharedNotificationManager.registerNoteAction()
+            NotificationManager.sharedNotificationManager.scheduleNotifications()
+            NotificationManager.sharedNotificationManager.checkCurrentNotifications()
+            NotificationManager.sharedNotificationManager.cancelPastNotifications()
+        }
         //NotificationManager.sharedNotificationManager.scheduleNotificationForDate(NSDate().dateByAddingTimeInterval(10), bypassSleep: true)
 
        // NotificationManager.sharedNotificationManager.fireNoteNotification()
