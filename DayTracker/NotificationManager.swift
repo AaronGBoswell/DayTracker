@@ -45,12 +45,11 @@ class NotificationManager {
             }
         }
         UIApplication.sharedApplication().applicationIconBadgeNumber = 1
-        UIApplication.sharedApplication().applicationIconBadgeNumber = -1
+        UIApplication.sharedApplication().applicationIconBadgeNumber = 0
 
     }
     func cancelNotification(notification:UILocalNotification){
         UIApplication.sharedApplication().applicationIconBadgeNumber++
-        UIApplication.sharedApplication().applicationIconBadgeNumber--
         UIApplication.sharedApplication().applicationIconBadgeNumber--
         UIApplication.sharedApplication().cancelLocalNotification(notification)
     }
@@ -115,7 +114,7 @@ class NotificationManager {
         notification.timeZone = NSTimeZone.defaultTimeZone()
         notification.category = date.description
         notification.soundName = UILocalNotificationDefaultSoundName
-        notification.applicationIconBadgeNumber++
+        notification.applicationIconBadgeNumber = 1
         notification.alertBody = "What have you been doing?"
         UIApplication.sharedApplication().scheduleLocalNotification(notification)
         print(date.humanDate)
@@ -129,7 +128,7 @@ class NotificationManager {
         notification.timeZone = NSTimeZone.defaultTimeZone()
         notification.category = category
         notification.soundName = UILocalNotificationDefaultSoundName
-        notification.applicationIconBadgeNumber++
+        notification.applicationIconBadgeNumber = 1
         notification.alertBody = "What have you been doing?"
         UIApplication.sharedApplication().scheduleLocalNotification(notification)
         //print(date.humanDate)
@@ -144,7 +143,7 @@ class NotificationManager {
         notification.timeZone = NSTimeZone.defaultTimeZone()
         notification.category = "noteCategory"
         notification.soundName = UILocalNotificationDefaultSoundName
-        notification.applicationIconBadgeNumber++
+        notification.applicationIconBadgeNumber = 1
         notification.alertBody = " "        
         UIApplication.sharedApplication().scheduleLocalNotification(notification)
         print("Note scheduled")
@@ -277,6 +276,8 @@ class NotificationManager {
     }
     func responseWithIdentifier(identifier:String){
         UIApplication.sharedApplication().applicationIconBadgeNumber = -1
+        UIApplication.sharedApplication().applicationIconBadgeNumber = 0
+
         let qos = Int(QOS_CLASS_USER_INITIATED.rawValue)
         dispatch_async(dispatch_get_global_queue(qos, 0)){ () -> Void in
             self.cancelPastNotifications()
@@ -294,9 +295,9 @@ class NotificationManager {
                 
             }else if identifier.hasPrefix("::") {
                 self.cancelAllNotifications()
-                let sleepTime = NSDate().dateForTomorrowAt(Tracker.sharedTracker.settings.wakeHour, minute: Tracker.sharedTracker.settings.wakeMinute)
+                let sleepTime = NSDate().dateForNext(Tracker.sharedTracker.settings.wakeHour, minute: Tracker.sharedTracker.settings.wakeMinute)
                 Tracker.sharedTracker.SleepUntil = sleepTime
-                self.scheduleNotificationsStartingWithDate(NSDate().dateForTomorrowAt(Tracker.sharedTracker.settings.wakeHour, minute: Tracker.sharedTracker.settings.wakeMinute))
+                self.scheduleNotificationsStartingWithDate(NSDate().dateForNext(Tracker.sharedTracker.settings.wakeHour, minute: Tracker.sharedTracker.settings.wakeMinute))
                 Tracker.sharedTracker.sleepSelected(NSDate())
                 self.checkCurrentNotifications()
 
@@ -326,13 +327,14 @@ extension NSDate{
         
         return date!
     }
-    func dateForTomorrowAt(hour: Int, minute: Int) -> NSDate{
+    func dateForNext(hour: Int, minute: Int) -> NSDate{
         let cal = NSCalendar.currentCalendar()
         let comps = cal.components([NSCalendarUnit.Month, NSCalendarUnit.Era , NSCalendarUnit.Year,NSCalendarUnit.Day,NSCalendarUnit.Hour,NSCalendarUnit.Minute], fromDate: self)
-        
+        if comps.hour > hour{
+            comps.day++
+        }
         comps.minute = minute
         comps.hour = hour
-        comps.day++
 
         let date = cal.dateFromComponents(comps)
         return date!
