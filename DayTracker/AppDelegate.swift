@@ -13,6 +13,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     
+    var presentedAlert: UIAlertController?
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
@@ -75,10 +76,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             notification.alertBody = "What have you been doing?"
             
             if let alert = NotificationManager.sharedNotificationManager.alertFromNotification(notification){
-                print(alert.description)
-                let rootViewController = self.window!.rootViewController
-                print(rootViewController)
-                rootViewController?.presentViewController(alert, animated: true, completion: nil)
+                pushAlert(alert)
             }
         }
         for notification in UIApplication.sharedApplication().scheduledLocalNotifications!{
@@ -101,16 +99,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
+    func pushAlert(alert:UIAlertController){
+        let rootViewController = self.window!.rootViewController
+        print(rootViewController)
+        if presentedAlert != nil {
+            presentedAlert?.dismissViewControllerAnimated(true){
+                rootViewController?.presentViewController(alert, animated: true, completion: nil)
+            }
+        } else if let badAlert = rootViewController?.presentedViewController as? UIAlertController{
+            badAlert.dismissViewControllerAnimated(true){
+                rootViewController?.presentViewController(alert, animated: true, completion: nil)
+            }
+        }
+        else{
+            rootViewController?.presentViewController(alert, animated: true, completion: nil)
+        }
+        presentedAlert = alert
+    }
     
     func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
         print("receivedNoty")
         print(notification.description)
         if let alert = NotificationManager.sharedNotificationManager.alertFromNotification(notification){
-            print(alert.description)
-            let rootViewController = self.window!.rootViewController
-            print(rootViewController)
-
-            rootViewController?.presentViewController(alert, animated: true, completion: nil)
+            pushAlert(alert)
         }
         NotificationManager.sharedNotificationManager.cancelNotification(notification)
         print("outrecivedNoty")
