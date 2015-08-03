@@ -24,15 +24,15 @@ class ActivityDetailViewController: UIViewController ,UIPickerViewDataSource,UIP
         if edit
         {
             if notificationSwitch.on{
-            Tracker.sharedTracker.editActivityInBag(populate!,action: nameTextFieldOutlet.text!, note: noteSwitch.on, productive: pickerData[groupPicker.selectedRowInComponent(0)], pushToFront: 4, color: Tracker.sharedTracker.groupsWithColorAsIntDictonary[pickerData[groupPicker.selectedRowInComponent(0)]]!)
+            Tracker.sharedTracker.editActivityInBag(populate!,action: nameTextFieldOutlet.text!, note: noteSwitch.on, productive: pickerData[groupPicker.selectedRowInComponent(0)], pushToFront: 4, color: pickerDictonary[pickerData[groupPicker.selectedRowInComponent(0)]]!)
             } else {
-            Tracker.sharedTracker.editActivityInBag(populate!,action: nameTextFieldOutlet.text!, note: noteSwitch.on, productive: pickerData[groupPicker.selectedRowInComponent(0)], pushToFront: 0, color: Tracker.sharedTracker.groupsWithColorAsIntDictonary[pickerData[groupPicker.selectedRowInComponent(0)]]!)
+            Tracker.sharedTracker.editActivityInBag(populate!,action: nameTextFieldOutlet.text!, note: noteSwitch.on, productive: pickerData[groupPicker.selectedRowInComponent(0)], pushToFront: 0, color: pickerDictonary[pickerData[groupPicker.selectedRowInComponent(0)]]!)
             }
         } else {
             if notificationSwitch.on{
-            Tracker.sharedTracker.addActivityToBag(nameTextFieldOutlet.text!, note: noteSwitch.on, productive: pickerData[groupPicker.selectedRowInComponent(0)], pushToFront: 4, color: Tracker.sharedTracker.groupsWithColorAsIntDictonary[pickerData[groupPicker.selectedRowInComponent(0)]]!)
+            Tracker.sharedTracker.addActivityToBag(nameTextFieldOutlet.text!, note: noteSwitch.on, productive: pickerData[groupPicker.selectedRowInComponent(0)], pushToFront: 4, color: pickerDictonary[pickerData[groupPicker.selectedRowInComponent(0)]]!)
             } else{
-                Tracker.sharedTracker.addActivityToBag(nameTextFieldOutlet.text!, note: noteSwitch.on, productive: pickerData[groupPicker.selectedRowInComponent(0)], pushToFront: 0, color: Tracker.sharedTracker.groupsWithColorAsIntDictonary[pickerData[groupPicker.selectedRowInComponent(0)]]!)
+                Tracker.sharedTracker.addActivityToBag(nameTextFieldOutlet.text!, note: noteSwitch.on, productive: pickerData[groupPicker.selectedRowInComponent(0)], pushToFront: 0, color: pickerDictonary[pickerData[groupPicker.selectedRowInComponent(0)]]!)
             }
         }
         
@@ -42,6 +42,7 @@ class ActivityDetailViewController: UIViewController ,UIPickerViewDataSource,UIP
     
   
     var pickerData = Tracker.sharedTracker.groups
+    var pickerDictonary = Tracker.sharedTracker.groupsWithColorAsIntDictonary
     var firstPicker = 0
     var populate : Tracker.ActivitySetting?
     var edit = false
@@ -103,15 +104,9 @@ class ActivityDetailViewController: UIViewController ,UIPickerViewDataSource,UIP
             pickerLabel = UILabel()
             
            
-            if row < firstPicker{
-                
-                pickerLabel.backgroundColor =  Tracker.sharedTracker.colorForNumber(Tracker.sharedTracker.groupsWithColorAsIntDictonary[pickerData[row]]!)
-            }else {
-            pickerLabel.backgroundColor = UIColor.clearColor()
-        
-            }
         }
-        if row < pickerData.count{
+        if row < pickerDictonary.count{
+            pickerLabel.backgroundColor =  Tracker.sharedTracker.colorForNumber(pickerDictonary[pickerData[row]]!)
             pickerLabel!.attributedText =  NSAttributedString(string: pickerData[row])
         } else{
             //pickerLabel.backgroundColor = UIColor
@@ -125,6 +120,27 @@ class ActivityDetailViewController: UIViewController ,UIPickerViewDataSource,UIP
         return pickerLabel
         
     }
+    func findOpenColor() -> Int{
+        var used = false
+        for x in  0...9 {
+            for (_,value) in self.pickerDictonary {
+                
+                if value == x {
+                    
+                    used = true
+                }
+            }
+            if used == false{
+                return x
+            }
+            else {
+                used = false
+            }
+        }
+        return 10
+    }
+    
+    
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if row == pickerData.count {
@@ -132,8 +148,16 @@ class ActivityDetailViewController: UIViewController ,UIPickerViewDataSource,UIP
             let alert = UIAlertController(title: "Add a group", message: " ", preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction(title: "Add", style: UIAlertActionStyle.Default, handler: { (action:UIAlertAction) -> Void in
                 if let tf = alert.textFields?.first as UITextField! {
-                    self.pickerData.append(tf.text ?? "")
-                    self.groupPicker.reloadAllComponents()
+                    if tf.text != ""
+                    {
+                        self.pickerData.append(tf.text ?? "")
+                    
+                        self.pickerDictonary[tf.text ?? ""] = self.findOpenColor()
+                        print("open color")
+                        print(self.pickerDictonary)
+                    
+                        self.groupPicker.reloadAllComponents()
+                    }
                 }
                 
             }))

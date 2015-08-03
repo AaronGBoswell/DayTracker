@@ -14,6 +14,7 @@ class Tracker {
     internal var settings = TrackerSettings()
     var observers = [Observer]()
      var themeColor = UIColor(red: 255, green: 171, blue: 17, alpha: 1)
+    var noSleepYet = false
     var oppositeThemeColor = UIColor.yellowColor()
     internal var activities : [Activity]{
         get{
@@ -464,7 +465,24 @@ class Tracker {
     }
     
     
-    
+    func findOpenColor() -> Int{
+        var used = false
+        for x in  0...9 {
+            for unit in activityBag {
+                
+                if unit.color == x {
+                    used = true
+                }
+            }
+            if used == false{
+            return x
+            }
+            else {
+                used = false
+            }
+        }
+        return 10
+    }
    
     
     
@@ -696,8 +714,12 @@ class Tracker {
         let cal = NSCalendar.currentCalendar()
         let dateComponents = cal.components([NSCalendarUnit.Month, NSCalendarUnit.Era , NSCalendarUnit.Year,NSCalendarUnit.Day,NSCalendarUnit.Hour,NSCalendarUnit.Minute], fromDate: date)
         if dateComponents.hour > averageSleepHour - 1 {
+            noSleepYet = true
             return true
-        } else{
+        } else if noSleepYet
+        {
+            return true
+        }else{
         return false
         }
     }
@@ -707,6 +729,7 @@ class Tracker {
         let dateComponents = cal.components([NSCalendarUnit.Month, NSCalendarUnit.Era , NSCalendarUnit.Year,NSCalendarUnit.Day,NSCalendarUnit.Hour,NSCalendarUnit.Minute], fromDate: date)
 
         SleepHour.append(dateComponents.hour)
+        noSleepYet = false
     }
     
     func predictGroups(dateFor: NSDate) -> [String]?{
@@ -746,8 +769,17 @@ class Tracker {
             returnColor = UIColor.yellowColor()
         }
         
-        return returnColor.colorWithAlphaComponent(0.05)
+        return returnColor.colorWithAlphaComponent(0.1)
         
+    }
+    
+    func saveNote(note: String, forActivity: Activity) {
+        for (index , unit) in activities.enumerate(){
+            if unit.date == forActivity.date && unit.action == forActivity.action
+            {
+                activities[index].note = note
+            }
+        }
     }
 
 

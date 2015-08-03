@@ -15,8 +15,14 @@ class NoteViewController: UIViewController {
     
     @IBOutlet weak var noteText: UITextView!
     
+    @IBAction func saveButton(sender: UIBarButtonItem) {
+        
+        Tracker.sharedTracker.saveNote(noteText.text, forActivity: note!)
+         performSegueWithIdentifier("DoneEditingNote", sender: sender)
+        
+    }
     
-    
+        
     
     override func viewDidLoad() {
         super.viewDidLoad()

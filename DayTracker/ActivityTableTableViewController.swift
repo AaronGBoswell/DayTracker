@@ -110,6 +110,32 @@ class ActivityTableTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         return tableView.editing
     }
+    
+    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerLabel = UILabel()
+        
+   
+       
+        
+        let heading =  Tracker.sharedTracker.activitiesByGroup[section].first!.productive
+        
+        headerLabel.backgroundColor = UIColor(red: 2.0/255.0, green: 77.0/255.0, blue: 109.0/255.0, alpha: 0.89)
+     //   let font = [NSFontAttributeName : UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)]
+        
+        let attributedTitle = NSAttributedString(string: heading, attributes: [NSFontAttributeName : UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline), NSForegroundColorAttributeName: UIColor.whiteColor()])
+        headerLabel.attributedText = attributedTitle
+        
+        return headerLabel
+        
+        
+    }
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        
+        return 25
+        
+    }
+    
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         var destination = segue.destinationViewController as UIViewController
@@ -139,6 +165,13 @@ class ActivityTableTableViewController: UITableViewController {
         
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+    }
+    
+    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        cell.contentView.backgroundColor =  Tracker.sharedTracker.colorForNumber(Tracker.sharedTracker.activitiesByGroup[indexPath.section][indexPath.row].color)
+        
+        cell.textLabel?.backgroundColor = UIColor.clearColor()
+        //cell.detailTextLabel!.backgroundColor = UIColor.clearColor()
     }
 
 

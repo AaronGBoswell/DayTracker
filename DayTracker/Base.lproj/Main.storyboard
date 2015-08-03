@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8164.2" systemVersion="15A235d" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="pCc-T9-dHV">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8164.2" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="pCc-T9-dHV">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8135.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -58,7 +58,7 @@
             </objects>
             <point key="canvasLocation" x="2019" y="464"/>
         </scene>
-        <!--Note View Controller-->
+        <!--Note-->
         <scene sceneID="EAn-Hm-Oz5">
             <objects>
                 <viewController id="svs-cL-sPA" customClass="NoteViewController" customModule="DayTracker" customModuleProvider="target" sceneMemberID="viewController">
@@ -70,7 +70,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mJY-eC-Uez">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mJY-eC-Uez">
                                 <rect key="frame" x="20" y="72" width="560" height="471"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -106,11 +106,22 @@
                             </mask>
                         </variation>
                     </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Note" id="hiL-oH-TGc">
+                        <barButtonItem key="rightBarButtonItem" title="Item" systemItem="save" id="veh-J6-aSS">
+                            <connections>
+                                <action selector="saveButton:" destination="svs-cL-sPA" id="tax-tB-EzS"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="noteText" destination="mJY-eC-Uez" id="mIn-3o-F4G"/>
+                        <segue destination="FdF-N3-p9Z" kind="unwind" identifier="DoneEditingNote" unwindAction="goBackAction:" id="QfU-AW-BSt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9aY-OG-pZb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="FdF-N3-p9Z" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2815" y="464"/>
         </scene>

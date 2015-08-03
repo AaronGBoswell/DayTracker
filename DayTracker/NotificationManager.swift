@@ -350,8 +350,8 @@ extension NSDate{
     var humanDate :String {
         get{
             let formatter = NSDateFormatter()
-            formatter.dateStyle = NSDateFormatterStyle.LongStyle
-            formatter.timeStyle = .MediumStyle
+            formatter.dateStyle = NSDateFormatterStyle.NoStyle
+            formatter.timeStyle = .ShortStyle
             
             return formatter.stringFromDate(self)
         }

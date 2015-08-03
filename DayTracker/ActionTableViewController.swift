@@ -11,6 +11,10 @@ import UIKit
 class ActionTableViewController: UITableViewController, Observer
 {
    
+    @IBAction func goBackAction(seuge: UIStoryboardSegue) {
+        tableView.reloadData()
+    }
+    
     var todaysArray = Tracker.sharedTracker.actionsOrganizedForDay(NSDate())
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,6 +53,8 @@ class ActionTableViewController: UITableViewController, Observer
         
         var timeOfDay = ""
         if todaysArray[section].isEmpty {
+            print("nilllll")
+            
             return nil
         }
         
@@ -79,15 +85,31 @@ class ActionTableViewController: UITableViewController, Observer
         
         
     }
-    
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if todaysArray[section].isEmpty {
+            return 0
+        }
+        return 25
+
+    }
     
     
     
     override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        cell.contentView.backgroundColor =  Tracker.sharedTracker.colorForNumber(Tracker.sharedTracker.groupsWithColorAsIntDictonary[Tracker.sharedTracker.activityToGroupDictonary[todaysArray[indexPath.section][indexPath.row].action]!]!)
         
         cell.textLabel?.backgroundColor = UIColor.clearColor()
         cell.detailTextLabel!.backgroundColor = UIColor.clearColor()
+        
+        guard   let activityToGroupDict = Tracker.sharedTracker.activityToGroupDictonary[todaysArray[indexPath.section][indexPath.row].action],
+                let colorNumber = Tracker.sharedTracker.groupsWithColorAsIntDictonary[activityToGroupDict]
+        else{
+            cell.contentView.backgroundColor =  UIColor.whiteColor()
+            return
+
+        }
+        let color = Tracker.sharedTracker.colorForNumber(colorNumber)
+        cell.contentView.backgroundColor =  color
+
     }
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("ident", forIndexPath: indexPath)
@@ -106,8 +128,8 @@ class ActionTableViewController: UITableViewController, Observer
     
     
     
-    /*
     
+    /*
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
         if todaysArray[section].isEmpty {
@@ -137,9 +159,9 @@ class ActionTableViewController: UITableViewController, Observer
         
         
     }
-    
-
     */
+
+    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
         
         
