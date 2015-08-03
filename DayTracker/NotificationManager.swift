@@ -172,7 +172,7 @@ class NotificationManager {
 
             
         }else{
-            makeCategoryWithOptions(strings, minimalOptions : groups, identifier: date.description, groupBranch: groupBranch)
+            makeCategoryWithOptions(strings, identifier: date.description, groupBranch: groupBranch)
 
         }
         

@@ -129,6 +129,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forLocalNotification notification: UILocalNotification, withResponseInfo responseInfo: [NSObject : AnyObject], completionHandler: () -> Void) {
+        print(identifier)
         if let note = responseInfo[UIUserNotificationActionResponseTypedTextKey] as? String{
             Tracker.sharedTracker.setNote(note, date: NSDate().roundDateDownToTimeSlice(Tracker.sharedTracker.settings.timeSlice))
             print(note)

@@ -336,7 +336,7 @@ private let defaults = NSUserDefaults.standardUserDefaults()
     
     
     struct TrackerSettings{
-        var timeSlice: Int = 15
+        var timeSlice: Int = 5
         var wakeHour : Int {
             get{ return Tracker.sharedTracker.wakeHourSaved }
             set{ Tracker.sharedTracker.wakeHourSaved = newValue }
