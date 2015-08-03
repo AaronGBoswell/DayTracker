@@ -126,8 +126,7 @@ class NotificationManager {
         notification.applicationIconBadgeNumber = 1
         notification.alertBody = "What have you been doing?"
         UIApplication.sharedApplication().scheduleLocalNotification(notification)
-        print(date.humanDate)
-        print("scheduled")
+        print("Scheduled Notification For \(date.humanDate)")
         
     }
     

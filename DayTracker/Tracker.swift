@@ -56,7 +56,7 @@ class Tracker {
     }
     
     struct TrackerSettings{
-        var timeSlice: Int = 15
+        var timeSlice: Int = 5
         var wakeHour = 8
         var wakeMinute = 0
     }

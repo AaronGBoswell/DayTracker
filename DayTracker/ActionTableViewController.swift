@@ -264,11 +264,13 @@ class ActionTableViewController: UITableViewController, Observer
             if let identifier = segue.identifier{
                 switch identifier{
                 case "ShowNote":
-                    let cell = sender as? UITableViewCell
-                    self.tableView.indexPathForCell(cell!)
+                    if let cell = sender as? UITableViewCell{
+                        if let indexPath = tableView.indexPathForCell(cell){
                     
-                    let note = todaysArray[self.tableView.indexPathForCell(cell!)!.section][self.tableView.indexPathForCell(cell!)!.row]
-                    NVC.note = note
+                            let note = todaysArray[indexPath.section][indexPath.row]
+                            NVC.note = note
+                        }
+                    }
                 default: break
                 }
             }
