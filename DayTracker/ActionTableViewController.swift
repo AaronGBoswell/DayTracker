@@ -15,7 +15,42 @@ class ActionTableViewController: UITableViewController, Observer
         tableView.reloadData()
     }
     
-    var todaysArray = Tracker.sharedTracker.actionsOrganizedForDay(NSDate())
+    @IBOutlet weak var rightArrow: UIBarButtonItem!
+    @IBOutlet weak var leftArrow: UIBarButtonItem!
+
+    var todaysArray = Tracker.sharedTracker.actionsOrganizedForDay(NSDate()){
+        didSet{
+            tableView?.reloadData()
+        }
+    }
+    
+    var displayDate = NSDate(){
+        didSet{
+            todaysArray = Tracker.sharedTracker.actionsOrganizedForDay(displayDate)
+            let formatter = NSDateFormatter()
+            formatter.dateStyle = NSDateFormatterStyle.ShortStyle
+            formatter.timeStyle = NSDateFormatterStyle.NoStyle
+            title = formatter.stringFromDate(displayDate)
+            if daysFromToday == 0 {
+                title = "Today's Activities"
+            }
+        }
+    }
+    var daysFromToday = 0{
+        didSet{
+            let cal = NSCalendar.currentCalendar()
+            let comps = cal.components([NSCalendarUnit.Month, NSCalendarUnit.Era , NSCalendarUnit.Year,NSCalendarUnit.Day,NSCalendarUnit.Hour,NSCalendarUnit.Minute], fromDate: NSDate())
+            comps.day += daysFromToday
+            if daysFromToday == 0{
+                rightArrow.enabled = false
+            } else{
+                rightArrow.enabled = true
+            }
+            displayDate = cal.dateFromComponents(comps)!
+
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView?.reloadData()
