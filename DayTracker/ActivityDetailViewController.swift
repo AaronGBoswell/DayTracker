@@ -179,6 +179,7 @@ class ActivityDetailViewController: UIViewController ,UIPickerViewDataSource,UIP
                         {
                             copy = true
                             
+                            
                         }
                     }
                     

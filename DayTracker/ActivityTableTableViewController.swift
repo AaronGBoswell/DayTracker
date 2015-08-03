@@ -118,7 +118,8 @@ class ActivityTableTableViewController: UITableViewController {
        
         
         var heading =  Tracker.sharedTracker.activitiesByGroup[section].first!.productive
-        heading = " " + heading
+        heading = "   \(heading)"
+        
         headerLabel.backgroundColor = UIColor(red: 2.0/255.0, green: 77.0/255.0, blue: 109.0/255.0, alpha: 0.89)
      //   let font = [NSFontAttributeName : UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)]
         
