@@ -111,12 +111,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let rootViewController = UIApplication.sharedApplication().keyWindow?.rootViewController
         print(rootViewController)
         if let badAlert = rootViewController?.presentedViewController as? UIAlertController{
-            print("dismissing AlertForAnother")
-            badAlert.dismissViewControllerAnimated(false){
-                rootViewController?.presentViewController(alert, animated: true, completion: nil)
-                print("dismissed AlertForAnother")
-            }
-
+            print(badAlert)
         }
         else{
             rootViewController?.presentViewController(alert, animated: true, completion: nil)

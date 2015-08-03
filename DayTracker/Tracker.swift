@@ -308,8 +308,6 @@ private let defaults = NSUserDefaults.standardUserDefaults()
             total += unit
         }
         total = total/SleepHour.count
-        print("Sleep Hour ")
-        print(total)
         return total
     }
    
