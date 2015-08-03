@@ -132,7 +132,7 @@ class Tracker {
                 newActions.append( newAction )
             }
             ThingsToDo = newActions
-            
+            NotificationManager.sharedNotificationManager.scheduleNotifications()
         }
     }
     var activityStrings : [String]{
