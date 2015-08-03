@@ -16,6 +16,10 @@ class Tracker {
      var themeColor = UIColor(red: 255, green: 171, blue: 17, alpha: 1)
     var noSleepYet = false
     var oppositeThemeColor = UIColor.yellowColor()
+    
+    var timesOfDay: [(hour:Int, title:String)] = [(5, "Very Early"),(8, "Early"),(11, "Morning"),(14, "Midday"),(17, "Afternoon"),(21, "Evening"),(24, "Night")]
+
+    
     internal var activities : [Activity]{
         get{
             var newActivities = [Activity]()
@@ -42,7 +46,10 @@ class Tracker {
             RecordOf = newActions
             
             for observer in observers{
-                observer.observedValueChanged()
+                dispatch_async(dispatch_get_main_queue()){
+                    
+                    observer.observedValueChanged()
+                }
             }
             
         }
@@ -203,25 +210,18 @@ class Tracker {
         let cal = NSCalendar.currentCalendar()
 
         var returnArray = [[Activity]]()
-        for _ in 0...5{
+        for _ in 0 ..< timesOfDay.count{
             returnArray.append([Activity]())
         }
         for unit in actionsForDate{
             let unitComponents = cal.components(NSCalendarUnit.Hour, fromDate: unit.date)
-            if unitComponents.hour < 8 {
-                returnArray[0].append(unit)
-            } else if unitComponents.hour < 11 {
-                returnArray[1].append(unit)
-            } else if unitComponents.hour < 14 {
-                returnArray[2].append(unit)
-            } else if unitComponents.hour < 17 {
-                returnArray[3].append(unit)
-            } else if unitComponents.hour < 21 {
-                returnArray[4].append(unit)
-            }else if unitComponents.hour < 24 {
-                returnArray[5].append(unit)
+            for (index, element) in timesOfDay.enumerate() {
+                if unitComponents.hour < element.hour {
+                    returnArray[index].append(unit)
+                    break
+                }
             }
-
+            
         }
         
         return returnArray

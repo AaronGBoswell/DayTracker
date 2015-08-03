@@ -20,6 +20,10 @@ class ActionTableViewController: UITableViewController, Observer
         super.viewDidLoad()
         tableView?.reloadData()
         Tracker.sharedTracker.observers.append(self)
+        todaysArray = Tracker.sharedTracker.actionsOrganizedForDay(displayDate)
+        if daysFromToday == 0{
+            rightArrow.enabled = false
+        }
     }
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -27,9 +31,16 @@ class ActionTableViewController: UITableViewController, Observer
     }
     
     func observedValueChanged() {
-        todaysArray = Tracker.sharedTracker.actionsOrganizedForDay(NSDate())
-        tableView?.reloadData()
+        todaysArray = Tracker.sharedTracker.actionsOrganizedForDay(displayDate)
     }
+    @IBAction func leftArrowClicked(sender: UIBarButtonItem) {
+        daysFromToday--
+    }
+
+    @IBAction func rightArrowClicked(sender: AnyObject) {
+        daysFromToday++
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -61,23 +72,14 @@ class ActionTableViewController: UITableViewController, Observer
         let cal = NSCalendar.currentCalendar()
         let unitComponents = cal.components([NSCalendarUnit.Month, NSCalendarUnit.Era , NSCalendarUnit.Year,NSCalendarUnit.Day,NSCalendarUnit.Hour,NSCalendarUnit.Minute], fromDate: todaysArray[section].first!.date)
         
-        if unitComponents.hour < 8 {
-            timeOfDay =  "  Early"
-        } else if unitComponents.hour < 11 {
-            timeOfDay = "   Morning"
-        } else if unitComponents.hour < 14 {
-            timeOfDay = "   Midday"
-        } else if unitComponents.hour < 17 {
-            timeOfDay =  "  Afternoon"
-        } else if unitComponents.hour < 21 {
-            timeOfDay =  "  Evening"
-        }else if unitComponents.hour < 24 {
-            timeOfDay =  "  Night"
+        for (hour, title) in Tracker.sharedTracker.timesOfDay {
+            if unitComponents.hour < hour{
+                timeOfDay = "   \(title)"
+                break
+            }
         }
         
-        headerLabel.backgroundColor = UIColor(red: 2.0/255.0, green: 77.0/255.0, blue: 109.0/255.0, alpha: 0.89)
-        let font = [NSFontAttributeName : UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)]
-        
+        headerLabel.backgroundColor = UIColor(red: 2.0/255.0, green: 77.0/255.0, blue: 109.0/255.0, alpha: 0.89)        
         let attributedTitle = NSAttributedString(string: timeOfDay, attributes: [NSFontAttributeName : UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline), NSForegroundColorAttributeName: UIColor.whiteColor()])
         headerLabel.attributedText = attributedTitle
         
