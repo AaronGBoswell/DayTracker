@@ -76,15 +76,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             notification.alertBody = "What have you been doing?"
             
             if let alert = NotificationManager.sharedNotificationManager.alertFromNotification(notification){
+                print("pushingAlert")
                 pushAlert(alert)
-            }
-        }
-        for notification in UIApplication.sharedApplication().scheduledLocalNotifications!{
-            let date = NSDate()
-            print(notification.fireDate!.humanDate)
-            if date.laterDate(notification.fireDate!) == date{
-                print(notification.description)
-                
             }
         }
         print("Donewillenterforground")
