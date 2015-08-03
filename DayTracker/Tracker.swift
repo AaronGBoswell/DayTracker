@@ -18,7 +18,7 @@ class Tracker {
     var oppositeThemeColor = UIColor.yellowColor()
     
     var timesOfDay: [(hour:Int, title:String)] = [(5, "Very Early"),(8, "Early"),(11, "Morning"),(14, "Midday"),(17, "Afternoon"),(21, "Evening"),(24, "Night")]
-
+private let defaults = NSUserDefaults.standardUserDefaults()
     
     internal var activities : [Activity]{
         get{
@@ -320,7 +320,7 @@ class Tracker {
    
     
     
-    private let defaults = NSUserDefaults.standardUserDefaults()
+    
   
     var SleepUntil : NSDate?{
         get {
@@ -331,6 +331,23 @@ class Tracker {
         }
     }
     
+    
+    
+    struct TrackerSettings{
+        var timeSlice: Int = 15
+        var wakeHour : Int {
+            get{ return Tracker.sharedTracker.wakeHourSaved }
+            set{ Tracker.sharedTracker.wakeHourSaved = newValue }
+        }
+
+        var wakeMinute = 0
+    }
+
+   var wakeHourSaved : Int {
+        get{ return defaults.objectForKey(Settings.wakeHour) as? Int ?? 8 }
+        set{ defaults.setObject(newValue, forKey:Settings.wakeHour) }
+    }
+
     var ThingsToDo : [[String:AnyObject]]{
         get{ return defaults.objectForKey(Settings.possibleActionsKey) as? [[String:AnyObject]] ?? [["action" : "Programing" , "note" :true, "productive" : "Job", "pushToFront" : 0, "color" : 1 ], ["action" : "Yard Work" , "note" :true, "productive" : "Job" , "pushToFront" : 0 , "color" : 1], ["action" : "Television" , "note" :false, "productive" : "Entertainment" , "pushToFront" : 0 , "color" : 2], ["action" : "Relaxing" , "note" :false, "productive" : "Entertainment" , "pushToFront" : 0 , "color" : 2], ["action" : "Gaming" , "note" :false, "productive" : "Entertainment" , "pushToFront" : 0 , "color" : 2],["action" : "Eat" , "note" :false, "productive" : "Nutrition" , "pushToFront" : 0 , "color" : 3]] }
         set{ defaults.setObject(newValue, forKey:Settings.possibleActionsKey) }
@@ -352,6 +369,7 @@ class Tracker {
         static let allActivities = "Tracker.allActivities"
         static let sleep = "Tracker.sleep"
         static let sleepUntil = "Tracker.sleepUntil"
+         static let wakeHour = "Tracker.wakeHour"
        
         
        
@@ -715,7 +733,7 @@ class Tracker {
     func predictSleep(date:NSDate) -> Bool {
         
         //NSDate().dateForNext(Tracker.sharedTracker.settings.wakeHour, minute: Tracker.sharedTracker.settings.wakeMinute)
-        
+
         let cal = NSCalendar.currentCalendar()
         let dateComponents = cal.components([NSCalendarUnit.Month, NSCalendarUnit.Era , NSCalendarUnit.Year,NSCalendarUnit.Day,NSCalendarUnit.Hour,NSCalendarUnit.Minute], fromDate: date)
         if dateComponents.hour > averageSleepHour - 1 {
@@ -727,7 +745,7 @@ class Tracker {
             
         return false
 
-       
+
     }
     func sleepSelected(date: NSDate)
     {

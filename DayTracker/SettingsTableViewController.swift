@@ -19,6 +19,7 @@ class SettingsTableViewController: UITableViewController {
     func refreshWakeTime(){
         let wakeMinute: String = (Tracker.sharedTracker.settings.wakeMinute == 0) ? "00" : Tracker.sharedTracker.settings.wakeMinute.description
         wakeTimeTableCell.textLabel?.text = "Wake Time               \(Tracker.sharedTracker.settings.wakeHour):\(wakeMinute)"
+        
     }
     var popDatePicker : PopDatePicker?
 
