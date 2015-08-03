@@ -758,16 +758,35 @@ class Tracker {
         
         var returnColor : UIColor
         returnColor = UIColor.clearColor()
-        if number == 1{
+        if number == 0{
             returnColor =  UIColor.redColor()
             
-        } else if number == 2 {
+        } else if number == 1 {
             returnColor = UIColor.blueColor()
-        } else if number == 3 {
+        } else if number == 2 {
             returnColor = UIColor.greenColor()
-        } else if number == 4 {
+        } else if number == 3 {
             returnColor = UIColor.yellowColor()
+        } else if number == 4 {
+            returnColor = UIColor.purpleColor()
+        } else if number == 5 {
+            returnColor = UIColor.orangeColor()
+        } else if number == 6 {
+            returnColor = UIColor.magentaColor()
+        } else if number == 7 {
+            returnColor = UIColor.cyanColor()
+        } else if number == 8 {
+            returnColor = UIColor.brownColor()
+        } else if number == 9 {
+            returnColor = UIColor.grayColor()
+        } else if number == 10 {
+            returnColor = UIColor.brownColor()
         }
+
+
+
+
+
         
         return returnColor.colorWithAlphaComponent(0.1)
         
