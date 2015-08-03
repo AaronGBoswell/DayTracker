@@ -41,8 +41,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             NotificationManager.sharedNotificationManager.scheduleNotifications()
             NotificationManager.sharedNotificationManager.checkCurrentNotifications()
             NotificationManager.sharedNotificationManager.cancelPastNotifications()
+            //NotificationManager.sharedNotificationManager.scheduleNotificationForDate(NSDate().dateByAddingTimeInterval(10), bypassSleep: true)
+
         }
-        //NotificationManager.sharedNotificationManager.scheduleNotificationForDate(NSDate().dateByAddingTimeInterval(10), bypassSleep: true)
 
        // NotificationManager.sharedNotificationManager.fireNoteNotification()
 
@@ -118,7 +119,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             rootViewController?.presentViewController(alert, animated: true, completion: nil)
         }
     }
-    
     func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
         print("receivedNoty")
         print(notification.description)

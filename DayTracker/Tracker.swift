@@ -398,6 +398,7 @@ class Tracker {
     }
     func setNote(note: String, date: NSDate){
         NotificationManager.sharedNotificationManager.pendingNoteNotification = false
+        UIApplication.sharedApplication().applicationIconBadgeNumber = 0
         var test : NSDate
         for (index, unit) in activities.enumerate()
         {
