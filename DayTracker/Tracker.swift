@@ -346,7 +346,7 @@ private let defaults = NSUserDefaults.standardUserDefaults()
     }
 
     var ThingsToDo : [[String:AnyObject]]{
-        get{ return defaults.objectForKey(Settings.possibleActionsKey) as? [[String:AnyObject]] ?? [["action" : "Programing" , "note" :true, "productive" : "Job", "priorityUntil" : nil, "color" : 1 ], ["action" : "Yard Work" , "note" :true, "productive" : "Job" , "priorityUntil" : nil , "color" : 1], ["action" : "Television" , "note" :false, "productive" : "Entertainment" , "priorityUntil" : nil , "color" : 2], ["action" : "Relaxing" , "note" :false, "productive" : "Entertainment" , "priorityUntil" : nil , "color" : 2], ["action" : "Gaming" , "note" :false, "productive" : "Entertainment" , "priorityUntil" : nil , "color" : 2],["action" : "Eat" , "note" :false, "productive" : "Nutrition" , "priorityUntil" : nil , "color" : 3]] }
+        get{ return defaults.objectForKey(Settings.possibleActionsKey) as? [[String:AnyObject]] ?? [[:]] }
         set{ defaults.setObject(newValue, forKey:Settings.possibleActionsKey) }
     }
     
