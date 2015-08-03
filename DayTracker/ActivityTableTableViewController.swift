@@ -52,7 +52,6 @@ class ActivityTableTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("identifier", forIndexPath: indexPath)
-        print(Tracker.sharedTracker.activitiesByGroup[indexPath.section][indexPath.row].pushToFront)
         
         
         cell.textLabel!.text = Tracker.sharedTracker.activitiesByGroup[indexPath.section][indexPath.row].action

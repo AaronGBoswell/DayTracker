@@ -49,18 +49,19 @@ class ActivityDetailViewController: UIViewController ,UIPickerViewDataSource,UIP
     @IBAction func doneAndSave(sender: UIBarButtonItem) {
         if edit
         {
+            NSDate().dateByAddingTimeInterval(NSTimeInterval(10))
             if notificationSwitch.on{
-            Tracker.sharedTracker.editActivityInBag(populate!,action: nameTextFieldOutlet.text!, note: noteSwitch.on, productive: pickerData[groupPicker.selectedRowInComponent(0)], pushToFront: 4, color: pickerDictonary[pickerData[groupPicker.selectedRowInComponent(0)]]!)
+            Tracker.sharedTracker.editActivityInBag(populate!,action: nameTextFieldOutlet.text!, note: noteSwitch.on, productive: pickerData[groupPicker.selectedRowInComponent(0)], priorityUntil: NSDate().dateByAddingTimeInterval(NSTimeInterval(60*Tracker.sharedTracker.settings.timeSlice*4)), color: pickerDictonary[pickerData[groupPicker.selectedRowInComponent(0)]]!)
                 print("saving properly")
             } else {
-            Tracker.sharedTracker.editActivityInBag(populate!,action: nameTextFieldOutlet.text!, note: noteSwitch.on, productive: pickerData[groupPicker.selectedRowInComponent(0)], pushToFront: 0, color: pickerDictonary[pickerData[groupPicker.selectedRowInComponent(0)]]!)
+            Tracker.sharedTracker.editActivityInBag(populate!,action: nameTextFieldOutlet.text!, note: noteSwitch.on, productive: pickerData[groupPicker.selectedRowInComponent(0)], priorityUntil: nil, color: pickerDictonary[pickerData[groupPicker.selectedRowInComponent(0)]]!)
             }
             
         } else {
             if notificationSwitch.on{
-            Tracker.sharedTracker.addActivityToBag(nameTextFieldOutlet.text!, note: noteSwitch.on, productive: pickerData[groupPicker.selectedRowInComponent(0)], pushToFront: 4, color: pickerDictonary[pickerData[groupPicker.selectedRowInComponent(0)]]!)
+            Tracker.sharedTracker.addActivityToBag(nameTextFieldOutlet.text!, note: noteSwitch.on, productive: pickerData[groupPicker.selectedRowInComponent(0)], priorityUntil: NSDate().dateByAddingTimeInterval(NSTimeInterval(60*Tracker.sharedTracker.settings.timeSlice*4)), color: pickerDictonary[pickerData[groupPicker.selectedRowInComponent(0)]]!)
             } else{
-                Tracker.sharedTracker.addActivityToBag(nameTextFieldOutlet.text!, note: noteSwitch.on, productive: pickerData[groupPicker.selectedRowInComponent(0)], pushToFront: 0, color: pickerDictonary[pickerData[groupPicker.selectedRowInComponent(0)]]!)
+                Tracker.sharedTracker.addActivityToBag(nameTextFieldOutlet.text!, note: noteSwitch.on, productive: pickerData[groupPicker.selectedRowInComponent(0)], priorityUntil: nil, color: pickerDictonary[pickerData[groupPicker.selectedRowInComponent(0)]]!)
             }
             
         }
@@ -90,15 +91,12 @@ class ActivityDetailViewController: UIViewController ,UIPickerViewDataSource,UIP
             groupPicker.selectRow(pickerData.indexOf((populate?.productive)!)!, inComponent: 0, animated: true)
             
             //this is interetsing
-            print(populate?.pushToFront)
-            if  populate?.pushToFront > 0 {
-                notificationSwitch.on = true
-                print("the switch should be on")
-            } else {
-                print("the switch should be off")
-                notificationSwitch.on = false
+            notificationSwitch.on = false
+            if  let priorityUntil = populate?.priorityUntil{
+                if priorityUntil.laterDate(NSDate()) == priorityUntil {
+                    notificationSwitch.on = true
+                }
             }
-           
             title = "Edit Activity"
             doneButtonOutlet.enabled = true
         }

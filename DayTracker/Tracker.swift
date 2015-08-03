@@ -84,16 +84,16 @@ private let defaults = NSUserDefaults.standardUserDefaults()
         var action : String
         var note : Bool
         var productive : String
-        var pushToFront : Int
+        var priorityUntil : NSDate?
         var color : Int
         
         
-        internal init( action: String, note: Bool, productive : String, pushToFront :  Int, color : Int)
+        internal init( action: String, note: Bool, productive : String, priorityUntil :  NSDate?, color : Int)
         {
             self.action = action
             self.note = note
             self.productive = productive
-            self.pushToFront = pushToFront
+            self.priorityUntil = priorityUntil
             self.color = color
             return
             
@@ -107,7 +107,7 @@ private let defaults = NSUserDefaults.standardUserDefaults()
             var newActivities = [ActivitySetting]()
             for activityDictionary in ThingsToDo
             {
-                let addition : ActivitySetting = ActivitySetting(action: activityDictionary["action"] as! String, note: activityDictionary["note"] as! Bool, productive: activityDictionary["productive"] as! String, pushToFront: activityDictionary["pushToFront"] as! Int,  color: activityDictionary["color"] as! Int)
+                let addition : ActivitySetting = ActivitySetting(action: activityDictionary["action"] as! String, note: activityDictionary["note"] as! Bool, productive: activityDictionary["productive"] as! String, priorityUntil: activityDictionary["priorityUntil"] as? NSDate,  color: activityDictionary["color"] as! Int)
                 newActivities.append(addition)
             }
             return newActivities
@@ -122,7 +122,7 @@ private let defaults = NSUserDefaults.standardUserDefaults()
                 newAction["action"] =  unit.action
                 newAction["note"] = unit.note
                 newAction["productive"] = unit.productive
-                 newAction["pushToFront"] = unit.pushToFront
+                newAction["priorityUntil"] = unit.priorityUntil
                 newAction["color"]=unit.color
                 newActions.append( newAction )
             }
@@ -346,7 +346,7 @@ private let defaults = NSUserDefaults.standardUserDefaults()
     }
 
     var ThingsToDo : [[String:AnyObject]]{
-        get{ return defaults.objectForKey(Settings.possibleActionsKey) as? [[String:AnyObject]] ?? [["action" : "Programing" , "note" :true, "productive" : "Job", "pushToFront" : 4, "color" : 1 ], ["action" : "Yard Work" , "note" :true, "productive" : "Job" , "pushToFront" : 0 , "color" : 1], ["action" : "Television" , "note" :false, "productive" : "Entertainment" , "pushToFront" : 0 , "color" : 2], ["action" : "Relaxing" , "note" :false, "productive" : "Entertainment" , "pushToFront" : 0 , "color" : 2], ["action" : "Gaming" , "note" :false, "productive" : "Entertainment" , "pushToFront" : 0 , "color" : 2],["action" : "Eat" , "note" :false, "productive" : "Nutrition" , "pushToFront" : 0 , "color" : 3]] }
+        get{ return defaults.objectForKey(Settings.possibleActionsKey) as? [[String:AnyObject]] ?? [["action" : "Programing" , "note" :true, "productive" : "Job", "priorityUntil" : nil, "color" : 1 ], ["action" : "Yard Work" , "note" :true, "productive" : "Job" , "priorityUntil" : nil , "color" : 1], ["action" : "Television" , "note" :false, "productive" : "Entertainment" , "priorityUntil" : nil , "color" : 2], ["action" : "Relaxing" , "note" :false, "productive" : "Entertainment" , "priorityUntil" : nil , "color" : 2], ["action" : "Gaming" , "note" :false, "productive" : "Entertainment" , "priorityUntil" : nil , "color" : 2],["action" : "Eat" , "note" :false, "productive" : "Nutrition" , "priorityUntil" : nil , "color" : 3]] }
         set{ defaults.setObject(newValue, forKey:Settings.possibleActionsKey) }
     }
     
@@ -503,21 +503,18 @@ private let defaults = NSUserDefaults.standardUserDefaults()
    
     
     
-    func addActivityToBag (action: String, note: Bool, productive: String, pushToFront: Int, color: Int)
+    func addActivityToBag (action: String, note: Bool, productive: String, priorityUntil: NSDate?, color: Int)
     {
-        let addToBag = ActivitySetting(action: action, note: note, productive: productive, pushToFront: pushToFront, color: color)
+        let addToBag = ActivitySetting(action: action, note: note, productive: productive, priorityUntil: priorityUntil, color: color)
         activityBag.append(addToBag)
     }
-    func editActivityInBag (editable: ActivitySetting, action: String, note: Bool, productive: String, pushToFront: Int, color: Int)
+    func editActivityInBag (editable: ActivitySetting, action: String, note: Bool, productive: String, priorityUntil: NSDate?, color: Int)
     {
         deletePossibleActivity(editable.action)
-        let addToBag = ActivitySetting(action: action, note: note, productive: productive, pushToFront: pushToFront, color: color)
+        let addToBag = ActivitySetting(action: action, note: note, productive: productive, priorityUntil: priorityUntil, color: color)
         print("saving with")
-        print(pushToFront)
         activityBag.append(addToBag)
-        for activity in activityBag{
-            print(activity.pushToFront)
-        }
+
     }
     
     /*
@@ -615,10 +612,11 @@ private let defaults = NSUserDefaults.standardUserDefaults()
     
     
     
-        for (index,unit) in activityBag.enumerate()     {
-            if unit.pushToFront > 0{
-                activityBag[index].pushToFront--
-                returnArray.insert(unit.action, atIndex: 0)
+        for (index,unit) in activityBag.enumerate(){
+            if let priorityUntil = unit.priorityUntil{
+                if priorityUntil.laterDate(NSDate()) == priorityUntil {
+                    returnArray.insert(unit.action, atIndex: 1)
+                }
             }
         }
     
