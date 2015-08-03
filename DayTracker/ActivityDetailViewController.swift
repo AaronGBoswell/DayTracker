@@ -30,11 +30,20 @@ class ActivityDetailViewController: UIViewController ,UIPickerViewDataSource,UIP
 
                 if unit.action == nameTextFieldOutlet.text
                 {
+                    print("same")
                     doneButtonOutlet.enabled = false
+                    if edit && nameTextFieldOutlet.text == populate?.action {
+                        doneButtonOutlet.enabled = true
+                        print("override")
+                    }
                 }
             }
 
         }
+        if nameTextFieldOutlet.text == "" {
+            doneButtonOutlet.enabled = false
+        }
+        
     }
     @IBOutlet weak var doneButtonOutlet: UIBarButtonItem!
     @IBAction func doneAndSave(sender: UIBarButtonItem) {
@@ -45,12 +54,14 @@ class ActivityDetailViewController: UIViewController ,UIPickerViewDataSource,UIP
             } else {
             Tracker.sharedTracker.editActivityInBag(populate!,action: nameTextFieldOutlet.text!, note: noteSwitch.on, productive: pickerData[groupPicker.selectedRowInComponent(0)], pushToFront: 0, color: pickerDictonary[pickerData[groupPicker.selectedRowInComponent(0)]]!)
             }
+            
         } else {
             if notificationSwitch.on{
             Tracker.sharedTracker.addActivityToBag(nameTextFieldOutlet.text!, note: noteSwitch.on, productive: pickerData[groupPicker.selectedRowInComponent(0)], pushToFront: 4, color: pickerDictonary[pickerData[groupPicker.selectedRowInComponent(0)]]!)
             } else{
                 Tracker.sharedTracker.addActivityToBag(nameTextFieldOutlet.text!, note: noteSwitch.on, productive: pickerData[groupPicker.selectedRowInComponent(0)], pushToFront: 0, color: pickerDictonary[pickerData[groupPicker.selectedRowInComponent(0)]]!)
             }
+            
         }
         
         print("here")
@@ -79,14 +90,16 @@ class ActivityDetailViewController: UIViewController ,UIPickerViewDataSource,UIP
             notificationSwitch.on = false
            
             title = "Edit Activity"
+            doneButtonOutlet.enabled = true
         }
         else {
             notificationSwitch.on = true
           
             title = "New Activity"
+            doneButtonOutlet.enabled = false
             
         }
-        doneButtonOutlet.enabled = false
+        
         
     
     }

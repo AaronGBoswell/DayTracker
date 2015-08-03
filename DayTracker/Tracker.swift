@@ -441,6 +441,7 @@ class Tracker {
             if test == activity
             {
                 activityBag.removeAtIndex(index)
+                return
                 
             }
         }
