@@ -55,12 +55,7 @@ private let defaults = NSUserDefaults.standardUserDefaults()
         }
     }
     
-    struct TrackerSettings{
-        var timeSlice: Int = 5
-        var wakeHour = 8
-        var wakeMinute = 0
-    }
-    struct Activity: CustomStringConvertible
+        struct Activity: CustomStringConvertible
     {
         var action : String
         var date : NSDate
@@ -334,7 +329,7 @@ private let defaults = NSUserDefaults.standardUserDefaults()
     
     
     struct TrackerSettings{
-        var timeSlice: Int = 15
+        var timeSlice: Int = 5
         var wakeHour : Int {
             get{ return Tracker.sharedTracker.wakeHourSaved }
             set{ Tracker.sharedTracker.wakeHourSaved = newValue }
