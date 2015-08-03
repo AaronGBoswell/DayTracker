@@ -276,7 +276,7 @@ class NotificationManager {
         return nil
     }
     func responseWithIdentifier(identifier:String){
-        
+        UIApplication.sharedApplication().applicationIconBadgeNumber = -1
         let qos = Int(QOS_CLASS_USER_INITIATED.rawValue)
         dispatch_async(dispatch_get_global_queue(qos, 0)){ () -> Void in
             self.cancelPastNotifications()

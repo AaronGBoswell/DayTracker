@@ -21,6 +21,15 @@ class ActionTableViewController: UITableViewController, Observer
     var displayDate = NSDate() {
         didSet{
             todaysArray = Tracker.sharedTracker.actionsOrganizedForDay(displayDate)
+            
+            let formatter = NSDateFormatter()
+            formatter.dateStyle = NSDateFormatterStyle.MediumStyle
+            formatter.timeStyle = NSDateFormatterStyle.NoStyle
+            title = formatter.stringFromDate(displayDate)
+            if daysFromToday == 0 {
+                title = "Today's Activities"
+            }
+
         }
     }
     var daysFromToday: Int = 0{
