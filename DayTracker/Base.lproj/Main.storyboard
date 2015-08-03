@@ -49,8 +49,21 @@
                             <outlet property="delegate" destination="IyR-mZ-V0J" id="JWw-Kr-XR5"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Today's Activities" id="Usf-LN-Coq"/>
+                    <navigationItem key="navigationItem" title="Today's Activities" id="Usf-LN-Coq">
+                        <barButtonItem key="leftBarButtonItem" image="Left" id="0qy-KV-doc">
+                            <connections>
+                                <action selector="leftArrowClicked:" destination="IyR-mZ-V0J" id="okb-SQ-DXg"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="Right" id="fa2-6m-4Eq">
+                            <connections>
+                                <action selector="rightArrowClicked:" destination="IyR-mZ-V0J" id="gMZ-fb-KNr"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="leftArrow" destination="0qy-KV-doc" id="20Z-fC-xwT"/>
+                        <outlet property="rightArrow" destination="fa2-6m-4Eq" id="GmP-PO-OmB"/>
                         <segue destination="svs-cL-sPA" kind="show" identifier="ShowNote" id="Pa9-vA-gUi"/>
                     </connections>
                 </tableViewController>
@@ -496,6 +509,8 @@
     </scenes>
     <resources>
         <image name="Dashboard" width="25" height="25"/>
+        <image name="Left" width="25" height="25"/>
+        <image name="Right" width="25" height="25"/>
         <image name="Settings" width="25" height="25"/>
         <image name="Today" width="25" height="25"/>
     </resources>
