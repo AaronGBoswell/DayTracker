@@ -108,8 +108,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print(notification.description)
         if let lastActionTime = Tracker.sharedTracker.activities.last?.date {
             if lastActionTime == NSDate().roundDateDownToTimeSlice(Tracker.sharedTracker.settings.timeSlice){
-                print("notshowingduplicatenoty")
-                return
+                if notification.category != "noteCategory"{
+                    print("notshowingduplicatenoty")
+                    return
+                }
             }
         }
         if let alert = NotificationManager.sharedNotificationManager.alertFromNotification(notification){
