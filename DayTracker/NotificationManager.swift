@@ -12,6 +12,7 @@ import UIKit
 class NotificationManager {
     static let sharedNotificationManager = NotificationManager()
     
+    var pendingNoteNotification:Bool = false
     func consolidateNotifications(){
         if let notifications = UIApplication.sharedApplication().scheduledLocalNotifications {
             var newestPastNotification: UILocalNotification?
@@ -144,6 +145,7 @@ class NotificationManager {
         notification.alertBody = " "        
         UIApplication.sharedApplication().scheduleLocalNotification(notification)
         print("Note scheduled")
+        pendingNoteNotification = true
         
     }
     func refreshCategoryForDate(date:NSDate){
@@ -272,6 +274,7 @@ class NotificationManager {
         return nil
     }
     func responseWithIdentifier(identifier:String){
+        pendingNoteNotification = false
         UIApplication.sharedApplication().applicationIconBadgeNumber = -1
         UIApplication.sharedApplication().applicationIconBadgeNumber = 0
 

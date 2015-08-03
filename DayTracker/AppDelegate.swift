@@ -64,19 +64,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("willenterforground")
         if UIApplication.sharedApplication().applicationIconBadgeNumber > 0 {
             let date = NSDate().roundDateDownToTimeSlice(Tracker.sharedTracker.settings.timeSlice)
-            NotificationManager.sharedNotificationManager.refreshCategoryForDate(date)
+
             let notification = UILocalNotification()
             notification.fireDate = date
             notification.timeZone = NSTimeZone.defaultTimeZone()
-            notification.category = date.description
+            if NotificationManager.sharedNotificationManager.pendingNoteNotification == true{
+                notification.category = "noteCategory"
+
+            } else{
+                NotificationManager.sharedNotificationManager.refreshCategoryForDate(date)
+                notification.category = date.description
+            }
             notification.soundName = UILocalNotificationDefaultSoundName
             notification.applicationIconBadgeNumber = 1
             notification.alertBody = "What have you been doing?"
             
-            if let alert = NotificationManager.sharedNotificationManager.alertFromNotification(notification){
-                print("pushingAlert")
-                pushAlert(alert)
-            }
+            pushAlert(notification)
+
         }
         print("Donewillenterforground")
 
@@ -90,7 +94,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-    func pushAlert(alert:UIAlertController){
+    func pushAlert(notification:UILocalNotification){
+        if let lastActionTime = Tracker.sharedTracker.activities.last?.date {
+            if lastActionTime == NSDate().roundDateDownToTimeSlice(Tracker.sharedTracker.settings.timeSlice){
+                if notification.category != "noteCategory"{
+                    print("notshowingduplicatenoty")
+                    return
+                }
+            }
+        }
+        guard let alert = NotificationManager.sharedNotificationManager.alertFromNotification(notification) else{return}
+        
+        
         let rootViewController = UIApplication.sharedApplication().keyWindow?.rootViewController
         print(rootViewController)
         if let badAlert = rootViewController?.presentedViewController as? UIAlertController{
@@ -106,17 +121,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
         print("receivedNoty")
         print(notification.description)
-        if let lastActionTime = Tracker.sharedTracker.activities.last?.date {
-            if lastActionTime == NSDate().roundDateDownToTimeSlice(Tracker.sharedTracker.settings.timeSlice){
-                if notification.category != "noteCategory"{
-                    print("notshowingduplicatenoty")
-                    return
-                }
-            }
-        }
-        if let alert = NotificationManager.sharedNotificationManager.alertFromNotification(notification){
-            pushAlert(alert)
-        }
+
+        pushAlert(notification)
+
         NotificationManager.sharedNotificationManager.cancelNotification(notification)
         print("outrecivedNoty")
 
