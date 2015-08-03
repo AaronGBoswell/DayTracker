@@ -12,9 +12,7 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
-    
-    var presentedAlert: UIAlertController?
-    
+        
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
         
@@ -93,21 +91,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     func pushAlert(alert:UIAlertController){
-        let rootViewController = self.window!.rootViewController
+        let rootViewController = UIApplication.sharedApplication().keyWindow?.rootViewController
         print(rootViewController)
-        if presentedAlert != nil {
-            presentedAlert?.dismissViewControllerAnimated(true){
-                rootViewController?.presentViewController(alert, animated: true, completion: nil)
-            }
-        } else if let badAlert = rootViewController?.presentedViewController as? UIAlertController{
-            badAlert.dismissViewControllerAnimated(true){
+        if let badAlert = rootViewController?.presentedViewController as? UIAlertController{
+            badAlert.dismissViewControllerAnimated(false){
                 rootViewController?.presentViewController(alert, animated: true, completion: nil)
             }
         }
         else{
             rootViewController?.presentViewController(alert, animated: true, completion: nil)
         }
-        presentedAlert = alert
     }
     
     func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
