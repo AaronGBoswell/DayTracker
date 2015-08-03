@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class ActivityDetailViewController: UIViewController ,UIPickerViewDataSource,UIPickerViewDelegate{
 
     
@@ -20,6 +21,22 @@ class ActivityDetailViewController: UIViewController ,UIPickerViewDataSource,UIP
     
     @IBOutlet weak var notificationSwitch: UISwitch!
    
+    @IBAction func textFieldAction(sender: UITextField) {
+        print(nameTextFieldOutlet.text)
+        if nameTextFieldOutlet.text != "" {
+            for unit in Tracker.sharedTracker.activityBag
+            {
+                doneButtonOutlet.enabled = true
+
+                if unit.action == nameTextFieldOutlet.text
+                {
+                    doneButtonOutlet.enabled = false
+                }
+            }
+
+        }
+    }
+    @IBOutlet weak var doneButtonOutlet: UIBarButtonItem!
     @IBAction func doneAndSave(sender: UIBarButtonItem) {
         if edit
         {
@@ -69,6 +86,8 @@ class ActivityDetailViewController: UIViewController ,UIPickerViewDataSource,UIP
             title = "New Activity"
             
         }
+        doneButtonOutlet.enabled = false
+        
     
     }
 
@@ -97,7 +116,7 @@ class ActivityDetailViewController: UIViewController ,UIPickerViewDataSource,UIP
     }
 */
     
-    
+
     func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView?) -> UIView {
         var pickerLabel = view as! UILabel!
         if view == nil {  //if no label there yet
@@ -107,11 +126,13 @@ class ActivityDetailViewController: UIViewController ,UIPickerViewDataSource,UIP
         }
         if row < pickerDictonary.count{
             pickerLabel.backgroundColor =  Tracker.sharedTracker.colorForNumber(pickerDictonary[pickerData[row]]!)
-            pickerLabel!.attributedText =  NSAttributedString(string: pickerData[row])
+            pickerLabel!.attributedText =  NSAttributedString(string: pickerData[row], attributes: [NSFontAttributeName : UIFont.preferredFontForTextStyle(UIFontTextStyleBody)])
         } else{
             //pickerLabel.backgroundColor = UIColor
-            let warningTitle = NSAttributedString(string: "Add New", attributes: [NSForegroundColorAttributeName: UIColor.redColor()])
+            let warningTitle = NSAttributedString(string: "Add New", attributes: [NSForegroundColorAttributeName: UIColor.redColor(), NSFontAttributeName : UIFont.preferredFontForTextStyle(UIFontTextStyleBody)])
             pickerLabel!.attributedText = warningTitle
+            
+          //  let attributedTitle = NSAttributedString(string: heading, attributes: [NSFontAttributeName : UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
             
             // NSAttributedString(
         }
@@ -148,7 +169,24 @@ class ActivityDetailViewController: UIViewController ,UIPickerViewDataSource,UIP
             let alert = UIAlertController(title: "Add a group", message: " ", preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction(title: "Add", style: UIAlertActionStyle.Default, handler: { (action:UIAlertAction) -> Void in
                 if let tf = alert.textFields?.first as UITextField! {
-                    if tf.text != ""
+                    
+                    var copy = false
+                    for unit in Tracker.sharedTracker.activityBag
+                    {
+                        
+                        
+                        if unit.productive == tf.text
+                        {
+                            copy = true
+                            
+                        }
+                    }
+                    
+                   
+
+                    
+                    
+                    if tf.text != "" && copy == false
                     {
                         self.pickerData.append(tf.text ?? "")
                     
