@@ -98,6 +98,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let lastActionTime = Tracker.sharedTracker.activities.last?.date {
             if lastActionTime == NSDate().roundDateDownToTimeSlice(Tracker.sharedTracker.settings.timeSlice){
                 if notification.category != "noteCategory"{
+                    UIApplication.sharedApplication().applicationIconBadgeNumber = 0
                     print("notshowingduplicatenoty")
                     return
                 }
