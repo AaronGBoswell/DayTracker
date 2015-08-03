@@ -132,11 +132,11 @@ private let defaults = NSUserDefaults.standardUserDefaults()
                 newActions.append( newAction )
             }
             ThingsToDo = newActions
-            let qos = Int(QOS_CLASS_USER_INITIATED.rawValue)
-            dispatch_async(dispatch_get_global_queue(qos, 0)){ () -> Void in
+            //let qos = Int(QOS_CLASS_USER_INITIATED.rawValue)
+            //dispatch_async(dispatch_get_global_queue(qos, 0)){ () -> Void in
 
                 NotificationManager.sharedNotificationManager.scheduleNotifications()
-            }
+            //}
         }
     }
     var activityStrings : [String]{
