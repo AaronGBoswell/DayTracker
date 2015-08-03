@@ -20,6 +20,9 @@ class ActivityTableTableViewController: UITableViewController {
         self.navigationItem.leftBarButtonItem = self.editButtonItem()
         tableView.allowsSelectionDuringEditing = true
     }
+    override func viewWillAppear(animated: Bool) {
+        tableView.reloadData()
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -49,7 +52,7 @@ class ActivityTableTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("identifier", forIndexPath: indexPath)
-        
+        print(Tracker.sharedTracker.activitiesByGroup[indexPath.section][indexPath.row].pushToFront)
         
         
         cell.textLabel!.text = Tracker.sharedTracker.activitiesByGroup[indexPath.section][indexPath.row].action
@@ -149,10 +152,11 @@ class ActivityTableTableViewController: UITableViewController {
                 case "ShowActivityDetail":
                     
                     if let cell = sender as? UITableViewCell {
-                        self.tableView.indexPathForCell(cell)
-                        let populateFrom = Tracker.sharedTracker.activitiesByGroup[self.tableView.indexPathForCell(cell)!.section][self.tableView.indexPathForCell(cell)!.row]
-                        ADVC.populate = populateFrom
-                        ADVC.edit = true
+                        if let indexPath = tableView.indexPathForCell(cell){
+                            let populateFrom = Tracker.sharedTracker.activitiesByGroup[indexPath.section][indexPath.row]
+                            ADVC.populate = populateFrom
+                            ADVC.edit = true
+                        }
                     } else{
                        ADVC.edit = false
                         

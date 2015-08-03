@@ -51,6 +51,7 @@ class ActivityDetailViewController: UIViewController ,UIPickerViewDataSource,UIP
         {
             if notificationSwitch.on{
             Tracker.sharedTracker.editActivityInBag(populate!,action: nameTextFieldOutlet.text!, note: noteSwitch.on, productive: pickerData[groupPicker.selectedRowInComponent(0)], pushToFront: 4, color: pickerDictonary[pickerData[groupPicker.selectedRowInComponent(0)]]!)
+                print("saving properly")
             } else {
             Tracker.sharedTracker.editActivityInBag(populate!,action: nameTextFieldOutlet.text!, note: noteSwitch.on, productive: pickerData[groupPicker.selectedRowInComponent(0)], pushToFront: 0, color: pickerDictonary[pickerData[groupPicker.selectedRowInComponent(0)]]!)
             }
@@ -87,9 +88,17 @@ class ActivityDetailViewController: UIViewController ,UIPickerViewDataSource,UIP
             nameTextFieldOutlet.text = populate!.action
             //find in array 
             groupPicker.selectRow(pickerData.indexOf((populate?.productive)!)!, inComponent: 0, animated: true)
-            notificationSwitch.on = false
+            
             //this is interetsing
-           notificationSwitch.on = populate?.pushToFront > 0
+            print(populate?.pushToFront)
+            if  populate?.pushToFront > 0 {
+                notificationSwitch.on = true
+                print("the switch should be on")
+            } else {
+                print("the switch should be off")
+                notificationSwitch.on = false
+            }
+           
             title = "Edit Activity"
             doneButtonOutlet.enabled = true
         }
