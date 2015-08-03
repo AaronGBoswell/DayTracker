@@ -140,7 +140,7 @@ class NotificationManager {
         notification.alertBody = "What have you been doing?"
         UIApplication.sharedApplication().scheduleLocalNotification(notification)
         //print(date.humanDate)
-        print("scheduled")
+        print("Scheduled Notification For \(NSDate().humanDate)")
         
     }
     
@@ -298,8 +298,8 @@ class NotificationManager {
         UIApplication.sharedApplication().applicationIconBadgeNumber = -1
         UIApplication.sharedApplication().applicationIconBadgeNumber = 0
 
-        let qos = Int(QOS_CLASS_USER_INITIATED.rawValue)
-        dispatch_async(dispatch_get_global_queue(qos, 0)){ () -> Void in
+        //let qos = Int(QOS_CLASS_USER_INITIATED.rawValue)
+        //dispatch_async(dispatch_get_global_queue(qos, 0)){ () -> Void in
             self.cancelPastNotifications()
             print(identifier)
             if identifier.hasPrefix("/") {
@@ -332,7 +332,7 @@ class NotificationManager {
             }
 
             self.checkCurrentNotifications()
-        }
+        //}
 
     }
 }

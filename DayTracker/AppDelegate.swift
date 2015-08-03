@@ -33,16 +33,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
         print( Tracker.sharedTracker.SleepUntil)
         
-        let qos = Int(QOS_CLASS_USER_INITIATED.rawValue)
-        dispatch_async(dispatch_get_global_queue(qos, 0)){ () -> Void in
-
+        //let qos = Int(QOS_CLASS_USER_INITIATED.rawValue)
+        //dispatch_async(dispatch_get_global_queue(qos, 0)){ () -> Void in
+            NotificationManager.sharedNotificationManager.cancelAllNotifications()
             NotificationManager.sharedNotificationManager.registerNoteAction()
             NotificationManager.sharedNotificationManager.scheduleNotifications()
             NotificationManager.sharedNotificationManager.checkCurrentNotifications()
             NotificationManager.sharedNotificationManager.cancelPastNotifications()
             //NotificationManager.sharedNotificationManager.scheduleNotificationForDate(NSDate().dateByAddingTimeInterval(10), bypassSleep: true)
 
-        }
+        //}
 
        // NotificationManager.sharedNotificationManager.fireNoteNotification()
 
