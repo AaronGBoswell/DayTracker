@@ -625,12 +625,23 @@ private let defaults = NSUserDefaults.standardUserDefaults()
             }
         }
     
+    
+    
         for unit in sortedActivityStrings{
             if activityStrings.contains(unit) && !returnArray.contains(unit)
             {
                 returnArray.append(unit)
             }
         }
+    
+        for unit in activityBag{
+            if !returnArray.contains(unit.action) {
+                returnArray.append(unit.action)
+            }
+            
+        }
+    
+    
         return  returnArray
     
    
