@@ -11,8 +11,19 @@ import UIKit
 
 class NotificationManager {
     static let sharedNotificationManager = NotificationManager()
+        
+    private let defaults = NSUserDefaults.standardUserDefaults()
     
-    var pendingNoteNotification:Bool = false
+    var pendingNoteNotification : Bool{
+        get {
+            return defaults.objectForKey("pendingnotenotification") as? Bool ?? false
+        }
+        set {
+            defaults.setObject(newValue, forKey: "pendingnotenotification")
+        }
+    }
+    
+    
     func consolidateNotifications(){
         if let notifications = UIApplication.sharedApplication().scheduledLocalNotifications {
             var newestPastNotification: UILocalNotification?

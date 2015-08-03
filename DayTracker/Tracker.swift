@@ -397,7 +397,7 @@ class Tracker {
         activities.append(current)
     }
     func setNote(note: String, date: NSDate){
-        
+        NotificationManager.sharedNotificationManager.pendingNoteNotification = false
         var test : NSDate
         for (index, unit) in activities.enumerate()
         {
