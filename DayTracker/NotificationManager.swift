@@ -311,6 +311,7 @@ class NotificationManager {
                 self.scheduleNotificationsStartingWithDate(NSDate().dateForNext(Tracker.sharedTracker.settings.wakeHour, minute: Tracker.sharedTracker.settings.wakeMinute))
                 Tracker.sharedTracker.sleepSelected(NSDate())
                 self.checkCurrentNotifications()
+                print("sleeping")
 
             }else {
                 Tracker.sharedTracker.setCurrentActivity(identifier, currentDate: NSDate().roundDateDownToTimeSlice(Tracker.sharedTracker.settings.timeSlice), theLength: Tracker.sharedTracker.settings.timeSlice)

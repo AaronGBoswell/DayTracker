@@ -88,7 +88,8 @@ class ActivityDetailViewController: UIViewController ,UIPickerViewDataSource,UIP
             //find in array 
             groupPicker.selectRow(pickerData.indexOf((populate?.productive)!)!, inComponent: 0, animated: true)
             notificationSwitch.on = false
-           
+            //this is interetsing
+           notificationSwitch.on = populate?.pushToFront > 0
             title = "Edit Activity"
             doneButtonOutlet.enabled = true
         }
