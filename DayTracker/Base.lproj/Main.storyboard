@@ -83,7 +83,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mJY-eC-Uez">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mJY-eC-Uez">
                                 <rect key="frame" x="20" y="72" width="560" height="471"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -103,13 +103,13 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="mJY-eC-Uez" firstAttribute="leading" secondItem="7wl-3K-cSL" secondAttribute="leadingMargin" id="3VM-ni-8go"/>
-                            <constraint firstItem="aTU-Ec-aKU" firstAttribute="top" secondItem="mJY-eC-Uez" secondAttribute="bottom" constant="8" symbolic="YES" id="4l8-UX-qj9"/>
+                            <constraint firstItem="mJY-eC-Uez" firstAttribute="top" secondItem="zTv-hz-AW0" secondAttribute="bottom" constant="8" symbolic="YES" id="MUO-mv-QJe"/>
                             <constraint firstItem="mJY-eC-Uez" firstAttribute="centerX" secondItem="7wl-3K-cSL" secondAttribute="centerX" id="ahF-P9-2n9"/>
+                            <constraint firstItem="mJY-eC-Uez" firstAttribute="leading" secondItem="7wl-3K-cSL" secondAttribute="leadingMargin" id="bof-TU-lQG"/>
+                            <constraint firstItem="mJY-eC-Uez" firstAttribute="trailing" secondItem="7wl-3K-cSL" secondAttribute="trailingMargin" id="d1k-JY-hmB"/>
                             <constraint firstItem="mJY-eC-Uez" firstAttribute="top" secondItem="zTv-hz-AW0" secondAttribute="bottom" constant="172" id="g0O-EQ-XJt"/>
-                            <constraint firstItem="mJY-eC-Uez" firstAttribute="trailing" secondItem="7wl-3K-cSL" secondAttribute="trailingMargin" id="nLa-CZ-soi"/>
                             <constraint firstItem="mJY-eC-Uez" firstAttribute="centerY" secondItem="7wl-3K-cSL" secondAttribute="centerY" id="pP1-Cv-6Wm"/>
-                            <constraint firstItem="mJY-eC-Uez" firstAttribute="top" secondItem="zTv-hz-AW0" secondAttribute="bottom" constant="8" symbolic="YES" id="wmB-V8-3Nv"/>
+                            <constraint firstItem="aTU-Ec-aKU" firstAttribute="top" secondItem="mJY-eC-Uez" secondAttribute="bottom" constant="13" id="zCI-QU-uKc"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -121,7 +121,7 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Note" id="hiL-oH-TGc">
-                        <barButtonItem key="rightBarButtonItem" title="Item" systemItem="save" id="veh-J6-aSS">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="veh-J6-aSS">
                             <connections>
                                 <action selector="saveButton:" destination="svs-cL-sPA" id="tax-tB-EzS"/>
                             </connections>
