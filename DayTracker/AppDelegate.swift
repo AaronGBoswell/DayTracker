@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
-       // Tracker.sharedTracker.ThingsToDo =  [["action" : "Programing" , "note" :true, "productive" : "Job", "priorityUntil" : nil, "color" : 1 ],["action" : "Programing" , "note" :true, "productive" : "Job", "priorityUntil" : nil, "color" : 1 ]]
+      
         
 
 
