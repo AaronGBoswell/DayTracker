@@ -106,6 +106,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
         print("receivedNoty")
         print(notification.description)
+        if let lastActionTime = Tracker.sharedTracker.activities.last?.date {
+            if lastActionTime == NSDate().roundDateDownToTimeSlice(Tracker.sharedTracker.settings.timeSlice){
+                print("notshowingduplicatenoty")
+                return
+            }
+        }
         if let alert = NotificationManager.sharedNotificationManager.alertFromNotification(notification){
             pushAlert(alert)
         }

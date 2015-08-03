@@ -44,13 +44,10 @@ class NotificationManager {
                 cancelNotification(notification)
             }
         }
-        UIApplication.sharedApplication().applicationIconBadgeNumber = 1
-        UIApplication.sharedApplication().applicationIconBadgeNumber = 0
+        UIApplication.sharedApplication().applicationIconBadgeNumber = -1
 
     }
     func cancelNotification(notification:UILocalNotification){
-        UIApplication.sharedApplication().applicationIconBadgeNumber++
-        UIApplication.sharedApplication().applicationIconBadgeNumber--
         UIApplication.sharedApplication().cancelLocalNotification(notification)
     }
     func checkCurrentNotifications(){
