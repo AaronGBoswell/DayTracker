@@ -107,6 +107,11 @@ private let defaults = NSUserDefaults.standardUserDefaults()
             var newActivities = [ActivitySetting]()
             for activityDictionary in ThingsToDo
             {
+                if( activityDictionary.keys.count == 0){
+                    let addition = ActivitySetting(action: "relaxing", note: false, productive: "Entertainment", priorityUntil: nil, color: 2)
+                    newActivities.append(addition)
+                    return newActivities
+                }
                 let addition : ActivitySetting = ActivitySetting(action: activityDictionary["action"] as! String, note: activityDictionary["note"] as! Bool, productive: activityDictionary["productive"] as! String, priorityUntil: activityDictionary["priorityUntil"] as? NSDate,  color: activityDictionary["color"] as! Int)
                 newActivities.append(addition)
             }
@@ -331,7 +336,7 @@ private let defaults = NSUserDefaults.standardUserDefaults()
     
     
     struct TrackerSettings{
-        var timeSlice: Int = 5
+        var timeSlice: Int = 15
         var wakeHour : Int {
             get{ return Tracker.sharedTracker.wakeHourSaved }
             set{ Tracker.sharedTracker.wakeHourSaved = newValue }
@@ -612,10 +617,10 @@ private let defaults = NSUserDefaults.standardUserDefaults()
     
     
     
-        for (index,unit) in activityBag.enumerate(){
+        for unit in activityBag{
             if let priorityUntil = unit.priorityUntil{
                 if priorityUntil.laterDate(NSDate()) == priorityUntil {
-                    returnArray.insert(unit.action, atIndex: 1)
+                    returnArray.insert(unit.action, atIndex: 0)
                 }
             }
         }
