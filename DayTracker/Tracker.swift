@@ -711,25 +711,34 @@ class Tracker {
     }
     
     func predictSleep(date:NSDate) -> Bool {
+        
+        //NSDate().dateForNext(Tracker.sharedTracker.settings.wakeHour, minute: Tracker.sharedTracker.settings.wakeMinute)
+        
         let cal = NSCalendar.currentCalendar()
         let dateComponents = cal.components([NSCalendarUnit.Month, NSCalendarUnit.Era , NSCalendarUnit.Year,NSCalendarUnit.Day,NSCalendarUnit.Hour,NSCalendarUnit.Minute], fromDate: date)
         if dateComponents.hour > averageSleepHour - 1 {
-            noSleepYet = true
+            
             return true
-        } else if noSleepYet
-        {
+        } else if dateComponents.hour < settings.wakeHour {
             return true
-        }else{
-        return false
         }
+            
+        return false
+
+       
     }
     func sleepSelected(date: NSDate)
     {
         let cal = NSCalendar.currentCalendar()
+       
         let dateComponents = cal.components([NSCalendarUnit.Month, NSCalendarUnit.Era , NSCalendarUnit.Year,NSCalendarUnit.Day,NSCalendarUnit.Hour,NSCalendarUnit.Minute], fromDate: date)
-
-        SleepHour.append(dateComponents.hour)
-        noSleepYet = false
+        if dateComponents.hour > 18 {
+        
+        
+            SleepHour.append(dateComponents.hour)
+        }
+        
+       
     }
     
     func predictGroups(dateFor: NSDate) -> [String]?{
