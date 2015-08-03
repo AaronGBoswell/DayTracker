@@ -73,7 +73,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 notification.category = "noteCategory"
 
             } else{
-                NotificationManager.sharedNotificationManager.refreshCategoryForDate(date)
+                NotificationManager.sharedNotificationManager.refreshCategoryForDate(date, groupBranch: true)
                 notification.category = date.description
             }
             notification.soundName = UILocalNotificationDefaultSoundName

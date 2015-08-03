@@ -127,7 +127,7 @@ private let defaults = NSUserDefaults.standardUserDefaults()
                 newActions.append( newAction )
             }
             ThingsToDo = newActions
-            
+            NotificationManager.sharedNotificationManager.scheduleNotifications()
         }
     }
     var activityStrings : [String]{

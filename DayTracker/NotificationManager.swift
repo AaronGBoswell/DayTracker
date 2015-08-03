@@ -117,7 +117,7 @@ class NotificationManager {
                 
             }
         }
-        refreshCategoryForDate(date)
+        refreshCategoryForDate(date, groupBranch: true)
         let notification = UILocalNotification()
         notification.fireDate = date
         notification.timeZone = NSTimeZone.defaultTimeZone()
@@ -159,7 +159,7 @@ class NotificationManager {
         pendingNoteNotification = true
         
     }
-    func refreshCategoryForDate(date:NSDate){
+    func refreshCategoryForDate(date:NSDate, groupBranch: Bool){
         guard   var strings = Tracker.sharedTracker.predictActivities(date),
                 let groups = Tracker.sharedTracker.predictGroup(date) else{
             return
@@ -168,10 +168,17 @@ class NotificationManager {
         if Tracker.sharedTracker.predictSleep(date) {
             strings.insert("Good Night", atIndex: 0)
         }
-        makeCategoryWithOptions(strings, minimalOptions : groups, identifier: date.description)
+        if groupBranch{
+            makeCategoryWithOptions(groups, minimalOptions : groups, identifier: date.description, groupBranch: groupBranch)
+
+            
+        }else{
+            makeCategoryWithOptions(strings, minimalOptions : groups, identifier: date.description, groupBranch: groupBranch)
+
+        }
         
     }
-    func makeCategoryWithOptions(options: [String], minimalOptions:[String]? = nil, identifier:String){
+    func makeCategoryWithOptions(options: [String], minimalOptions:[String]? = nil, identifier:String, groupBranch: Bool){
         let newCategory = UIMutableUserNotificationCategory()
         var actions = [UIMutableUserNotificationAction]()
         for string in options{
@@ -180,6 +187,9 @@ class NotificationManager {
             action.identifier = string
             if string == "Good Night" {
                 action.identifier = "::"+string
+            }
+            if groupBranch{
+                action.identifier = "/"+string
             }
             action.activationMode = UIUserNotificationActivationMode.Background
             action.authenticationRequired = false
@@ -296,7 +306,7 @@ class NotificationManager {
             if identifier.hasPrefix("/") {
                 let group = identifier.substringFromIndex(identifier.startIndex.successor())
                 if let activities = Tracker.sharedTracker.predictActivities(NSDate().roundDateDownToTimeSlice(Tracker.sharedTracker.settings.timeSlice), fromGroup: group){
-                    self.makeCategoryWithOptions(activities, identifier: group)
+                    self.makeCategoryWithOptions(activities, identifier: group, groupBranch: false)
                     self.scheduleNotificationWithCategoryForNow(group)
                 } else{
                     
