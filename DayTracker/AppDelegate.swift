@@ -71,7 +71,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             notification.timeZone = NSTimeZone.defaultTimeZone()
             notification.category = date.description
             notification.soundName = UILocalNotificationDefaultSoundName
-            notification.applicationIconBadgeNumber++
+            notification.applicationIconBadgeNumber = 1
             notification.alertBody = "What have you been doing?"
             
             if let alert = NotificationManager.sharedNotificationManager.alertFromNotification(notification){
@@ -122,7 +122,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let note = responseInfo[UIUserNotificationActionResponseTypedTextKey] as? String{
             Tracker.sharedTracker.setNote(note, date: NSDate().roundDateDownToTimeSlice(Tracker.sharedTracker.settings.timeSlice))
             print(note)
-            UIApplication.sharedApplication().applicationIconBadgeNumber--
         } else if identifier != nil {
             NotificationManager.sharedNotificationManager.responseWithIdentifier(identifier!)
         }
