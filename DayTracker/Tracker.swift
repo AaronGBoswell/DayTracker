@@ -134,8 +134,9 @@ private let defaults = NSUserDefaults.standardUserDefaults()
             ThingsToDo = newActions
             let qos = Int(QOS_CLASS_USER_INITIATED.rawValue)
             dispatch_async(dispatch_get_global_queue(qos, 0)){ () -> Void in
-
-                NotificationManager.sharedNotificationManager.scheduleNotifications()
+                dispatch_async(dispatch_get_main_queue()){
+                    NotificationManager.sharedNotificationManager.scheduleNotifications()
+                }
             }
         }
     }
@@ -336,7 +337,7 @@ private let defaults = NSUserDefaults.standardUserDefaults()
     
     
     struct TrackerSettings{
-        var timeSlice: Int = 5
+        var timeSlice: Int = 15
         var wakeHour : Int {
             get{ return Tracker.sharedTracker.wakeHourSaved }
             set{ Tracker.sharedTracker.wakeHourSaved = newValue }
