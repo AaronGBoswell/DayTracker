@@ -51,11 +51,7 @@ class NotificationManager {
         }
     }
     func cancelAllNotifications(){
-        if let notifications = UIApplication.sharedApplication().scheduledLocalNotifications {
-            for notification in notifications{
-                cancelNotification(notification)
-            }
-        }
+        UIApplication.sharedApplication().cancelAllLocalNotifications()
         UIApplication.sharedApplication().applicationIconBadgeNumber = -1
 
     }
