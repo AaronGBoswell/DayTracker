@@ -132,13 +132,21 @@ class Tracker {
                 newActions.append( newAction )
             }
             ThingsToDo = newActions
-            let qos = Int(QOS_CLASS_USER_INITIATED.rawValue)
-            dispatch_async(dispatch_get_global_queue(qos, 0)){ () -> Void in
-                dispatch_async(dispatch_get_main_queue()){
-                    NotificationManager.sharedNotificationManager.scheduleNotifications()
-                }
+            //let qos = Int(QOS_CLASS_USER_INITIATED.rawValue)
+            //dispatch_async(dispatch_get_global_queue(qos, 0)){ () -> Void in
+            delay(1.0){
+                NotificationManager.sharedNotificationManager.scheduleNotifications()
             }
+            //}
         }
+    }
+    func delay(delay:Double, closure:()->()) {
+        dispatch_after(
+            dispatch_time(
+                DISPATCH_TIME_NOW,
+                Int64(delay * Double(NSEC_PER_SEC))
+            ),
+            dispatch_get_main_queue(), closure)
     }
     var activityStrings : [String]{
         return activityBag.map { (element) -> String in return element.action }
@@ -756,7 +764,8 @@ class Tracker {
     func predictSleep(date:NSDate) -> Bool {
         
         //NSDate().dateForNext(Tracker.sharedTracker.settings.wakeHour, minute: Tracker.sharedTracker.settings.wakeMinute)
-
+        return true
+        /*
         let cal = NSCalendar.currentCalendar()
         let dateComponents = cal.components([NSCalendarUnit.Month, NSCalendarUnit.Era , NSCalendarUnit.Year,NSCalendarUnit.Day,NSCalendarUnit.Hour,NSCalendarUnit.Minute], fromDate: date)
         if dateComponents.hour > averageSleepHour - 1 {
@@ -767,7 +776,7 @@ class Tracker {
         }
             
         return false
-
+    */
 
     }
     func sleepSelected(date: NSDate)
