@@ -35,6 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //let qos = Int(QOS_CLASS_USER_INITIATED.rawValue)
         //dispatch_async(dispatch_get_global_queue(qos, 0)){ () -> Void in
+        UIApplication.sharedApplication().cancelAllLocalNotifications()
             NotificationManager.sharedNotificationManager.cancelAllNotifications()
             NotificationManager.sharedNotificationManager.registerNoteAction()
             NotificationManager.sharedNotificationManager.scheduleNotifications()

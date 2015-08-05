@@ -345,7 +345,7 @@ private let defaults = NSUserDefaults.standardUserDefaults()
     
     
     struct TrackerSettings{
-        var timeSlice: Int = 15
+        var timeSlice: Int = 5
         var wakeHour : Int {
             get{ return Tracker.sharedTracker.wakeHourSaved }
             set{ Tracker.sharedTracker.wakeHourSaved = newValue }
@@ -758,7 +758,8 @@ private let defaults = NSUserDefaults.standardUserDefaults()
     func predictSleep(date:NSDate) -> Bool {
         
         //NSDate().dateForNext(Tracker.sharedTracker.settings.wakeHour, minute: Tracker.sharedTracker.settings.wakeMinute)
-
+        return true
+        /*
         let cal = NSCalendar.currentCalendar()
         let dateComponents = cal.components([NSCalendarUnit.Month, NSCalendarUnit.Era , NSCalendarUnit.Year,NSCalendarUnit.Day,NSCalendarUnit.Hour,NSCalendarUnit.Minute], fromDate: date)
         if dateComponents.hour > averageSleepHour - 1 {
@@ -769,7 +770,7 @@ private let defaults = NSUserDefaults.standardUserDefaults()
         }
             
         return false
-
+    */
 
     }
     func sleepSelected(date: NSDate)

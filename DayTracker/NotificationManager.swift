@@ -62,7 +62,7 @@ class NotificationManager {
         print("Check start")
         if let notifications = UIApplication.sharedApplication().scheduledLocalNotifications {
             for notification in notifications{
-                print(notification.fireDate)
+                print(notification.fireDate?.humanDate)
             }
             print(notifications.count)
         }
@@ -198,6 +198,9 @@ class NotificationManager {
                 let action = UIMutableUserNotificationAction()
                 action.title = string
                 action.identifier = "/"+string
+                if string == "Good Night" {
+                    action.identifier = "::"+string
+                }
                 action.activationMode = UIUserNotificationActivationMode.Background
                 action.authenticationRequired = false
                 minimalActions.append(action)
