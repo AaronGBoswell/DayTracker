@@ -18,7 +18,7 @@ class Tracker {
     var oppositeThemeColor = UIColor.yellowColor()
     
     var timesOfDay: [(hour:Int, title:String)] = [(5, "Very Early"),(8, "Early"),(11, "Morning"),(14, "Midday"),(17, "Afternoon"),(21, "Evening"),(24, "Night")]
-private let defaults = NSUserDefaults.standardUserDefaults()
+
     
     internal var activities : [Activity]{
         get{
@@ -334,22 +334,27 @@ private let defaults = NSUserDefaults.standardUserDefaults()
         }
     }
     
-    
+    private let defaults = NSUserDefaults.standardUserDefaults()
     
     struct TrackerSettings{
         var timeSlice: Int = 15
+        
+        
         var wakeHour : Int {
-            get{ return Tracker.sharedTracker.wakeHourSaved }
-            set{ Tracker.sharedTracker.wakeHourSaved = newValue }
+            get{ return Tracker.sharedTracker.defaults.objectForKey(Settings.wakeHour) as? Int ?? 8 }
+            set{ Tracker.sharedTracker.defaults.setObject(newValue, forKey:Settings.wakeHour) }
+        }
+            
+        
+        
+        var wakeMinute : Int {
+            get{ return Tracker.sharedTracker.defaults.objectForKey(Settings.wakeMinute) as? Int ?? 0 }
+            set{ Tracker.sharedTracker.defaults.setObject(newValue, forKey:Settings.wakeMinute) }
         }
 
-        var wakeMinute = 0
     }
+    
 
-   var wakeHourSaved : Int {
-        get{ return defaults.objectForKey(Settings.wakeHour) as? Int ?? 8 }
-        set{ defaults.setObject(newValue, forKey:Settings.wakeHour) }
-    }
 
     var ThingsToDo : [[String:AnyObject]]{
         get{ return defaults.objectForKey(Settings.possibleActionsKey) as? [[String:AnyObject]] ?? [[:]] }
@@ -373,6 +378,7 @@ private let defaults = NSUserDefaults.standardUserDefaults()
         static let sleep = "Tracker.sleep"
         static let sleepUntil = "Tracker.sleepUntil"
          static let wakeHour = "Tracker.wakeHour"
+        static let wakeMinute = "Tracker.wakeMinute"
        
         
        
