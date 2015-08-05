@@ -134,10 +134,19 @@ private let defaults = NSUserDefaults.standardUserDefaults()
             ThingsToDo = newActions
             //let qos = Int(QOS_CLASS_USER_INITIATED.rawValue)
             //dispatch_async(dispatch_get_global_queue(qos, 0)){ () -> Void in
-
+            delay(1.0){
                 NotificationManager.sharedNotificationManager.scheduleNotifications()
+            }
             //}
         }
+    }
+    func delay(delay:Double, closure:()->()) {
+        dispatch_after(
+            dispatch_time(
+                DISPATCH_TIME_NOW,
+                Int64(delay * Double(NSEC_PER_SEC))
+            ),
+            dispatch_get_main_queue(), closure)
     }
     var activityStrings : [String]{
         return activityBag.map { (element) -> String in return element.action }
@@ -336,7 +345,7 @@ private let defaults = NSUserDefaults.standardUserDefaults()
     
     
     struct TrackerSettings{
-        var timeSlice: Int = 5
+        var timeSlice: Int = 15
         var wakeHour : Int {
             get{ return Tracker.sharedTracker.wakeHourSaved }
             set{ Tracker.sharedTracker.wakeHourSaved = newValue }

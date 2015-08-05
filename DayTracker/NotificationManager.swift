@@ -156,12 +156,14 @@ class NotificationManager {
     }
     func refreshCategoryForDate(date:NSDate, groupBranch: Bool){
         guard   var strings = Tracker.sharedTracker.predictActivities(date),
-                let groups = Tracker.sharedTracker.predictGroup(date) else{
+                var groups = Tracker.sharedTracker.predictGroup(date) else{
             return
         }
         
         if Tracker.sharedTracker.predictSleep(date) {
             strings.insert("Good Night", atIndex: 0)
+            groups.insert("Good Night", atIndex: 0)
+
         }
         if groupBranch{
             makeCategoryWithOptions(groups, minimalOptions : groups, identifier: date.description, groupBranch: groupBranch)
@@ -180,11 +182,11 @@ class NotificationManager {
             let action = UIMutableUserNotificationAction()
             action.title = string
             action.identifier = string
-            if string == "Good Night" {
-                action.identifier = "::"+string
-            }
             if groupBranch{
                 action.identifier = "/"+string
+            }
+            if string == "Good Night" {
+                action.identifier = "::"+string
             }
             action.activationMode = UIUserNotificationActivationMode.Background
             action.authenticationRequired = false
