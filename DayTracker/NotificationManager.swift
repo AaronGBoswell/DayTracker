@@ -106,6 +106,7 @@ class NotificationManager {
         if(!bypassSleep){
             if Tracker.sharedTracker.SleepUntil != nil {
                 if  date.dateByAddingTimeInterval(60).laterDate(Tracker.sharedTracker.SleepUntil!) == Tracker.sharedTracker.SleepUntil! {
+                    print("notscheduling because sleeping")
                     return
                 } else{
                     
