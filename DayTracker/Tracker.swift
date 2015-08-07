@@ -98,6 +98,16 @@ class Tracker {
             return
             
         }
+        internal init( action: String?, note: Bool?, productive : String?, priorityUntil :  NSDate?, color : Int?)
+        {
+            self.action = action!
+            self.note = note!
+            self.productive = productive!
+            self.priorityUntil = priorityUntil
+            self.color = color ?? 1
+            return
+            
+        }
         
         
     }
@@ -112,7 +122,7 @@ class Tracker {
                     newActivities.append(addition)
                     return newActivities
                 }
-                let addition : ActivitySetting = ActivitySetting(action: activityDictionary["action"] as! String, note: activityDictionary["note"] as! Bool, productive: activityDictionary["productive"] as! String, priorityUntil: activityDictionary["priorityUntil"] as? NSDate,  color: activityDictionary["color"] as! Int)
+                let addition : ActivitySetting = ActivitySetting(action: activityDictionary["action"] as? String, note: activityDictionary["note"] as? Bool, productive: activityDictionary["productive"] as? String, priorityUntil: activityDictionary["priorityUntil"] as? NSDate,  color: activityDictionary["color"] as? Int)
                 newActivities.append(addition)
             }
             return newActivities
@@ -365,7 +375,7 @@ class Tracker {
 
 
     var ThingsToDo : [[String:AnyObject]]{
-        get{ return defaults.objectForKey(Settings.possibleActionsKey) as? [[String:AnyObject]] ?? [[:]] }
+        get{ return defaults.objectForKey(Settings.possibleActionsKey) as? [[String:AnyObject]] ?? [[: ]] }
         set{ defaults.setObject(newValue, forKey:Settings.possibleActionsKey) }
     }
     

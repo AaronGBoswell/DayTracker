@@ -10,6 +10,8 @@
 		9480C4131B66AC1B00A5D8E1 /* ActivityTableTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9480C4121B66AC1B00A5D8E1 /* ActivityTableTableViewController.swift */; };
 		9480C4141B66B80C00A5D8E1 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD92884E1B66ADFE00AB3684 /* NotificationManager.swift */; };
 		948870BE1B6C072D0009553B /* ActivityDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948870BD1B6C072D0009553B /* ActivityDetailViewController.swift */; };
+		94A5C7711B73C9CF000DC0F2 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94A5C7701B73C9CF000DC0F2 /* DataManager.swift */; };
+		94A5C7741B73CAB5000DC0F2 /* ActionsAndActivitiesStorage.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 94A5C7721B73CAB5000DC0F2 /* ActionsAndActivitiesStorage.xcdatamodeld */; };
 		94AD43781B62FEFE0057C56E /* NoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AD43771B62FEFE0057C56E /* NoteViewController.swift */; };
 		94B753491B5FE3230038471B /* Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B753481B5FE3230038471B /* Tracker.swift */; };
 		94E2BEF11B6D9189000E0FF0 /* PopDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E2BEF01B6D9189000E0FF0 /* PopDateViewController.swift */; };
@@ -76,6 +78,8 @@
 /* Begin PBXFileReference section */
 		9480C4121B66AC1B00A5D8E1 /* ActivityTableTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityTableTableViewController.swift; sourceTree = "<group>"; };
 		948870BD1B6C072D0009553B /* ActivityDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityDetailViewController.swift; sourceTree = "<group>"; };
+		94A5C7701B73C9CF000DC0F2 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		94A5C7731B73CAB5000DC0F2 /* ActionsAndActivitiesStorage.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ActionsAndActivitiesStorage.xcdatamodel; sourceTree = "<group>"; };
 		94AD43771B62FEFE0057C56E /* NoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteViewController.swift; sourceTree = "<group>"; };
 		94B753481B5FE3230038471B /* Tracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tracker.swift; sourceTree = "<group>"; };
 		94E2BEF01B6D9189000E0FF0 /* PopDateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopDateViewController.swift; sourceTree = "<group>"; };
@@ -158,6 +162,8 @@
 				945F4B471B6D9F1C001B0120 /* PopDate */,
 				BD833F101B6D431B00B4B8E0 /* SettingsTableViewController.swift */,
 				BDBABC351B5FD19C00158459 /* AppDelegate.swift */,
+				94A5C7701B73C9CF000DC0F2 /* DataManager.swift */,
+				94A5C7721B73CAB5000DC0F2 /* ActionsAndActivitiesStorage.xcdatamodeld */,
 				BD92884E1B66ADFE00AB3684 /* NotificationManager.swift */,
 				94AD43771B62FEFE0057C56E /* NoteViewController.swift */,
 				BDBABC7C1B5FD58000158459 /* ActionTableViewController.swift */,
@@ -346,7 +352,9 @@
 				94E2BEF51B6D957D000E0FF0 /* PopDatePicker.swift in Sources */,
 				BD833F111B6D431B00B4B8E0 /* SettingsTableViewController.swift in Sources */,
 				9480C4131B66AC1B00A5D8E1 /* ActivityTableTableViewController.swift in Sources */,
+				94A5C7711B73C9CF000DC0F2 /* DataManager.swift in Sources */,
 				BDBABC361B5FD19C00158459 /* AppDelegate.swift in Sources */,
+				94A5C7741B73CAB5000DC0F2 /* ActionsAndActivitiesStorage.xcdatamodeld in Sources */,
 				BDBABC7D1B5FD58000158459 /* ActionTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -622,6 +630,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		94A5C7721B73CAB5000DC0F2 /* ActionsAndActivitiesStorage.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				94A5C7731B73CAB5000DC0F2 /* ActionsAndActivitiesStorage.xcdatamodel */,
+			);
+			currentVersion = 94A5C7731B73CAB5000DC0F2 /* ActionsAndActivitiesStorage.xcdatamodel */;
+			path = ActionsAndActivitiesStorage.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = BDBABC2A1B5FD19C00158459 /* Project object */;
 }

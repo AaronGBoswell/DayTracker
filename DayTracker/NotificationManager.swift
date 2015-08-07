@@ -56,7 +56,9 @@ class NotificationManager {
 
     }
     func cancelNotification(notification:UILocalNotification){
+        print("canceling notification at \(notification.fireDate?.humanDate)")
         UIApplication.sharedApplication().cancelLocalNotification(notification)
+        
     }
     func checkCurrentNotifications(){
         print("Check start")
