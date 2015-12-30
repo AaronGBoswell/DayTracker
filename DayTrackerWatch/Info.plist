@@ -28,7 +28,7 @@
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
 	<key>WKCompanionAppBundleIdentifier</key>
-	<string>company.DayTracker</string>
+	<string>com.henryandaaronboswell.modicum</string>
 	<key>WKWatchKitApp</key>
 	<true/>
 </dict>
