@@ -118,7 +118,41 @@ class Tracker {
             for activityDictionary in ThingsToDo
             {
                 if( activityDictionary.keys.count == 0){
-                    let addition = ActivitySetting(action: "relaxing", note: false, productive: "Entertainment", priorityUntil: nil, color: 2)
+                    var addition = ActivitySetting( action: "Relaxing",
+                                                    note: false,
+                                                    productive: "Entertainment",
+                                                    priorityUntil: nil,
+                                                    color: 2)
+                    newActivities.append(addition)
+                    addition = ActivitySetting(     action: "Television",
+                                                    note: false,
+                                                    productive: "Entertainment",
+                                                    priorityUntil: nil,
+                                                    color: 2)
+                    newActivities.append(addition)
+                    addition = ActivitySetting(     action: "Eating",
+                                                    note: false,
+                                                    productive: "Nutrition",
+                                                    priorityUntil: nil,
+                                                    color: 1)
+                    newActivities.append(addition)
+                    addition = ActivitySetting(     action: "Work",
+                                                    note: false,
+                                                    productive: "Productive",
+                                                    priorityUntil: nil,
+                                                    color: 3)
+                    newActivities.append(addition)
+                    addition = ActivitySetting(     action: "Homework",
+                                                    note: false,
+                                                    productive: "School",
+                                                    priorityUntil: nil,
+                                                    color: 4)
+                    newActivities.append(addition)
+                    addition = ActivitySetting(     action: "Class",
+                                                    note: false,
+                                                    productive: "School",
+                                                    priorityUntil: nil,
+                                                    color: 4)
                     newActivities.append(addition)
                     return newActivities
                 }
@@ -611,7 +645,7 @@ class Tracker {
             }
     
     
-        var preDictonaryOfAllTime = getDictonaryForAllTime()
+        let preDictonaryOfAllTime = getDictonaryForAllTime()
         var sortedAllTimeActivityStrings = Array(preDictonaryOfAllTime.keys)
         sortedAllTimeActivityStrings.sortInPlace(){
             let obj1 = preDictonary[$0]
