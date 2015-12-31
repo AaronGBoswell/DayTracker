@@ -413,7 +413,6 @@ class Tracker {
         
         // i know this is assanine
         return nil
-        
     }
 
     
@@ -611,7 +610,7 @@ class Tracker {
             }
     
     
-        var preDictonaryOfAllTime = getDictonaryForAllTime()
+        let preDictonaryOfAllTime = getDictonaryForAllTime()
         var sortedAllTimeActivityStrings = Array(preDictonaryOfAllTime.keys)
         sortedAllTimeActivityStrings.sortInPlace(){
             let obj1 = preDictonary[$0]
@@ -774,8 +773,8 @@ class Tracker {
     func predictSleep(date:NSDate) -> Bool {
         
         //NSDate().dateForNext(Tracker.sharedTracker.settings.wakeHour, minute: Tracker.sharedTracker.settings.wakeMinute)
-        return true
-        /*
+        //return true
+        
         let cal = NSCalendar.currentCalendar()
         let dateComponents = cal.components([NSCalendarUnit.Month, NSCalendarUnit.Era , NSCalendarUnit.Year,NSCalendarUnit.Day,NSCalendarUnit.Hour,NSCalendarUnit.Minute], fromDate: date)
         if dateComponents.hour > averageSleepHour - 1 {
@@ -786,7 +785,7 @@ class Tracker {
         }
             
         return false
-    */
+    
 
     }
     func sleepSelected(date: NSDate)

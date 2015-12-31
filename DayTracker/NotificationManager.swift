@@ -77,13 +77,47 @@ class NotificationManager {
         scheduleNotificationsStartingWithDate(date)
     }
     func scheduleNotificationsStartingWithDate(var date:NSDate){
+        if let notification = notificationForDate(date){
+            cancelNotification(notification)
+        }
+        if date.isEqualToDate(NSDate().dateForNextTimeSlice(Tracker.sharedTracker.settings.timeSlice)){
+            if let _ = Tracker.sharedTracker.activities.last{
+                scheduleContinueNotification()
+                if NSDate().dateForNextTimeSlice(Tracker.sharedTracker.settings.timeSlice).isEqualToDate(date.dateForNextTimeSlice(60)){
+                    date = date.dateForNextTimeSlice(60)
+                }
+            } else{
+                scheduleNotificationForDate(date)
+   
+            }
+
+
+        }else{
+            scheduleNotificationForDate(date)
+        }
+        date = date.dateForNextTimeSlice(60)
         for _ in 1...10{
             if let notification = notificationForDate(date){
                 cancelNotification(notification)
             }
             scheduleNotificationForDate(date)
-            date = date.dateForNextTimeSlice(Tracker.sharedTracker.settings.timeSlice)
+            date = date.dateForNextTimeSlice(60)
         }
+        
+    }
+    func scheduleContinueNotification(){
+        let activityName = Tracker.sharedTracker.activities.last!.action
+        makeCategoryWithOptions(["Yes","No"], identifier: "y/n", groupBranch: false)
+        let notification = UILocalNotification()
+        notification.fireDate = NSDate().dateForNextTimeSlice(Tracker.sharedTracker.settings.timeSlice)
+        notification.timeZone = NSTimeZone.defaultTimeZone()
+        notification.category = "y/n"
+        notification.soundName = UILocalNotificationDefaultSoundName
+        notification.applicationIconBadgeNumber = 1
+        notification.alertBody = "Are you still \(activityName)"
+        UIApplication.sharedApplication().scheduleLocalNotification(notification)
+        print("Scheduled continue notification")
+
         
     }
     func cancelPastNotifications(){
@@ -326,7 +360,17 @@ class NotificationManager {
                 self.checkCurrentNotifications()
                 print("sleeping")
 
-            }else {
+            }else if identifier == "Yes"{
+                Tracker.sharedTracker.setCurrentActivity(Tracker.sharedTracker.activities.last!.action, currentDate: NSDate().roundDateDownToTimeSlice(Tracker.sharedTracker.settings.timeSlice), theLength: Tracker.sharedTracker.settings.timeSlice)
+                if Tracker.sharedTracker.activityDetails(identifier)?.note == true{
+                    self.fireNoteNotification()
+                    self.checkCurrentNotifications()
+                }
+                self.scheduleNotifications()
+            }else if identifier == "No"{
+                scheduleNotificationForDate(NSDate())
+                
+            } else{
                 Tracker.sharedTracker.setCurrentActivity(identifier, currentDate: NSDate().roundDateDownToTimeSlice(Tracker.sharedTracker.settings.timeSlice), theLength: Tracker.sharedTracker.settings.timeSlice)
                 if Tracker.sharedTracker.activityDetails(identifier)?.note == true{
                     self.fireNoteNotification()
@@ -341,6 +385,7 @@ class NotificationManager {
     }
 }
 extension NSDate{
+    
     func dateForNextTimeSlice(timeSlice: Int) -> NSDate{
         let cal = NSCalendar.currentCalendar()
         let comps = cal.components([NSCalendarUnit.Month, NSCalendarUnit.Era , NSCalendarUnit.Year,NSCalendarUnit.Day,NSCalendarUnit.Hour,NSCalendarUnit.Minute], fromDate: self)

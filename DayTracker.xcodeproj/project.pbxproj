@@ -11,18 +11,16 @@
 		9480C4141B66B80C00A5D8E1 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD92884E1B66ADFE00AB3684 /* NotificationManager.swift */; };
 		948870BE1B6C072D0009553B /* ActivityDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948870BD1B6C072D0009553B /* ActivityDetailViewController.swift */; };
 		94A5C7711B73C9CF000DC0F2 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94A5C7701B73C9CF000DC0F2 /* DataManager.swift */; };
-		94A5C7741B73CAB5000DC0F2 /* ActionsAndActivitiesStorage.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 94A5C7721B73CAB5000DC0F2 /* ActionsAndActivitiesStorage.xcdatamodeld */; };
 		94AD43781B62FEFE0057C56E /* NoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AD43771B62FEFE0057C56E /* NoteViewController.swift */; };
 		94B753491B5FE3230038471B /* Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B753481B5FE3230038471B /* Tracker.swift */; };
 		94E2BEF11B6D9189000E0FF0 /* PopDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E2BEF01B6D9189000E0FF0 /* PopDateViewController.swift */; };
 		94E2BEF31B6D92CF000E0FF0 /* PopDateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94E2BEF21B6D92CF000E0FF0 /* PopDateViewController.xib */; };
 		94E2BEF51B6D957D000E0FF0 /* PopDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E2BEF41B6D957D000E0FF0 /* PopDatePicker.swift */; };
+		BD3535F81B7432DE00334AD5 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD3535F71B7432DE00334AD5 /* Interface.storyboard */; };
 		BD833F111B6D431B00B4B8E0 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD833F101B6D431B00B4B8E0 /* SettingsTableViewController.swift */; };
 		BDBABC361B5FD19C00158459 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBABC351B5FD19C00158459 /* AppDelegate.swift */; };
 		BDBABC3B1B5FD19D00158459 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BDBABC391B5FD19D00158459 /* Main.storyboard */; };
 		BDBABC3D1B5FD19D00158459 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDBABC3C1B5FD19D00158459 /* Assets.xcassets */; };
-		BDBABC401B5FD19D00158459 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BDBABC3E1B5FD19D00158459 /* LaunchScreen.storyboard */; };
-		BDBABC4D1B5FD1DA00158459 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BDBABC4B1B5FD1DA00158459 /* Interface.storyboard */; };
 		BDBABC4F1B5FD1DA00158459 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDBABC4E1B5FD1DA00158459 /* Assets.xcassets */; };
 		BDBABC561B5FD1DA00158459 /* DayTrackerWatch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = BDBABC551B5FD1DA00158459 /* DayTrackerWatch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		BDBABC5D1B5FD1DA00158459 /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBABC5C1B5FD1DA00158459 /* InterfaceController.swift */; };
@@ -34,19 +32,19 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		BD3535F51B7431FB00334AD5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BDBABC2A1B5FD19C00158459 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BDBABC481B5FD1DA00158459;
+			remoteInfo = DayTrackerWatch;
+		};
 		BDBABC571B5FD1DA00158459 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BDBABC2A1B5FD19C00158459 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = BDBABC541B5FD1DA00158459;
 			remoteInfo = "DayTrackerWatch Extension";
-		};
-		BDBABC651B5FD1DA00158459 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BDBABC2A1B5FD19C00158459 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = BDBABC481B5FD1DA00158459;
-			remoteInfo = DayTrackerWatch;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -79,12 +77,12 @@
 		9480C4121B66AC1B00A5D8E1 /* ActivityTableTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityTableTableViewController.swift; sourceTree = "<group>"; };
 		948870BD1B6C072D0009553B /* ActivityDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityDetailViewController.swift; sourceTree = "<group>"; };
 		94A5C7701B73C9CF000DC0F2 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
-		94A5C7731B73CAB5000DC0F2 /* ActionsAndActivitiesStorage.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ActionsAndActivitiesStorage.xcdatamodel; sourceTree = "<group>"; };
 		94AD43771B62FEFE0057C56E /* NoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteViewController.swift; sourceTree = "<group>"; };
 		94B753481B5FE3230038471B /* Tracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tracker.swift; sourceTree = "<group>"; };
 		94E2BEF01B6D9189000E0FF0 /* PopDateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopDateViewController.swift; sourceTree = "<group>"; };
 		94E2BEF21B6D92CF000E0FF0 /* PopDateViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PopDateViewController.xib; path = ../PopDateViewController.xib; sourceTree = "<group>"; };
 		94E2BEF41B6D957D000E0FF0 /* PopDatePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopDatePicker.swift; sourceTree = "<group>"; };
+		BD3535F71B7432DE00334AD5 /* Interface.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Interface.storyboard; sourceTree = "<group>"; };
 		BD833F101B6D431B00B4B8E0 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		BD92884E1B66ADFE00AB3684 /* NotificationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		BDBABC321B5FD19C00158459 /* DayTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DayTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -94,7 +92,6 @@
 		BDBABC3F1B5FD19D00158459 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BDBABC411B5FD19D00158459 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BDBABC491B5FD1DA00158459 /* DayTrackerWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DayTrackerWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		BDBABC4C1B5FD1DA00158459 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		BDBABC4E1B5FD1DA00158459 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BDBABC501B5FD1DA00158459 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BDBABC551B5FD1DA00158459 /* DayTrackerWatch Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "DayTrackerWatch Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -163,7 +160,6 @@
 				BD833F101B6D431B00B4B8E0 /* SettingsTableViewController.swift */,
 				BDBABC351B5FD19C00158459 /* AppDelegate.swift */,
 				94A5C7701B73C9CF000DC0F2 /* DataManager.swift */,
-				94A5C7721B73CAB5000DC0F2 /* ActionsAndActivitiesStorage.xcdatamodeld */,
 				BD92884E1B66ADFE00AB3684 /* NotificationManager.swift */,
 				94AD43771B62FEFE0057C56E /* NoteViewController.swift */,
 				BDBABC7C1B5FD58000158459 /* ActionTableViewController.swift */,
@@ -182,7 +178,7 @@
 		BDBABC4A1B5FD1DA00158459 /* DayTrackerWatch */ = {
 			isa = PBXGroup;
 			children = (
-				BDBABC4B1B5FD1DA00158459 /* Interface.storyboard */,
+				BD3535F71B7432DE00334AD5 /* Interface.storyboard */,
 				BDBABC4E1B5FD1DA00158459 /* Assets.xcassets */,
 				BDBABC501B5FD1DA00158459 /* Info.plist */,
 			);
@@ -225,7 +221,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				BDBABC661B5FD1DA00158459 /* PBXTargetDependency */,
+				BD3535F61B7431FB00334AD5 /* PBXTargetDependency */,
 			);
 			name = DayTracker;
 			productName = DayTracker;
@@ -284,7 +280,7 @@
 					};
 					BDBABC541B5FD1DA00158459 = {
 						CreatedOnToolsVersion = 7.0;
-						DevelopmentTeam = NN7HR27RDT;
+						DevelopmentTeam = 27RHNLCLG4;
 					};
 				};
 			};
@@ -313,7 +309,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BDBABC401B5FD19D00158459 /* LaunchScreen.storyboard in Resources */,
 				BDBABC3D1B5FD19D00158459 /* Assets.xcassets in Resources */,
 				94E2BEF31B6D92CF000E0FF0 /* PopDateViewController.xib in Resources */,
 				BDBABC3B1B5FD19D00158459 /* Main.storyboard in Resources */,
@@ -324,8 +319,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD3535F81B7432DE00334AD5 /* Interface.storyboard in Resources */,
 				BDBABC4F1B5FD1DA00158459 /* Assets.xcassets in Resources */,
-				BDBABC4D1B5FD1DA00158459 /* Interface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -354,7 +349,6 @@
 				9480C4131B66AC1B00A5D8E1 /* ActivityTableTableViewController.swift in Sources */,
 				94A5C7711B73C9CF000DC0F2 /* DataManager.swift in Sources */,
 				BDBABC361B5FD19C00158459 /* AppDelegate.swift in Sources */,
-				94A5C7741B73CAB5000DC0F2 /* ActionsAndActivitiesStorage.xcdatamodeld in Sources */,
 				BDBABC7D1B5FD58000158459 /* ActionTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -372,15 +366,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		BD3535F61B7431FB00334AD5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BDBABC481B5FD1DA00158459 /* DayTrackerWatch */;
+			targetProxy = BD3535F51B7431FB00334AD5 /* PBXContainerItemProxy */;
+		};
 		BDBABC581B5FD1DA00158459 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = BDBABC541B5FD1DA00158459 /* DayTrackerWatch Extension */;
 			targetProxy = BDBABC571B5FD1DA00158459 /* PBXContainerItemProxy */;
-		};
-		BDBABC661B5FD1DA00158459 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = BDBABC481B5FD1DA00158459 /* DayTrackerWatch */;
-			targetProxy = BDBABC651B5FD1DA00158459 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -399,14 +393,6 @@
 				BDBABC3F1B5FD19D00158459 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-		BDBABC4B1B5FD1DA00158459 /* Interface.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				BDBABC4C1B5FD1DA00158459 /* Base */,
-			);
-			name = Interface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -630,19 +616,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		94A5C7721B73CAB5000DC0F2 /* ActionsAndActivitiesStorage.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				94A5C7731B73CAB5000DC0F2 /* ActionsAndActivitiesStorage.xcdatamodel */,
-			);
-			currentVersion = 94A5C7731B73CAB5000DC0F2 /* ActionsAndActivitiesStorage.xcdatamodel */;
-			path = ActionsAndActivitiesStorage.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = BDBABC2A1B5FD19C00158459 /* Project object */;
 }

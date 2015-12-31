@@ -36,11 +36,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //let qos = Int(QOS_CLASS_USER_INITIATED.rawValue)
         //dispatch_async(dispatch_get_global_queue(qos, 0)){ () -> Void in
         UIApplication.sharedApplication().cancelAllLocalNotifications()
-            NotificationManager.sharedNotificationManager.cancelAllNotifications()
-            NotificationManager.sharedNotificationManager.registerNoteAction()
-            NotificationManager.sharedNotificationManager.scheduleNotifications()
-            NotificationManager.sharedNotificationManager.checkCurrentNotifications()
-            NotificationManager.sharedNotificationManager.cancelPastNotifications()
+        NotificationManager.sharedNotificationManager.cancelAllNotifications()
+        NotificationManager.sharedNotificationManager.registerNoteAction()
+        NotificationManager.sharedNotificationManager.scheduleNotifications()
+        if let sleepUntil = Tracker.sharedTracker.SleepUntil{
+            if sleepUntil.laterDate(NSDate()) == sleepUntil {
+                NotificationManager.sharedNotificationManager.scheduleNotificationsStartingWithDate(sleepUntil)
+            }
+        }
+        NotificationManager.sharedNotificationManager.checkCurrentNotifications()
+        NotificationManager.sharedNotificationManager.cancelPastNotifications()
             //NotificationManager.sharedNotificationManager.scheduleNotificationForDate(NSDate().dateByAddingTimeInterval(10), bypassSleep: true)
 
         //}
@@ -123,7 +128,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         pushAlert(notification)
 
-        NotificationManager.sharedNotificationManager.cancelNotification(notification)
+        //NotificationManager.sharedNotificationManager.cancelNotification(notification)
         print("outrecivedNoty")
 
 
